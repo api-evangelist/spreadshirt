@@ -1,0 +1,151 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Spreadconnect fulfillment service REST Articles Stocks API
+  contact:
+    name: Spreadconnect
+    email: business@spreadconnect.app
+    url: https://www.spreadshop.com/spreadconnect
+  x-logo:
+    url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
+  description: 'With this API you can create products and place orders in the Spreadconnect system.
+
+    This gives you the opportunity to connect any shop system with Spreadconnect.
+
+    '
+  termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
+servers:
+- url: https://api.spreadconnect.app
+tags:
+- name: Stocks
+  description: 'Get the available stock on the variants of the created articles.
+
+    '
+paths:
+  /stock:
+    get:
+      operationId: getStocks
+      summary: Get available stocks for all variants
+      description: 'Get available stocks for all variants from the point of sale
+
+
+        The result is a map of variant''s SKUs associated with their stock amount.
+
+        '
+      parameters:
+      - name: limit
+        in: query
+        description: '*General pagination option*: defines the number of results to show
+
+          '
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: offset
+        in: query
+        description: define the offset to be queried.
+        required: false
+        schema:
+          default: 0
+          type: integer
+      tags:
+      - Stocks
+      security:
+      - access_token: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: object
+                    description: stock amount
+                    additionalProperties:
+                      type: integer
+                      description: stock amount
+                    example:
+                      1059582691-P815A92S89: 256
+                  count:
+                    type: integer
+                    default: 5
+                  limit:
+                    type: integer
+                    default: 100
+                  offset:
+                    type: integer
+  /stock/{sku}:
+    get:
+      operationId: getStock
+      summary: Get available stock for a certain variant
+      description: Get available stocks for a certain variant, by its SKU
+      tags:
+      - Stocks
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: sku
+        description: SKU of the variant
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+        '404':
+          description: Variant with given SKU not found
+  /stock/productType/{productTypeId}:
+    get:
+      operationId: getStock
+      summary: Get available stock for a certain product type
+      description: Get available stocks for a certain product type with all the variants
+      tags:
+      - Stocks
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: Product Type ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  variants:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        appearanceId:
+                          type: string
+                          description: appearance of the variant
+                        sizeId:
+                          type: string
+                          description: size of the variant
+                        stock:
+                          type: integer
+                          description: stock of the variant
+        '404':
+          description: Product Type not found
+components:
+  securitySchemes:
+    access_token:
+      type: apiKey
+      in: header
+      name: X-SPOD-ACCESS-TOKEN
+      description: It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request.

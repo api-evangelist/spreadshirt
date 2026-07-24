@@ -1,0 +1,323 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Spreadconnect fulfillment service REST Articles API
+  contact:
+    name: Spreadconnect
+    email: business@spreadconnect.app
+    url: https://www.spreadshop.com/spreadconnect
+  x-logo:
+    url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
+  description: 'With this API you can create products and place orders in the Spreadconnect system.
+
+    This gives you the opportunity to connect any shop system with Spreadconnect.
+
+    '
+  termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
+servers:
+- url: https://api.spreadconnect.app
+tags:
+- name: Articles
+paths:
+  /articles:
+    get:
+      operationId: getArticles
+      summary: Get all articles
+      description: This resource could be used, to get all created products for your point of sale.
+      parameters:
+      - name: limit
+        in: query
+        description: '*General pagination option*: defines the number of results to show
+
+          '
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: offset
+        in: query
+        description: define the offset to be queried.
+        required: false
+        schema:
+          default: 0
+          type: integer
+      tags:
+      - Articles
+      security:
+      - access_token: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: items
+                    items:
+                      $ref: '#/components/schemas/Article'
+                  count:
+                    type: integer
+                    default: 5
+                  limit:
+                    type: integer
+                    default: 100
+                  offset:
+                    type: integer
+    post:
+      operationId: createArticle
+      summary: Create a single article
+      description: "This resource could be used to create an article for your point of sale. \n\nIn order to get the available products that we offer, see the 'Product Types' section. There you can also find the\nnecessary ids required to build the payload.\n\nIn the variants array, you can enable the sizes and colours of your product.\n\nIn the configuration array, you can place designs via url. The image must be in PNG format and under 10 MB.\nAt this moment, the designs will be scaled as big as possible, keeping in mind the resolution of the chosen design \nand the limits of the print area.\n\nAdditionally, you can use a designId returned when uploading a design via Designs endpoint.\n\nAn image object must contain at least a url or a designId. If both are present, designId will be used.\n\nThe external id fields can be used for identifying articles and variants. They are optional, but if they are present\nthey are validated as being not duplicates, in the article context\n"
+      tags:
+      - Articles
+      security:
+      - access_token: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleCreation'
+      responses:
+        '202':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+                description: The unique identifier of the created article
+  /articles/{articleId}:
+    get:
+      operationId: getArticle
+      summary: Get a single article
+      description: get a specific article with all details
+      tags:
+      - Articles
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: articleId
+        description: article id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '404':
+          description: Article not found
+        '422':
+          description: There is a problem with this article. Check the article in your Spreadconnect account for more information.
+    delete:
+      operationId: deleteArticle
+      summary: Delete a single article
+      description: This resource could be used, to delete a product from the point of sale.
+      tags:
+      - Articles
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: articleId
+        description: articleId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ArticleCreation:
+      type: object
+      required:
+      - title
+      - description
+      - variants
+      - configurations
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        variants:
+          type: array
+          description: product variants
+          items:
+            type: object
+            required:
+            - productTypeId
+            - appearanceId
+            - sizeId
+            properties:
+              productTypeId:
+                type: integer
+                description: sprd product type id
+              appearanceId:
+                type: integer
+                description: sprd appearance id
+              sizeId:
+                type: integer
+                description: sprd size id
+              d2cPrice:
+                type: number
+                description: final price for the customer
+                example: 21.56
+                minimum: 0
+              externalId:
+                type: string
+                description: optional id that can be used for identifying the article variant - validated for UUID v4
+                example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
+        configurations:
+          type: array
+          description: product
+          items:
+            type: object
+            required:
+            - image
+            - view
+            properties:
+              image:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://link.to.image
+                  designId:
+                    type: string
+                    example: '1231'
+              view:
+                type: string
+                enum:
+                - FRONT
+                - BACK
+                - LEFT
+                - RIGHT
+                - HOOD_LEFT
+                - HOOD_RIGHT
+              hotspot:
+                type: string
+                enum:
+                - FULL_FRONT
+                - MEDIUM_FRONT
+                - LEFT_CHEST
+                - RIGHT_CHEST
+                - FULL_BACK
+                - MEDIUM_BACK
+                - BACK_COLLAR
+                - RIGHT
+                - LEFT
+                - CENTER_CHEST
+                example: MEDIUM_FRONT
+        externalId:
+          type: string
+          description: optional id that can be used for identifying the article - validated for UUID v4
+          example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        description:
+          type: string
+        variants:
+          type: array
+          description: product variants
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: spreadconnect variant id
+              productTypeId:
+                type: integer
+                description: sprd product type id
+              productTypeName:
+                type: string
+                description: sprd product type name
+              productId:
+                type: integer
+                description: sprd product id
+              appearanceId:
+                type: integer
+                description: sprd appearance id
+              appearanceName:
+                type: string
+                description: sprd appearance name
+              appearanceColorValue:
+                type: string
+                description: sprd appearance color value
+              sizeId:
+                type: integer
+                description: sprd size id
+              sizeName:
+                type: string
+                description: sprd size name
+              sku:
+                type: string
+                description: stock keeping unit id from spreadconnect
+                example: P1026247707A12S5
+              d2cPrice:
+                type: number
+                description: final price for the customer
+                example: 21.56
+                minimum: 0
+              b2bPrice:
+                type: number
+                description: b2b price for the customer
+                example: 21.56
+                minimum: 0
+              imageIds:
+                type: array
+                description: image id
+                items:
+                  type: integer
+        images:
+          type: array
+          description: product variants
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: spreadconnect image id
+                example: 560860288
+              productId:
+                type: integer
+                description: sprd product id
+              appearanceId:
+                type: integer
+                description: sprd appearance id
+              appearanceName:
+                type: string
+                description: sprd appearance name
+              perspective:
+                type: string
+                description: sprd view id
+              imageUrl:
+                type: string
+                description: 'URL to get the product image.
+
+                  There are different optional parameters which you have to add by your own:
+
+                  &width = image width
+
+                  &height = image height
+
+                  '
+  securitySchemes:
+    access_token:
+      type: apiKey
+      in: header
+      name: X-SPOD-ACCESS-TOKEN
+      description: It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request.

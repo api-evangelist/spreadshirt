@@ -1,0 +1,743 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Spreadconnect fulfillment service REST Articles Orders API
+  contact:
+    name: Spreadconnect
+    email: business@spreadconnect.app
+    url: https://www.spreadshop.com/spreadconnect
+  x-logo:
+    url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
+  description: 'With this API you can create products and place orders in the Spreadconnect system.
+
+    This gives you the opportunity to connect any shop system with Spreadconnect.
+
+    '
+  termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
+servers:
+- url: https://api.spreadconnect.app
+tags:
+- name: Orders
+  description: 'There are different ways to place an order in Spreadconnect REST API.
+
+    You can choose a simple way, where you have to send just one request or you can use a more complex way,
+
+    with more control over the workflow.
+
+
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="390px" preserveAspectRatio="none" style="width:721px;height:390px;" version="1.1" viewBox="0 0 721 390" width="721px" zoomAndPan="magnify"><defs><filter height="300%" id="f1cyim1xny9nhv" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="242" x="238.5" y="26.708">Spreadconnect API - order workflow</text><ellipse cx="367" cy="40.9531" fill="#000000" filter="url(#f1cyim1xny9nhv)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><polygon fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" points="342,70.9531,392,70.9531,404,82.9531,392,94.9531,342,94.9531,330,82.9531,342,70.9531" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="50" x="342" y="86.7612">Workflow</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="70" x="260" y="80.3589">more easier</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="73" x="404" y="80.3589">more control</text><path d="M10,104.9531 L10,145.2188 A0,0 0 0 0 10,145.2188 L212,145.2188 A0,0 0 0 0 212,145.2188 L212,129.0859 L232,125.0859 L212,121.0859 L212,114.9531 L202,104.9531 L10,104.9531 A0,0 0 0 0 10,104.9531 " fill="#FBFB77" filter="url(#f1cyim1xny9nhv)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M202,104.9531 L202,114.9531 L212,114.9531 L202,104.9531 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="177" x="16" y="122.02">with preferred shipping type</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="141" x="16" y="137.1528">and state CONFIRMED</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="100" x="232" y="108.1016"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="242" y="129.2402">Create order</text><path d="M522,109.3711 L522,117.9375 L502,121.9375 L522,125.9375 L522,134.5039 A0,0 0 0 0 522,134.5039 L709,134.5039 A0,0 0 0 0 709,134.5039 L709,119.3711 L699,109.3711 L522,109.3711 A0,0 0 0 0 522,109.3711 " fill="#FBFB77" filter="url(#f1cyim1xny9nhv)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M699,109.3711 L699,119.3711 L709,119.3711 L699,109.3711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="166" x="528" y="126.438">only with mandatory fields</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="100" x="402" y="104.9531"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="412" y="126.0918">Create order</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="200" x="352" y="165.2188"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="362" y="186.3574">Get available shipping types</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="387.5" y="219.1875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="397.5" y="240.3262">Set shipping type</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="105" x="399.5" y="273.1563"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="409.5" y="294.2949">Confirm order</text><polygon fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" points="367,313.125,379,325.125,367,337.125,355,325.125,367,313.125" style="stroke: #A80036; stroke-width: 1.5;"/><ellipse cx="367" cy="368.125" fill="#FFFFFF" filter="url(#f1cyim1xny9nhv)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="367" cy="368.125" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452" y1="138.9219" y2="165.2188"/><polygon fill="#A80036" points="448,155.2188,452,165.2188,456,155.2188,452,159.2188" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452" y1="199.1875" y2="219.1875"/><polygon fill="#A80036" points="448,209.1875,452,219.1875,456,209.1875,452,213.1875" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452" y1="253.1563" y2="273.1563"/><polygon fill="#A80036" points="448,263.1563,452,273.1563,456,263.1563,452,267.1563" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="330" x2="282" y1="82.9531" y2="82.9531"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282" x2="282" y1="82.9531" y2="108.1016"/><polygon fill="#A80036" points="278,98.1016,282,108.1016,286,98.1016,282,102.1016" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="404" x2="452" y1="82.9531" y2="82.9531"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452" y1="82.9531" y2="104.9531"/><polygon fill="#A80036" points="448,94.9531,452,104.9531,456,94.9531,452,98.9531" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282" x2="282" y1="142.0703" y2="325.125"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282" x2="355" y1="325.125" y2="325.125"/><polygon fill="#A80036" points="345,321.125,355,325.125,345,329.125,349,325.125" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452" y1="307.125" y2="325.125"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="379" y1="325.125" y2="325.125"/><polygon fill="#A80036" points="389,321.125,379,325.125,389,329.125,385,325.125" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="367" x2="367" y1="50.9531" y2="70.9531"/><polygon fill="#A80036" points="363,60.9531,367,70.9531,371,60.9531,367,64.9531" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="367" x2="367" y1="337.125" y2="357.125"/><polygon fill="#A80036" points="363,347.125,367,357.125,371,347.125,367,351.125" style="stroke: #A80036; stroke-width: 1.0;"/></g></svg>
+
+    '
+paths:
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Create an order
+      description: 'Place a new order in the API. You can choose the simple way and set the shipping type and the confirmed state in one request. Or you can create the order first and set the shipping type and the confirmed state later. It is also possible to mix both ways and set the shipping type direct and confirm later.
+
+        You can order existing articles, or one-time items, which are created just for the respective order, and deleted afterwards. You need to add at least one orderItem or oneTimeItem.'
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrder'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrder'
+        '422':
+          description: Order payload invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /orders/{orderId}:
+    put:
+      operationId: updateOrder
+      summary: Update order
+      description: update order
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrder'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrder'
+        '404':
+          description: Order not found
+        '422':
+          description: Order payload invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getOrder
+      summary: Get a single order
+      description: get a specific order with all details
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrder'
+        '404':
+          description: Order not found
+  /orders/{orderId}/shippingTypes:
+    get:
+      operationId: getShippingTypes
+      summary: Get available shipping types
+      description: get a list with all possible shipping types for this order
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailableShippingType'
+        '404':
+          description: Order not found
+  /orders/{orderId}/shippingType:
+    post:
+      operationId: setShippingType
+      summary: Set shipping type
+      description: Set a specific shipping type
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: '29'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Order or Shipping Type not found
+  /orders/{orderId}/confirm:
+    post:
+      operationId: confirmOrder
+      summary: Confirm order
+      description: Try to confirm an order. To do it, it's necessary to set a shipping type before.
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Order couldn't be confirmed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Order not found
+  /orders/{orderId}/cancel:
+    post:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: Try to cancel an order. It is not possible to cancel orders that have already been sent or are already in production internally.
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Order could not be cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Order not found
+  /orders/{orderId}/shipments:
+    get:
+      operationId: getShipments
+      summary: Get shipments
+      description: get a list with all shipments for this order
+      tags:
+      - Orders
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: orderId
+        description: spreadconnect order id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+        '404':
+          description: Order not found
+components:
+  schemas:
+    AvailableShippingType:
+      type: object
+      description: shipping type with price
+      allOf:
+      - $ref: '#/components/schemas/ShippingType'
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+    Address:
+      type: object
+      description: physical mailing address
+      required:
+      - lastName
+      - street
+      - city
+      - country
+      - zipCode
+      properties:
+        company:
+          type: string
+          description: company name
+          example: Example Ltd.
+        firstName:
+          type: string
+          description: first name
+          example: Joshua
+        lastName:
+          type: string
+          description: last name
+          example: Anderson
+        street:
+          type: string
+          description: street
+          example: 1572 Roseytown Rd
+        streetAnnex:
+          example: 2nd Floor
+          description: street annex, optional
+          type: string
+        city:
+          example: Greensburg
+          description: city name
+          type: string
+        country:
+          type: string
+          description: country code, is the ISO 3166-1 alpha-2 code of the country to deliver to, e.g. 'DE' or 'US'.
+          example: US
+        state:
+          type: string
+          description: 'state code, is the country-specific 2-letter upper-case, e.g. AL for Alabama in the USA
+
+            This field is required when delivering to the USA or Canada
+
+            '
+          example: AL
+        zipCode:
+          example: '15601'
+          description: zip code, for some countries optional
+          type: string
+    OneTimeItems:
+      type: array
+      description: items which are created only for this order, and deleted afterwards.
+      items:
+        type: object
+        properties:
+          quantityItems:
+            type: array
+            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
+            items:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  required: true
+                sizeId:
+                  type: number
+                  required: true
+                appearanceId:
+                  required: true
+          configurations:
+            type: array
+            description: product
+            items:
+              type: object
+              required:
+              - image
+              - view
+              properties:
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: https://link.to.image
+                    designId:
+                      type: string
+                      example: '1231'
+                view:
+                  type: string
+                  enum:
+                  - FRONT
+                  - BACK
+                  - LEFT
+                  - RIGHT
+                  - HOOD_LEFT
+                  - HOOD_RIGHT
+                hotspot:
+                  type: string
+                  enum:
+                  - FULL_FRONT
+                  - MEDIUM_FRONT
+                  - LEFT_CHEST
+                  - RIGHT_CHEST
+                  - FULL_BACK
+                  - MEDIUM_BACK
+                  - BACK_COLLAR
+                  - RIGHT
+                  - LEFT
+                  - CENTER_CHEST
+                  example: LEFT_CHEST
+          productTypeId:
+            type: number
+            required: true
+          externalOrderItemReference:
+            type: string
+          customerPricePerItem:
+            allOf:
+            - $ref: '#/components/schemas/CustomerPrice'
+    Price:
+      type: object
+      description: price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        taxRate:
+          type: number
+          description: included vat rate in percent, only for tax type VAT
+          example: 19
+          minimum: 0
+        taxAmount:
+          type: number
+          description: included sales tax, only for tax type SALETAX
+          example: 12.45
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
+    GetOrderItem:
+      type: object
+      properties:
+        orderItemReference:
+          type: integer
+          description: spreadconnect order item reference
+          example: 55000001
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        state:
+          type: string
+          description: order item state
+          enum:
+          - NEW
+          - CHECKED
+          - CANCELLED
+          - PRODUCTION_ISSUE
+          - IN_PRODUCTION
+          - SENT
+        sku:
+          type: string
+          description: stock keeping unit id from spreadconnect
+          example: P1026247707A12S5
+        quantity:
+          type: integer
+          description: item quantity
+          default: 1
+        price:
+          description: item price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/Price'
+        customerPrice:
+          description: customer price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/CustomerPrice'
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: shipment id
+        orderId:
+          type: integer
+          description: spreadconnect order id
+        orderReference:
+          type: integer
+          description: order reference from spreadconnect, can be changed after order updates
+        externalOrderReference:
+          type: string
+          description: external order reference from merchant (you)
+        orderItemReferences:
+          type: array
+          description: spreadconnect order item references
+          items:
+            type: integer
+        externalOrderItemReferences:
+          type: array
+          description: external order item references
+          items:
+            type: string
+        shipping:
+          type: object
+          description: shipment shipping information
+          properties:
+            address:
+              $ref: '#/components/schemas/Address'
+            type:
+              $ref: '#/components/schemas/ShippingType'
+            price:
+              $ref: '#/components/schemas/Price'
+        tracking:
+          type: array
+          description: tracking information for shipment
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: tracking code
+              url:
+                type: string
+                description: tracking url
+        closedDate:
+          type: string
+          description: ready for shipment date
+        sentDate:
+          type: string
+          description: sent date
+    CreateOrderItem:
+      type: object
+      required:
+      - sku
+      - quantity
+      - customerPrice
+      properties:
+        sku:
+          type: string
+          description: stock keeping unit id from spreadconnect
+          example: P1026247707A12S5
+        quantity:
+          type: integer
+          description: quantity of items
+          default: 1
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        customerPrice:
+          description: customer price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/CustomerPrice'
+    CustomerPrice:
+      type: object
+      description: customer price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
+    ErrorResponse:
+      type: object
+      description: error response
+      properties:
+        orderId:
+          type: number
+          description: spreadconnect order id, can be null, if order not created
+        reason:
+          type: string
+          description: error reason
+    GetOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: order id from spreadconnect
+          example: 123
+        orderReference:
+          type: integer
+          description: order reference from spreadconnect, can be changed after order updates
+          example: 5550000
+        externalOrderReference:
+          type: string
+          description: external order reference from merchant (you)
+          example: '1722995712'
+        externalOrderName:
+          type: string
+          description: external order name from merchant (you)
+          example: ORDER-12
+        state:
+          type: string
+          description: order state
+          enum:
+          - NEW
+          - CONFIRMED
+          - PROCESSED
+          - CANCELLED
+        orderItems:
+          type: array
+          description: order items
+          items:
+            $ref: '#/components/schemas/GetOrderItem'
+        shipping:
+          type: object
+          description: shipping information
+          properties:
+            address:
+              description: shipping address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            fromAddress:
+              description: return to sender (RTS) address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            type:
+              description: shipping type
+              allOf:
+              - $ref: '#/components/schemas/ShippingType'
+            price:
+              description: shipping price
+              allOf:
+              - $ref: '#/components/schemas/Price'
+            customerPrice:
+              description: shipping price for your customer
+              allOf:
+              - $ref: '#/components/schemas/CustomerPrice'
+        billingAddress:
+          description: billing address
+          allOf:
+          - $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+          description: Phone used for the communication with the customer.
+          example: +49 1520 1234567
+        email:
+          type: string
+          description: Email used for the communication with the customer.
+          example: joshua.anders@protonmail.ch
+        price:
+          description: price for the complete order
+          allOf:
+          - $ref: '#/components/schemas/Price'
+        taxType:
+          type: string
+          description: tax type, salestax or vat
+          enum:
+          - SALESTAX
+          - VAT
+          - NOT_TAXABLE
+        customerTaxType:
+          type: string
+          description: tax type, salestax or vat
+          enum:
+          - SALESTAX
+          - VAT
+          - NOT_TAXABLE
+    CreateOrder:
+      type: object
+      description: payload for a new order
+      required:
+      - externalOrderReference
+      - orderItems
+      - shipping
+      - phone
+      - email
+      properties:
+        orderItems:
+          type: array
+          description: order items
+          items:
+            $ref: '#/components/schemas/CreateOrderItem'
+        oneTimeItems:
+          $ref: '#/components/schemas/OneTimeItems'
+        shipping:
+          type: object
+          description: shipping informations
+          required:
+          - address
+          - customerPrice
+          properties:
+            address:
+              description: shipping address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            fromAddress:
+              description: return to sender (RTS) address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            preferredType:
+              type: string
+              description: preferred shipping type
+              enum:
+              - STANDARD
+              - PREMIUM
+              - EXPRESS
+            customerPrice:
+              description: customer price for shipping
+              allOf:
+              - $ref: '#/components/schemas/CustomerPrice'
+        billingAddress:
+          description: billing address, if not set, we will use the shipping address
+          allOf:
+          - $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+          description: Phone used for the communication with the customer.
+          example: +49 1520 1234567
+        email:
+          type: string
+          description: Email used for the communication with the customer.
+          example: joshua.anders@protonmail.ch
+        externalOrderReference:
+          type: string
+          description: external order reference from merchant (you)
+          example: '1722995712'
+        externalOrderName:
+          type: string
+          description: external order name from merchant (you)
+          example: ORDER-12
+        state:
+          type: string
+          description: order state
+          example: CONFIRMED
+          enum:
+          - NEW
+          - CONFIRMED
+        customerTaxType:
+          type: string
+          description: tax type, salestax or vat
+          enum:
+          - SALESTAX
+          - VAT
+          - NOT_TAXABLE
+        origin:
+          type: string
+          description: optional origin field
+    ShippingType:
+      type: object
+      description: shipping type with id, name and description
+      properties:
+        id:
+          type: string
+          description: shipping type id, needed for set shipping type
+          example: '29'
+        company:
+          type: string
+          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
+          example: DHL
+        name:
+          type: string
+          example: International Standard
+        description:
+          type: string
+          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
+  securitySchemes:
+    access_token:
+      type: apiKey
+      in: header
+      name: X-SPOD-ACCESS-TOKEN
+      description: It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request.

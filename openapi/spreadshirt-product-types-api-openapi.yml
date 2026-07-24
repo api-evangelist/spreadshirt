@@ -1,0 +1,449 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Spreadconnect fulfillment service REST Articles Product Types API
+  contact:
+    name: Spreadconnect
+    email: business@spreadconnect.app
+    url: https://www.spreadshop.com/spreadconnect
+  x-logo:
+    url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
+  description: 'With this API you can create products and place orders in the Spreadconnect system.
+
+    This gives you the opportunity to connect any shop system with Spreadconnect.
+
+    '
+  termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
+servers:
+- url: https://api.spreadconnect.app
+tags:
+- name: Product Types
+  description: "Product types represent our available base products that can be used for customisation. This information can also\nbe found in the User Interface of the Spreadconnect application when creating a product. The main difference is that here \nonly the products which contain the enabled print types are listed.\n\nAmong details as description and price, you will see in the response payload the IDs \nnecessary for the creation payload when building the article variants: \"sizes\", \"appearances\" and \"views\". \n\nThe \"sizes\" and \"appearances\" represent the size and colour attributes of the product\n\nThe \"views\" parameter represents the customizable areas of the product, where you may choose to place a design on.\n"
+paths:
+  /productTypes:
+    get:
+      operationId: getProductTypes
+      summary: Get available product types
+      description: get available product types
+      tags:
+      - Product Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductTypes'
+  /productTypes/categories:
+    get:
+      operationId: getProductTypeCategories
+      summary: Get the category tree
+      description: Get the whole category tree
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}:
+    get:
+      operationId: getProductType
+      summary: Get a single product type
+      description: get a specific product type with all details
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductTypes'
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}/size-chart:
+    get:
+      operationId: getProductTypeSizeChart
+      summary: Get the size chart for a product type
+      description: Get the size chart for a product type. It consists of an image of a simplified model of the product, with names of measurements ("A", "B", etc), and the values of the measurements, in both inches and mm, for each of products sizes.
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SizeChart'
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}/views:
+    get:
+      operationId: getProductTypeViews
+      summary: Get the views for a product type
+      description: "Get the views, which contain hotspots and images, for a given product type.\n\nHotspots are certain default positions which we recommend for placing a design. \n\nNote: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the\n\"Get available hotspots for a product type and design\" endpoint.\n"
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Views'
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}/hotspots/design/{designId}:
+    get:
+      operationId: getProductTypeViews
+      summary: Get available hotspots for a product type and design
+      description: Using this resource you can check which hotspots a certain design, uploaded beforehand using the Design Upload endpoint, is printable on.
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: desginId
+        description: designId id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotspots:
+                    type: array
+                    items:
+                      type: object
+                      nullable: true
+                      properties:
+                        name:
+                          type: string
+                          example: LEFT_CHEST
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}/categories:
+    get:
+      operationId: getProductTypeCategories
+      summary: Get the categories assigned to a product type
+      description: Get the categories assigned to a product type
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+        '404':
+          description: Product type not found
+  /productTypes/{productTypeId}/previews:
+    post:
+      operationId: getProductTypePreviews
+      summary: Get the previews for a product with hotspot configuration
+      description: 'Get the preview images for a product type, given a list of configurations (pair of hotspots and designId). You need to upload an image using the Designs endpoint. At the moment this resource can give previews only for configurations using hotspots.
+
+        While this resource is using POST, calling it does not affect the state of the server in any way.'
+      tags:
+      - Product Types
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: productTypeId
+        description: product type id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                configurations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      designId:
+                        type: string
+                      hotspot:
+                        type: string
+                appearanceId:
+                  type: string
+                width:
+                  type: number
+                  description: optional width of the image. Default is 1000. Please use a multiple of 50, otherwise the default value would be used instead
+                height:
+                  type: number
+                  description: optional width of the image. Default is 1000. Please use a multiple of 50, otherwise the default value would be used instead
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preview'
+        '404':
+          description: Product type not found
+components:
+  schemas:
+    Views:
+      type: object
+      description: null
+      properties:
+        views:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: FRONT
+              id:
+                type: string
+              hotspots:
+                type: array
+                items:
+                  type: object
+                  nullable: true
+                  properties:
+                    name:
+                      type: string
+                      example: LEFT_CHEST
+              images:
+                type: array
+                items:
+                  type: object
+                  nullable: false
+                  properties:
+                    appearanceId:
+                      type: string
+                      nullable: false
+                    image:
+                      type: string
+                      nullable: false
+    ProductTypes:
+      type: object
+      description: null
+      properties:
+        id:
+          type: string
+        customerName:
+          type: string
+        customerDescription:
+          type: string
+        merchantName:
+          type: string
+        merchantDescription:
+          type: string
+        sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        brand: string
+        appearances:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        views:
+          type: array
+          items:
+            type: string
+            enum:
+            - FRONT
+            - BACK
+            - LEFT
+            - RIGHT
+            - HOOD_LEFT
+            - HOOD_RIGHT
+        printAreas:
+          type: array
+          items:
+            type: object
+            properties:
+              view:
+                type: string
+                enum:
+                - FRONT
+                - BACK
+                - LEFT
+                - RIGHT
+                - HOOD_LEFT
+                - HOOD_RIGHT
+              widthMm:
+                type: number
+              heightMm:
+                type: number
+              widthInch:
+                type: number
+              heightInch:
+                type: number
+        price:
+          type: number
+        currency:
+          type: string
+    Categories:
+      type: object
+      description: null
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+              children:
+                type: array
+                items:
+                  type: object
+                description: recursive
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+        brands:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+        genders:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+    SizeChart:
+      type: object
+      description: null
+      properties:
+        sizeImageUrl:
+          type: string
+          description: At this url you will find an image with a basic representation of the product, and the names of the measurements ("A", "B", etc)
+        sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              sizeId:
+                type: string
+                description: Id of the size
+              name:
+                type: string
+                description: Name of the size, for example "S" or "XL"
+              measurements:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: the letter which is on the image found at sizeImageUrl
+                    valueMm:
+                      type: number
+                      description: the value of the measurement in mm
+                    valueInch:
+                      type: number
+                      description: the value of the measurement in inch
+    Preview:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url: string
+              viewId: string
+              viewName: string
+  securitySchemes:
+    access_token:
+      type: apiKey
+      in: header
+      name: X-SPOD-ACCESS-TOKEN
+      description: It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request.

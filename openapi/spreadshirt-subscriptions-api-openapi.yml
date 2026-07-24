@@ -1,0 +1,151 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Spreadconnect fulfillment service REST Articles Subscriptions API
+  contact:
+    name: Spreadconnect
+    email: business@spreadconnect.app
+    url: https://www.spreadshop.com/spreadconnect
+  x-logo:
+    url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
+  description: 'With this API you can create products and place orders in the Spreadconnect system.
+
+    This gives you the opportunity to connect any shop system with Spreadconnect.
+
+    '
+  termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
+servers:
+- url: https://api.spreadconnect.app
+tags:
+- name: Subscriptions
+  description: "\nThis api offers you webhook subscriptions that will notify you about changes with your order via a POST request.\n\n### Acknowledge notifications\n\nNotifications are following the at *least once principal* and therefore are guaranteed to be\ndelivered at least once. Part of this principal is also that notifications needs to be acknowledged with\n\n* a status code of 202\n* a response within 8 seconds\n* the payload `[accepted]`\n\nIf any of the above criteria does not match, the notification is handled as not received and will be sent again\nat a later stage. The retry mechanism will increase the delay over time to not flood your system.\n\n### Validate authenticity of notifications\n\nWebhook will make notifications with the `X-SPRD-SIGNATURE` header if a subscription was setup with a secret.\n\nConsumers can protect against counterfeit requests by comparing the provided signature with what they've\ncalculated on their side. The signature is a `SHA256 HMAC` over the request body and is encoded in `Base64`.\n\n# Events\n\nIf you register a subscription, you will get the following events, in case there is a state change.\n\n## Article.added Event\n\nIf a new article is added to a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.added\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Article.updated Event\n\nIf a existing article is updated, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.updated\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n\n## Article.removed Event\n\nIf a article is removed from a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.removed\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Order.cancelled Event\n\nIf your order is cancelled, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.cancelled\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.processed Event\n\nIf your order is completely processed, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.processed\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.needs-action Event\n\nIf an error occurs in your order, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.needs-action\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"errorReason\": \"string\"\n      \"order\": \"...object\"\n    }\n  }\n```\n\n\n## Shipment.sent Event\nIf a part of your order is shipped, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getShipments](#operation/getShipments)\n```\n  {\n    \"eventType\": \"Shipment.sent\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"shipment\": \"...object\"\n    }\n  }\n```\n\n# Simulate Events\nSimulate order events by sending us a POST request. You can use this feature for development to trigger some of the available events,\nwithout modifying the orders.\nIt is available only for our staging environment.\n\n### How do I use simulated Events?\nTo use this feature you need to create an extra account on https://app.spreadconnect-staging.app and get a **Spreadconnect API \nKey** for this account. See step 2 and 3 in the **Authentication** section. \n\nTo send requests to the Spreadconnect API on staging you need use https://rest.spreadconnect-staging.app as the base url. Also \nyou will need to use the Spreadconnect API key from your staging account in the header of your request to authenticate it. \n\n\n### What is staging? \nStaging is a test environment separate from the live environment. \n\nThe data in the staging environment is for testing purposes only. Adding, manipulating or deleting articles and \norders in the staging environment does not have any real world effects. An order that is put into production \nin the staging environment will not actually get produced and shipped.\n\nAlso note that part of the content of the payload you get from simulated events is mocked and does not \nreflect the exact data which would be send if the real events would be triggered automatically. \n"
+paths:
+  /subscriptions:
+    post:
+      operationId: createSubscription
+      summary: Create a new subscription
+      description: add a new subscription
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+    get:
+      operationId: getSubscriptions
+      summary: Get all subscriptions
+      description: get all subscriptions
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+  /subscriptions/{subscriptionId}:
+    delete:
+      operationId: deleteSubscription
+      summary: Delete a subscription
+      description: delete a subscription
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      parameters:
+      - in: path
+        name: subscriptionId
+        description: subscription id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+  /orders/{orderId}/simulate/order-cancelled:
+    servers:
+    - url: https://api.spreadconnect-staging.app
+    post:
+      operationId: simulateOrderCancelledEvent
+      summary: Simulate Order Cancelled Event
+      description: Simulates an order cancelled event
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      requestBody:
+        required: false
+  /orders/{orderId}/simulate/order-processed:
+    servers:
+    - url: https://api.spreadconnect-staging.app
+    post:
+      operationId: simulateOrderProcessedEvent
+      summary: Simulate Order Processed Event
+      description: Simulates an order processed event
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      requestBody:
+        required: false
+  /orders/{orderId}/simulate/shipment-sent:
+    servers:
+    - url: https://api.spreadconnect-staging.app
+    post:
+      operationId: simulateShipmentSentEvent
+      summary: Simulate Shipment Sent Event
+      description: Simulates a shipment sent event
+      tags:
+      - Subscriptions
+      security:
+      - access_token: []
+      requestBody:
+        required: false
+components:
+  schemas:
+    Subscription:
+      type: object
+      required:
+      - eventType
+      - endpoint
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        eventType:
+          type: string
+          enum:
+          - Shipment.sent
+          - Order.cancelled
+          - Order.processed
+          - Order.needs-action
+          - Article.added
+          - Article.updated
+          - Article.removed
+        url:
+          type: string
+        secret:
+          type: string
+  securitySchemes:
+    access_token:
+      type: apiKey
+      in: header
+      name: X-SPOD-ACCESS-TOKEN
+      description: It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request.
