@@ -1,0 +1,68 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/spreadshirt-spreadconnect-openapi.json
+format: custom-json
+envelope:
+  media_type: application/json
+  schema: ErrorResponse
+  fields:
+    orderId: spreadconnect order id (nullable, if order not created)
+    reason: error reason string
+note: SPOD returns a simple JSON ErrorResponse {orderId, reason} on 400/422; 401/404 carry no body. Not
+  RFC 9457.
+problems:
+- status: 400
+  title: Bad request
+  envelope: ErrorResponse (orderId, reason)
+  descriptions:
+  - Bad request
+  - Order could not be cancelled
+  - Order couldn't be confirmed
+  source_operations:
+  - cancelOrder
+  - confirmOrder
+  - createSubscription
+  - deleteSubscription
+  - uploadDesign
+- status: 401
+  title: Unauthorized — missing or invalid X-SPOD-ACCESS-TOKEN
+  envelope: null
+  descriptions:
+  - Unauthorized
+  source_operations:
+  - authentication info
+- status: 404
+  title: Resource not found
+  envelope: null
+  descriptions:
+  - Article not found
+  - Order not found
+  - Order or Shipping Type not found
+  - Product Type not found
+  - Product type not found
+  - Variant with given SKU not found
+  source_operations:
+  - cancelOrder
+  - confirmOrder
+  - getArticle
+  - getOrder
+  - getProductType
+  - getProductTypeCategories
+  - getProductTypePreviews
+  - getProductTypeSizeChart
+  - getProductTypeViews
+  - getShipments
+  - getShippingTypes
+  - getStock
+  - setShippingType
+  - updateOrder
+- status: 422
+  title: Unprocessable entity — payload validation failed
+  envelope: ErrorResponse (orderId, reason)
+  descriptions:
+  - Order payload invalid
+  - There is a problem with this article. Check the article in your Spreadconnect account for more information.
+  source_operations:
+  - createOrder
+  - getArticle
+  - updateOrder

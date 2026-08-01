@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/spreadshirt-spreadconnect-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: access_token
+  type: apiKey
+  in: header
+  parameter: X-SPOD-ACCESS-TOKEN
+  description: It's necessary to have an authentication token from Spreadconnect. You can generate
+    this token in your Spreadconnect web application. You have to send this token as a header
+    parameter in each request.
+  sources:
+  - openapi/spreadshirt-spreadconnect-openapi.json

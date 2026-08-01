@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.spreadconnect.app/docs/
+api: SpreadConnect (SPOD) Fulfillment API
+authentication:
+  style: api-key-header
+  header: X-SPOD-ACCESS-TOKEN
+  note: Static integration access token generated in the Spreadconnect web application; sent on every request.
+  ref: authentication/spreadshirt-authentication.yml
+idempotency:
+  supported: false
+  note: SPOD documents no idempotency-key header. Order creation is not documented as idempotent; retries may create duplicates.
+pagination:
+  style: offset-limit
+  params:
+  - limit
+  - offset
+  note: List endpoints (e.g. articles, orders) accept limit/offset/page query parameters per the OpenAPI.
+rate_limiting:
+  limit: 60
+  window: per-minute
+  scope: per-integration
+  algorithm: token-bucket
+  signal_headers:
+  - X-RateLimit-Remaining
+  - X-RateLimit-Retry-After-Seconds
+  ref: rate-limits/spreadshirt-rate-limits.yml
+error_envelope:
+  media_type: application/json
+  schema: ErrorResponse
+  fields:
+  - orderId
+  - reason
+  ref: errors/spreadshirt-problem-types.yml
+webhooks:
+  supported: true
+  mechanism: subscriptions
+  signature_header: X-SPRD-SIGNATURE
+  signature: SHA256 HMAC, Base64-encoded
+  ack: respond within 8 seconds with HTTP 202 and body "[accepted]"
+  ref: asyncapi/spreadshirt-webhooks.yml
+versioning:
+  scheme: unversioned-path
+  current: '0.1.0'
+  note: OpenAPI info.version 0.1.0; no version prefix in the base path (https://api.spreadconnect.app).
+testing:
+  staging_base_url: https://rest.spreadconnect-staging.app
+  simulation_endpoints:
+  - POST /orders/{orderId}/simulate/order-cancelled
+  - POST /orders/{orderId}/simulate/order-processed
+  - POST /orders/{orderId}/simulate/shipment-sent
+  ref: sandbox/spreadshirt-sandbox.yml

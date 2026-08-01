@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: searched
+type: Webhooks
+source: https://api.spreadconnect.app/docs/
+api: SpreadConnect (SPOD) Fulfillment API
+spec_type: Webhooks
+note: SPOD does not publish an AsyncAPI document. It exposes a webhook subscription surface
+  (manage subscriptions via the REST API) that delivers signed event notifications.
+delivery:
+  transport: https-post
+  signature_header: X-SPRD-SIGNATURE
+  signature: SHA256 HMAC, Base64-encoded
+  acknowledgement: respond within 8 seconds with HTTP 202 and body "[accepted]"
+management:
+  create: POST /subscriptions
+  list: GET /subscriptions
+  delete: DELETE /subscriptions/{subscriptionId}
+events:
+- name: Article.added
+- name: Article.updated
+- name: Article.removed
+- name: Order.processed
+- name: Order.cancelled
+- name: Order.needs-action
+- name: Shipment.sent

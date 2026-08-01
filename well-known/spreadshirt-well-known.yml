@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+hosts:
+- host: https://www.spreadshirt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: spreadshirt-security.txt
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: soft-404 — returns HTML marketing page, not an OIDC document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: soft-404 — returns HTML, not RFC 8414 metadata
+  - path: /.well-known/api-catalog
+    status: 200
+    note: soft-404 — returns HTML, not an api-catalog document
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: soft-404 — returns HTML, not a plugin manifest
+- host: https://api.spreadconnect.app
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /robots.txt
+    status: 200
+- host: https://api.spreadshirt.net
+  documents:
+  - path: /.well-known/security.txt
+    status: 503

@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.spreadconnect.app/docs/
+api: SpreadConnect (SPOD) Fulfillment API
+versioning:
+  scheme: unversioned-path
+  current: '0.1.0'
+  docs: https://api.spreadconnect.app/docs/
+  note: OpenAPI info.version is 0.1.0; the base path carries no version segment.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+notes: No dedicated status page or SLA page was found for the SpreadConnect API during this pass.

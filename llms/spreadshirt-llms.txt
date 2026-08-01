@@ -1,0 +1,27 @@
+# Spreadshirt (Spread Group)
+
+> Spreadshirt is a European print-on-demand and custom apparel platform. Its SpreadConnect (SPOD) REST API connects any shop system to on-demand production and drop-shipping — articles, orders, product types, stock, design uploads, and signed webhook events. An older Spreadshirt Public Shop API builds custom storefronts against the EU and North American marketplaces.
+
+## APIs
+- [SpreadConnect (SPOD) Fulfillment API docs](https://api.spreadconnect.app/docs/): ReDoc reference for the fulfillment REST API (base https://api.spreadconnect.app)
+- [Spreadshirt Public Shop API docs](https://developer.spreadshirt.net/): REST storefront API (base https://api.spreadshirt.net EU / https://api.spreadshirt.com NA)
+
+## Specs
+- [SpreadConnect OpenAPI 3.0.2](openapi/spreadshirt-spreadconnect-openapi.json): 27 paths / 31 operations, apiKey auth (X-SPOD-ACCESS-TOKEN)
+
+## Getting started
+- [How do I get started with the API](https://faq.spod.com/hc/en-us/articles/360020927339-How-do-I-get-started-with-the-API)
+- [Sign up / login (SpreadConnect)](https://login.spreadconnect.app)
+- [SpreadConnect product page](https://www.spreadshop.com/spreadconnect)
+
+## Conventions
+- Auth: apiKey header X-SPOD-ACCESS-TOKEN
+- Rate limit: 60/min per integration (token-bucket); X-RateLimit-Remaining, X-RateLimit-Retry-After-Seconds
+- Webhooks: subscriptions with X-SPRD-SIGNATURE (SHA256 HMAC, Base64); ack 202 "[accepted]" within 8s
+- Errors: JSON ErrorResponse {orderId, reason}
+- Staging: https://rest.spreadconnect-staging.app with order-event simulate endpoints
+
+## Support
+- [SPOD FAQ / Help Center](https://faq.spod.com/hc/en-us)
+- [Security contact](well-known/spreadshirt-security.txt): security@spreadgroup.com
+- [GitHub organization](https://github.com/spreadshirt)

@@ -1,0 +1,14 @@
+generated: '2026-07-21'
+method: searched
+note: No first-party API client SDK is published by Spreadshirt/SpreadConnect. The @spreadshirt
+  npm scope exists but holds internal infrastructure plugins (Backstage s3-viewer), not API
+  client libraries. The one dedicated SpreadConnect SDK found is community-maintained.
+packages:
+- language: javascript
+  registry: npm
+  name: spreadconnect-js-sdk
+  url: https://www.npmjs.com/package/spreadconnect-js-sdk
+  install: npm install spreadconnect-js-sdk
+  official: false
+  author: SHOP4FANS
+  description: Community SDK for the SpreadConnect (SPOD) API.

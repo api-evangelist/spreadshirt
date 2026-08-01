@@ -1,0 +1,102 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+server:
+  name: spreadshirt-spod
+  transport: http
+note: No official hosted MCP server found for Spreadshirt/SPOD as of this pass. Candidate tool list derived
+  one-per-operation from the SpreadConnect OpenAPI.
+tools:
+- name: authentication_info
+  description: REST API Authentication Info
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#authentication info
+- name: getArticles
+  description: Get all articles
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getArticles
+- name: createArticle
+  description: Create a single article
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#createArticle
+- name: getArticle
+  description: Get a single article
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getArticle
+- name: deleteArticle
+  description: Delete a single article
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#deleteArticle
+- name: createOrder
+  description: Create an order
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#createOrder
+- name: updateOrder
+  description: Update order
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#updateOrder
+- name: getOrder
+  description: Get a single order
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getOrder
+- name: getShippingTypes
+  description: Get available shipping types
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getShippingTypes
+- name: setShippingType
+  description: Set shipping type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#setShippingType
+- name: confirmOrder
+  description: Confirm order
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#confirmOrder
+- name: cancelOrder
+  description: Cancel order
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#cancelOrder
+- name: getShipments
+  description: Get shipments
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getShipments
+- name: createSubscription
+  description: Create a new subscription
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#createSubscription
+- name: getSubscriptions
+  description: Get all subscriptions
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getSubscriptions
+- name: deleteSubscription
+  description: Delete a subscription
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#deleteSubscription
+- name: simulateOrderCancelledEvent
+  description: Simulate Order Cancelled Event
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#simulateOrderCancelledEvent
+- name: simulateOrderProcessedEvent
+  description: Simulate Order Processed Event
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#simulateOrderProcessedEvent
+- name: simulateShipmentSentEvent
+  description: Simulate Shipment Sent Event
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#simulateShipmentSentEvent
+- name: getProductTypes
+  description: Get available product types
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypes
+- name: getProductTypeCategories
+  description: Get the category tree
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypeCategories
+- name: getProductType
+  description: Get a single product type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductType
+- name: getProductTypeSizeChart
+  description: Get the size chart for a product type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypeSizeChart
+- name: getProductTypeViews
+  description: Get the views for a product type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypeViews
+- name: getProductTypeViews
+  description: Get available hotspots for a product type and design
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypeViews
+- name: getProductTypeCategories
+  description: Get the categories assigned to a product type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypeCategories
+- name: getProductTypePreviews
+  description: Get the previews for a product with hotspot configuration
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getProductTypePreviews
+- name: getStocks
+  description: Get available stocks for all variants
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getStocks
+- name: getStock
+  description: Get available stock for a certain variant
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getStock
+- name: getStock
+  description: Get available stock for a certain product type
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#getStock
+- name: uploadDesign
+  description: Upload a new design
+  source_operation: openapi/spreadshirt-spreadconnect-openapi.json#uploadDesign

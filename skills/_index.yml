@@ -1,0 +1,12 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/spreadshirt-spreadconnect-openapi.json
+skills:
+- file: spreadshirt-create-and-fulfill-order.md
+  name: Create and fulfill a print-on-demand order
+  api: openapi/spreadshirt-spreadconnect-openapi.json
+  operations: [authentication info, createOrder, getShippingTypes, setShippingType, confirmOrder, getShipments]
+- file: spreadshirt-publish-design-article.md
+  name: Upload a design and publish it as an article
+  api: openapi/spreadshirt-spreadconnect-openapi.json
+  operations: [uploadDesign, getProductTypes, getProductTypeViews, getProductTypePreviews, createArticle, getArticle]

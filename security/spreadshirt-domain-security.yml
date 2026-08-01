@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.spreadshirt.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 15 16:28:07 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.spreadconnect.app
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  2 13:28:12 2026 GMT
+  hsts: true
+  hsts_max_age: 15768000
+- host: developer.spreadshirt.net
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 15:33:35 2026 GMT
+  hsts: false
+domains:
+- domain: spreadshirt.com
+  dnssec: true
+  caa:
+  - 0 issuewild "letsencrypt.org"
+  - 0 issuewild "digicert.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "digicert.com"
+  spf: true
+  dmarc: false
+- domain: spreadconnect.app
+  dnssec: false
+  caa:
+  - 0 issuewild "letsencrypt.org"
+  - 0 issue "letsencrypt.org"
+  spf: true
+  dmarc: false

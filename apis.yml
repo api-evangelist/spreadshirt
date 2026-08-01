@@ -1,7 +1,26 @@
 aid: spreadshirt
 name: Spreadshirt
-description: 'Spreadshirt is a company surfaced as a portfolio company of accel and added to the API Evangelist
-  network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting the enrichment pipeline.'
+description: 'Spreadshirt (Spread Group) is a European print-on-demand and custom apparel
+  platform that lets individuals and businesses design, sell, and order personalized T-shirts,
+  hoodies, accessories, and merchandise. It exposes two developer surfaces: the SpreadConnect
+  (SPOD) fulfillment REST API, which connects any shop system to on-demand production and
+  drop-shipping (articles, orders, product types, stock, designs, and webhook subscriptions),
+  and the older Spreadshirt Public Shop API for building custom storefronts against the
+  EU and North American marketplaces. Added to the API Evangelist network as a consumer /
+  print-on-demand provider and enriched by the pipeline.'
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.spreadshirt.com/apple-touch-icon.png
 url: https://raw.githubusercontent.com/api-evangelist/spreadshirt/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,16 +30,340 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
 tags:
 - Company
 - Consumer
-apis: []
+- Print on Demand
+- E-commerce
+- Apparel
+- Custom Merchandise
+- Fulfillment
+- Dropshipping
+- Webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: Spreadshirt Public Shop API
+  description: >-
+    Spreadshirt Public Shop API — REST API for building custom e-commerce storefronts against the Spreadshirt
+    EU (spreadshirt.net) and North American (spreadshirt.com) marketplaces, using SprdAuth API-key authentication.
+  humanURL: https://developer.spreadshirt.net/
+  baseURL: https://api.spreadshirt.net
+  tags:
+  - E-commerce
+  - Storefront
+  - Marketplace
+  properties:
+  - type: Documentation
+    url: https://developer.spreadshirt.net/
+- aid: spreadshirt:spreadshirt-articles-api
+  name: Spreadshirt Articles API
+  description: The Articles API from Spreadshirt — 2 operation(s) for articles.
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Articles
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-articles-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-authentication-api
+  name: Spreadshirt Authentication API
+  description: "The Spreadconnect API allows you to connect to the Spreadconnect system and lets you manage\
+    \ your products, submit orders and get \nthem fulfilled via requests.\n\nTo make sure that the requests\
+    \ send to the Spreadconnect API are indeed allowed to fetch and change your data in the Spreadconnect\
+    \ \nsystem, \nthey first need to be authenticated.\nYou can authenticate your requests to the Spreadconnect\
+    \ API by using your **Spreadconnect API Key**.  \n\n**How do I get my Spreadconnect API Key?**\n1.\
+    \ **Login** into your account or register a new one at https://login.spreadconnect.app.\n2. Under\
+    \ **\"Connect Integration\"** create a new Spreadconnect API Integration.\n3. The **Spreadconnect\
+    \ API Key** for this Integration can be found on the **Dashboard** or at the **Integration Settings**\
+    \ \npage. \n\n*For a more detailed explanation visit \nhttps://faq.spod.com/hc/en-us/articles/360020927339-How-do-I-get-started-with-the-API*\
+    \  \n\nNow you can authenticate your requests by adding *X-SPOD-ACCESS-TOKEN* parameter with your\
+    \ **Spreadconnect API Key** as \nthe value in the header of your request. \n\n*Example:*\n```\n  curl\
+    \ 'https://api.spreadconnect.app/authentication' -H 'X-SPOD-ACCESS-TOKEN: {insert your Spreadconnect\
+    \ API Key}'\n```\n\n**Always keep your Spreadconnect API Key private!**  \nAnyone who has your **Spreadconnect\
+    \ API Key** can access and manipulate your Products, Orders, etc. that are managed by the\nAPI Integration\
+    \ linked to this key.\nSo be careful not to share it."
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-designs-api
+  name: Spreadshirt Designs API
+  description: The Designs API from Spreadshirt — 1 operation(s) for designs.
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Designs
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-designs-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-orders-api
+  name: Spreadshirt Orders API
+  description: >-
+    There are different ways to place an order in Spreadconnect REST API.
+
+    You can choose a simple way, where you have to send just one request or you can use a more complex
+    way,
+
+    with more control over the workflow.
+
+
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    contentScriptType="application/ecmascript" contentStyleType="text/css" height="390px" preserveAspectRatio="none"
+    style="width:721px;height:390px;" version="1.1" viewBox="0 0 721 390" width="721px" zoomAndPan="magnify"><defs><filter
+    height="300%" id="f1cyim1xny9nhv" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix
+    in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset
+    dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text
+    fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="242"
+    x="238.5" y="26.708">Spreadconnect API - order workflow</text><ellipse cx="367" cy="40.9531" fill="#000000"
+    filter="url(#f1cyim1xny9nhv)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><polygon fill="#FEFECE"
+    filter="url(#f1cyim1xny9nhv)" points="342,70.9531,392,70.9531,404,82.9531,392,94.9531,342,94.9531,330,82.9531,342,70.9531"
+    style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11"
+    lengthAdjust="spacingAndGlyphs" textLength="50" x="342" y="86.7612">Workflow</text><text fill="#000000"
+    font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="70" x="260" y="80.3589">more
+    easier</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs"
+    textLength="73" x="404" y="80.3589">more control</text><path d="M10,104.9531 L10,145.2188 A0,0 0 0
+    0 10,145.2188 L212,145.2188 A0,0 0 0 0 212,145.2188 L212,129.0859 L232,125.0859 L212,121.0859 L212,114.9531
+    L202,104.9531 L10,104.9531 A0,0 0 0 0 10,104.9531 " fill="#FBFB77" filter="url(#f1cyim1xny9nhv)" style="stroke:
+    #A80036; stroke-width: 1.0;"/><path d="M202,104.9531 L202,114.9531 L212,114.9531 L202,104.9531 " fill="#FBFB77"
+    style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13"
+    lengthAdjust="spacingAndGlyphs" textLength="177" x="16" y="122.02">with preferred shipping type</text><text
+    fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="141"
+    x="16" y="137.1528">and state CONFIRMED</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688"
+    rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="100" x="232" y="108.1016"/><text
+    fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80"
+    x="242" y="129.2402">Create order</text><path d="M522,109.3711 L522,117.9375 L502,121.9375 L522,125.9375
+    L522,134.5039 A0,0 0 0 0 522,134.5039 L709,134.5039 A0,0 0 0 0 709,134.5039 L709,119.3711 L699,109.3711
+    L522,109.3711 A0,0 0 0 0 522,109.3711 " fill="#FBFB77" filter="url(#f1cyim1xny9nhv)" style="stroke:
+    #A80036; stroke-width: 1.0;"/><path d="M699,109.3711 L699,119.3711 L709,119.3711 L699,109.3711 " fill="#FBFB77"
+    style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13"
+    lengthAdjust="spacingAndGlyphs" textLength="166" x="528" y="126.438">only with mandatory fields</text><rect
+    fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036;
+    stroke-width: 1.5;" width="100" x="402" y="104.9531"/><text fill="#000000" font-family="sans-serif"
+    font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="412" y="126.0918">Create order</text><rect
+    fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036;
+    stroke-width: 1.5;" width="200" x="352" y="165.2188"/><text fill="#000000" font-family="sans-serif"
+    font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="362" y="186.3574">Get available
+    shipping types</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688" rx="12.5"
+    ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="387.5" y="219.1875"/><text fill="#000000"
+    font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="397.5"
+    y="240.3262">Set shipping type</text><rect fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" height="33.9688"
+    rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="105" x="399.5" y="273.1563"/><text
+    fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85"
+    x="409.5" y="294.2949">Confirm order</text><polygon fill="#FEFECE" filter="url(#f1cyim1xny9nhv)" points="367,313.125,379,325.125,367,337.125,355,325.125,367,313.125"
+    style="stroke: #A80036; stroke-width: 1.5;"/><ellipse cx="367" cy="368.125" fill="#FFFFFF" filter="url(#f1cyim1xny9nhv)"
+    rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="367" cy="368.125" fill="#000000"
+    rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width:
+    1.5;" x1="452" x2="452" y1="138.9219" y2="165.2188"/><polygon fill="#A80036" points="448,155.2188,452,165.2188,456,155.2188,452,159.2188"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452"
+    x2="452" y1="199.1875" y2="219.1875"/><polygon fill="#A80036" points="448,209.1875,452,219.1875,456,209.1875,452,213.1875"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452"
+    x2="452" y1="253.1563" y2="273.1563"/><polygon fill="#A80036" points="448,263.1563,452,273.1563,456,263.1563,452,267.1563"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="330"
+    x2="282" y1="82.9531" y2="82.9531"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282" x2="282"
+    y1="82.9531" y2="108.1016"/><polygon fill="#A80036" points="278,98.1016,282,108.1016,286,98.1016,282,102.1016"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="404"
+    x2="452" y1="82.9531" y2="82.9531"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="452"
+    y1="82.9531" y2="104.9531"/><polygon fill="#A80036" points="448,94.9531,452,104.9531,456,94.9531,452,98.9531"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282"
+    x2="282" y1="142.0703" y2="325.125"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="282" x2="355"
+    y1="325.125" y2="325.125"/><polygon fill="#A80036" points="345,321.125,355,325.125,345,329.125,349,325.125"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452"
+    x2="452" y1="307.125" y2="325.125"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="452" x2="379"
+    y1="325.125" y2="325.125"/><polygon fill="#A80036" points="389,321.125,379,325.125,389,329.125,385,325.125"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="367"
+    x2="367" y1="50.9531" y2="70.9531"/><polygon fill="#A80036" points="363,60.9531,367,70.9531,371,60.9531,367,64.9531"
+    style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="367"
+    x2="367" y1="337.125" y2="357.125"/><polygon fill="#A80036" points="363,347.125,367,357.125,371,347.125,367,351.125"
+    style="stroke: #A80036; stroke-width: 1.0;"/></g></svg>
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-orders-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-product-types-api
+  name: Spreadshirt Product Types API
+  description: "Product types represent our available base products that can be used for customisation.\
+    \ This information can also\nbe found in the User Interface of the Spreadconnect application when\
+    \ creating a product. The main difference is that here \nonly the products which contain the enabled\
+    \ print types are listed.\n\nAmong details as description and price, you will see in the response\
+    \ payload the IDs \nnecessary for the creation payload when building the article variants: \"sizes\"\
+    , \"appearances\" and \"views\". \n\nThe \"sizes\" and \"appearances\" represent the size and colour\
+    \ attributes of the product\n\nThe \"views\" parameter represents the customizable areas of the product,\
+    \ where you may choose to place a design on."
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Product Types
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-product-types-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-stocks-api
+  name: Spreadshirt Stocks API
+  description: Get the available stock on the variants of the created articles.
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Stocks
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-stocks-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
+- aid: spreadshirt:spreadshirt-subscriptions-api
+  name: Spreadshirt Subscriptions API
+  description: "This api offers you webhook subscriptions that will notify you about changes with your\
+    \ order via a POST request.\n\n### Acknowledge notifications\n\nNotifications are following the at\
+    \ *least once principal* and therefore are guaranteed to be\ndelivered at least once. Part of this\
+    \ principal is also that notifications needs to be acknowledged with\n\n* a status code of 202\n*\
+    \ a response within 8 seconds\n* the payload `[accepted]`\n\nIf any of the above criteria does not\
+    \ match, the notification is handled as not received and will be sent again\nat a later stage. The\
+    \ retry mechanism will increase the delay over time to not flood your system.\n\n### Validate authenticity\
+    \ of notifications\n\nWebhook will make notifications with the `X-SPRD-SIGNATURE` header if a subscription\
+    \ was setup with a secret.\n\nConsumers can protect against counterfeit requests by comparing the\
+    \ provided signature with what they've\ncalculated on their side. The signature is a `SHA256 HMAC`\
+    \ over the request body and is encoded in `Base64`.\n\n# Events\n\nIf you register a subscription,\
+    \ you will get the following events, in case there is a state change.\n\n## Article.added Event\n\n\
+    If a new article is added to a point of sale, you will get the following notification.\nIf you want\
+    \ to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\
+    \n```\n  {\n    \"eventType\": \"Article.added\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\"\
+    ,\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Article.updated Event\n\nIf a existing\
+    \ article is updated, you will get the following notification.\nIf you want to check how the article\
+    \ object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\"\
+    : \"Article.updated\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"\
+    ...object\"\n    }\n  }\n```\n\n\n## Article.removed Event\n\nIf a article is removed from a point\
+    \ of sale, you will get the following notification.\nIf you want to check how the article object looks\
+    \ like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.removed\"\
+    ,\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n \
+    \ }\n```\n\n## Order.cancelled Event\n\nIf your order is cancelled, you will get the following notification.\n\
+    If you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\
+    \n```\n  {\n    \"eventType\": \"Order.cancelled\",\n    \"data\": {\n      \"pointOfSaleId\": \"\
+    123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.processed Event\n\nIf your order\
+    \ is completely processed, you will get the following notification.\nIf you want to check how the\
+    \ order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\"\
+    : \"Order.processed\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\
+    \n    }\n  }\n```\n\n## Order.needs-action Event\n\nIf an error occurs in your order, you will get\
+    \ the following notification.\nIf you want to check how the order object looks like go to the link:\
+    \ [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.needs-action\"\n    \"data\"\
+    : {\n      \"pointOfSaleId\": \"123\",\n      \"errorReason\": \"string\"\n      \"order\": \"...object\"\
+    \n    }\n  }\n```\n\n\n## Shipment.sent Event\nIf a part of your order is shipped, you will get the\
+    \ following notification.\nIf you want to check how the order object looks like go to the link: [getShipments](#operation/getShipments)\n\
+    ```\n  {\n    \"eventType\": \"Shipment.sent\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\"\
+    ,\n      \"shipment\": \"...object\"\n    }\n  }\n```\n\n# Simulate Events\nSimulate order events\
+    \ by sending us a POST request. You can use this feature for development to trigger some of the available\
+    \ events,\nwithout modifying the orders.\nIt is available only for our staging environment.\n\n###\
+    \ How do I use simulated Events?\nTo use this feature you need to create an extra account on https://app.spreadconnect-staging.app\
+    \ and get a **Spreadconnect API \nKey** for this account. See step 2 and 3 in the **Authentication**\
+    \ section. \n\nTo send requests to the Spreadconnect API on staging you need use https://rest.spreadconnect-staging.app\
+    \ as the base url. Also \nyou will need to use the Spreadconnect API key from your staging account\
+    \ in the header of your request to authenticate it. \n\n\n### What is staging? \nStaging is a test\
+    \ environment separate from the live environment. \n\nThe data in the staging environment is for testing\
+    \ purposes only. Adding, manipulating or deleting articles and \norders in the staging environment\
+    \ does not have any real world effects. An order that is put into production \nin the staging environment\
+    \ will not actually get produced and shipped.\n\nAlso note that part of the content of the payload\
+    \ you get from simulated events is mocked and does not \nreflect the exact data which would be send\
+    \ if the real events would be triggered automatically."
+  humanURL: https://api.spreadconnect.app/docs/
+  baseURL: https://api.spreadconnect.app
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/spreadshirt-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://api.spreadconnect.app/docs/
+  - type: APIReference
+    url: https://api.spreadconnect.app/docs/
 common:
+- type: VulnerabilityDisclosure
+  url: security/spreadshirt-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/spreadshirt-domain-security.yml
+- type: Authentication
+  url: authentication/spreadshirt-authentication.yml
 - type: Website
   url: https://www.spreadshirt.com/
+- type: DeveloperPortal
+  url: https://www.spreadshop.com/spreadconnect
+- type: Documentation
+  url: https://api.spreadconnect.app/docs/
+- type: APIReference
+  url: https://api.spreadconnect.app/docs/
+- type: GettingStarted
+  url: https://faq.spod.com/hc/en-us/articles/360020927339-How-do-I-get-started-with-the-API
+- type: Support
+  url: https://faq.spod.com/hc/en-us
+- type: SignUp
+  url: https://login.spreadconnect.app
+- type: Login
+  url: https://login.spreadconnect.app
+- type: GitHubOrganization
+  url: https://github.com/spreadshirt
+- type: Security
+  url: well-known/spreadshirt-security.txt
+- type: SecurityTxt
+  url: well-known/spreadshirt-security.txt
+- type: WellKnown
+  url: well-known/spreadshirt-well-known.yml
+- type: ErrorCatalog
+  url: errors/spreadshirt-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/spreadshirt-lifecycle.yml
+- type: Conventions
+  url: conventions/spreadshirt-conventions.yml
+- type: RateLimits
+  url: rate-limits/spreadshirt-rate-limits.yml
+- type: Webhooks
+  url: asyncapi/spreadshirt-webhooks.yml
+- type: Sandbox
+  url: sandbox/spreadshirt-sandbox.yml
+- type: MCPServer
+  url: mcp/spreadshirt-mcp.yml
+- type: LLMsTxt
+  url: llms/spreadshirt-llms.txt
+- type: Overlay
+  url: overlays/spreadshirt-spreadconnect-overlay.yaml
+- type: Conformance
+  url: conformance/spreadshirt-conformance.yml
+- type: Packages
+  url: packages/spreadshirt-packages.yml
+- type: DataModel
+  url: data-model/spreadshirt-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml

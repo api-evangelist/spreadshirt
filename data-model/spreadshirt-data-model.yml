@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/spreadshirt-spreadconnect-openapi.json
+entities:
+- Article
+- ArticleCreation
+- CustomerPrice
+- CreateOrderItem
+- OneTimeItems
+- Address
+- CreateOrder
+- Price
+- GetOrderItem
+- ShippingType
+- GetOrder
+- ErrorResponse
+- AvailableShippingType
+- Shipment
+- Subscription
+- ProductTypes
+- Categories
+- SizeChart
+- Views
+- Preview
+- DesignUpload
+relationships:
+- from: CreateOrder
+  to: CreateOrderItem
+  kind: has_many
+  via: orderItems
+- from: CreateOrder
+  to: OneTimeItems
+  kind: has_one
+  via: oneTimeItems
+- from: GetOrder
+  to: GetOrderItem
+  kind: has_many
+  via: orderItems
+- from: AvailableShippingType
+  to: Price
+  kind: has_one
+  via: price

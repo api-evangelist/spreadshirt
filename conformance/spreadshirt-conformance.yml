@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/spreadshirt-spreadconnect-openapi.json
+api: SpreadConnect (SPOD) Fulfillment API
+standards:
+- id: oauth2
+  conforms: false
+  evidence: only an apiKey security scheme (X-SPOD-ACCESS-TOKEN) is declared
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom application/json ErrorResponse {orderId, reason}, not application/problem+json
+- id: rest-json
+  conforms: true
+  evidence: JSON request/response bodies over HTTP REST resources
+- id: offset-pagination
+  conforms: true
+  evidence: list endpoints accept limit/offset query parameters
+- id: rate-limit-headers
+  conforms: true
+  evidence: X-RateLimit-Remaining / X-RateLimit-Retry-After-Seconds returned
+- id: hmac-signed-webhooks
+  conforms: true
+  evidence: webhook notifications carry X-SPRD-SIGNATURE (SHA256 HMAC, Base64)

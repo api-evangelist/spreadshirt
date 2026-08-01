@@ -1,0 +1,2645 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "0.1.0",
+    "title": "Spreadconnect fulfillment service REST-API",
+    "contact": {
+      "name": "Spreadconnect",
+      "email": "business@spreadconnect.app",
+      "url": "https://www.spreadshop.com/spreadconnect"
+    },
+    "x-logo": {
+      "url": "https://assets.spod.com/merea/spreadconnect-logo-black.svg"
+    },
+    "description": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n",
+    "termsOfService": "https://faq.spod.com/hc/en-us/articles/360020630280"
+  },
+  "servers": [
+    {
+      "url": "https://api.spreadconnect.app"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "access_token": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-SPOD-ACCESS-TOKEN",
+        "description": "It's necessary to have an authentication token from Spreadconnect. You can generate this token in your Spreadconnect web application. You have to send this token as a header parameter in each request."
+      }
+    },
+    "schemas": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "array",
+            "description": "product variants",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "spreadconnect variant id"
+                },
+                "productTypeId": {
+                  "type": "integer",
+                  "description": "sprd product type id"
+                },
+                "productTypeName": {
+                  "type": "string",
+                  "description": "sprd product type name"
+                },
+                "productId": {
+                  "type": "integer",
+                  "description": "sprd product id"
+                },
+                "appearanceId": {
+                  "type": "integer",
+                  "description": "sprd appearance id"
+                },
+                "appearanceName": {
+                  "type": "string",
+                  "description": "sprd appearance name"
+                },
+                "appearanceColorValue": {
+                  "type": "string",
+                  "description": "sprd appearance color value"
+                },
+                "sizeId": {
+                  "type": "integer",
+                  "description": "sprd size id"
+                },
+                "sizeName": {
+                  "type": "string",
+                  "description": "sprd size name"
+                },
+                "sku": {
+                  "type": "string",
+                  "description": "stock keeping unit id from spreadconnect",
+                  "example": "P1026247707A12S5"
+                },
+                "d2cPrice": {
+                  "type": "number",
+                  "description": "final price for the customer",
+                  "example": 21.56,
+                  "minimum": 0
+                },
+                "b2bPrice": {
+                  "type": "number",
+                  "description": "b2b price for the customer",
+                  "example": 21.56,
+                  "minimum": 0
+                },
+                "imageIds": {
+                  "type": "array",
+                  "description": "image id",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "images": {
+            "type": "array",
+            "description": "product variants",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "spreadconnect image id",
+                  "example": 560860288
+                },
+                "productId": {
+                  "type": "integer",
+                  "description": "sprd product id"
+                },
+                "appearanceId": {
+                  "type": "integer",
+                  "description": "sprd appearance id"
+                },
+                "appearanceName": {
+                  "type": "string",
+                  "description": "sprd appearance name"
+                },
+                "perspective": {
+                  "type": "string",
+                  "description": "sprd view id"
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "description": "URL to get the product image.\nThere are different optional parameters which you have to add by your own:\n&width = image width\n&height = image height\n"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ArticleCreation": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "variants",
+          "configurations"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "array",
+            "description": "product variants",
+            "items": {
+              "type": "object",
+              "required": [
+                "productTypeId",
+                "appearanceId",
+                "sizeId"
+              ],
+              "properties": {
+                "productTypeId": {
+                  "type": "integer",
+                  "description": "sprd product type id"
+                },
+                "appearanceId": {
+                  "type": "integer",
+                  "description": "sprd appearance id"
+                },
+                "sizeId": {
+                  "type": "integer",
+                  "description": "sprd size id"
+                },
+                "d2cPrice": {
+                  "type": "number",
+                  "description": "final price for the customer",
+                  "example": 21.56,
+                  "minimum": 0
+                },
+                "externalId": {
+                  "type": "string",
+                  "description": "optional id that can be used for identifying the article variant - validated for UUID v4",
+                  "example": "20354d7a-e4fe-47af-8ff6-187bca92f3f9"
+                }
+              }
+            }
+          },
+          "configurations": {
+            "type": "array",
+            "description": "product",
+            "items": {
+              "type": "object",
+              "required": [
+                "image",
+                "view"
+              ],
+              "properties": {
+                "image": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "https://link.to.image"
+                    },
+                    "designId": {
+                      "type": "string",
+                      "example": "1231"
+                    }
+                  }
+                },
+                "view": {
+                  "type": "string",
+                  "enum": [
+                    "FRONT",
+                    "BACK",
+                    "LEFT",
+                    "RIGHT",
+                    "HOOD_LEFT",
+                    "HOOD_RIGHT"
+                  ]
+                },
+                "hotspot": {
+                  "type": "string",
+                  "enum": [
+                    "FULL_FRONT",
+                    "MEDIUM_FRONT",
+                    "LEFT_CHEST",
+                    "RIGHT_CHEST",
+                    "FULL_BACK",
+                    "MEDIUM_BACK",
+                    "BACK_COLLAR",
+                    "RIGHT",
+                    "LEFT",
+                    "CENTER_CHEST"
+                  ],
+                  "example": "MEDIUM_FRONT"
+                }
+              }
+            }
+          },
+          "externalId": {
+            "type": "string",
+            "description": "optional id that can be used for identifying the article - validated for UUID v4",
+            "example": "20354d7a-e4fe-47af-8ff6-187bca92f3f9"
+          }
+        }
+      },
+      "CustomerPrice": {
+        "type": "object",
+        "description": "customer price",
+        "required": [
+          "amount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "total amount, with vat or sales tax",
+            "example": 21.56,
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "currency iso code",
+            "example": "USD"
+          }
+        }
+      },
+      "CreateOrderItem": {
+        "type": "object",
+        "required": [
+          "sku",
+          "quantity",
+          "customerPrice"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string",
+            "description": "stock keeping unit id from spreadconnect",
+            "example": "P1026247707A12S5"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "quantity of items",
+            "default": 1
+          },
+          "externalOrderItemReference": {
+            "type": "string",
+            "description": "external order item reference from merchant (you)",
+            "example": "12810092145"
+          },
+          "customerPrice": {
+            "description": "customer price for item with quantity n",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomerPrice"
+              }
+            ]
+          }
+        }
+      },
+      "OneTimeItems": {
+        "type": "array",
+        "description": "items which are created only for this order, and deleted afterwards.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "quantityItems": {
+              "type": "array",
+              "description": "Each quantity item represents the relationship between an article variant and the quantities required for the variant",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "number",
+                    "required": true
+                  },
+                  "sizeId": {
+                    "type": "number",
+                    "required": true
+                  },
+                  "appearanceId": {
+                    "required": true
+                  }
+                }
+              }
+            },
+            "configurations": {
+              "type": "array",
+              "description": "product",
+              "items": {
+                "type": "object",
+                "required": [
+                  "image",
+                  "view"
+                ],
+                "properties": {
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "example": "https://link.to.image"
+                      },
+                      "designId": {
+                        "type": "string",
+                        "example": "1231"
+                      }
+                    }
+                  },
+                  "view": {
+                    "type": "string",
+                    "enum": [
+                      "FRONT",
+                      "BACK",
+                      "LEFT",
+                      "RIGHT",
+                      "HOOD_LEFT",
+                      "HOOD_RIGHT"
+                    ]
+                  },
+                  "hotspot": {
+                    "type": "string",
+                    "enum": [
+                      "FULL_FRONT",
+                      "MEDIUM_FRONT",
+                      "LEFT_CHEST",
+                      "RIGHT_CHEST",
+                      "FULL_BACK",
+                      "MEDIUM_BACK",
+                      "BACK_COLLAR",
+                      "RIGHT",
+                      "LEFT",
+                      "CENTER_CHEST"
+                    ],
+                    "example": "LEFT_CHEST"
+                  }
+                }
+              }
+            },
+            "productTypeId": {
+              "type": "number",
+              "required": true
+            },
+            "externalOrderItemReference": {
+              "type": "string"
+            },
+            "customerPricePerItem": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/CustomerPrice"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "description": "physical mailing address",
+        "required": [
+          "lastName",
+          "street",
+          "city",
+          "country",
+          "zipCode"
+        ],
+        "properties": {
+          "company": {
+            "type": "string",
+            "description": "company name",
+            "example": "Example Ltd."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "first name",
+            "example": "Joshua"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "last name",
+            "example": "Anderson"
+          },
+          "street": {
+            "type": "string",
+            "description": "street",
+            "example": "1572 Roseytown Rd"
+          },
+          "streetAnnex": {
+            "example": "2nd Floor",
+            "description": "street annex, optional",
+            "type": "string"
+          },
+          "city": {
+            "example": "Greensburg",
+            "description": "city name",
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "description": "country code, is the ISO 3166-1 alpha-2 code of the country to deliver to, e.g. 'DE' or 'US'.",
+            "example": "US"
+          },
+          "state": {
+            "type": "string",
+            "description": "state code, is the country-specific 2-letter upper-case, e.g. AL for Alabama in the USA\nThis field is required when delivering to the USA or Canada\n",
+            "example": "AL"
+          },
+          "zipCode": {
+            "example": "15601",
+            "description": "zip code, for some countries optional",
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrder": {
+        "type": "object",
+        "description": "payload for a new order",
+        "required": [
+          "externalOrderReference",
+          "orderItems",
+          "shipping",
+          "phone",
+          "email"
+        ],
+        "properties": {
+          "orderItems": {
+            "type": "array",
+            "description": "order items",
+            "items": {
+              "$ref": "#/components/schemas/CreateOrderItem"
+            }
+          },
+          "oneTimeItems": {
+            "$ref": "#/components/schemas/OneTimeItems"
+          },
+          "shipping": {
+            "type": "object",
+            "description": "shipping informations",
+            "required": [
+              "address",
+              "customerPrice"
+            ],
+            "properties": {
+              "address": {
+                "description": "shipping address",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                ]
+              },
+              "fromAddress": {
+                "description": "return to sender (RTS) address",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                ]
+              },
+              "preferredType": {
+                "type": "string",
+                "description": "preferred shipping type",
+                "enum": [
+                  "STANDARD",
+                  "PREMIUM",
+                  "EXPRESS"
+                ]
+              },
+              "customerPrice": {
+                "description": "customer price for shipping",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPrice"
+                  }
+                ]
+              }
+            }
+          },
+          "billingAddress": {
+            "description": "billing address, if not set, we will use the shipping address",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              }
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone used for the communication with the customer.",
+            "example": "+49 1520 1234567"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email used for the communication with the customer.",
+            "example": "joshua.anders@protonmail.ch"
+          },
+          "externalOrderReference": {
+            "type": "string",
+            "description": "external order reference from merchant (you)",
+            "example": "1722995712"
+          },
+          "externalOrderName": {
+            "type": "string",
+            "description": "external order name from merchant (you)",
+            "example": "ORDER-12"
+          },
+          "state": {
+            "type": "string",
+            "description": "order state",
+            "example": "CONFIRMED",
+            "enum": [
+              "NEW",
+              "CONFIRMED"
+            ]
+          },
+          "customerTaxType": {
+            "type": "string",
+            "description": "tax type, salestax or vat",
+            "enum": [
+              "SALESTAX",
+              "VAT",
+              "NOT_TAXABLE"
+            ]
+          },
+          "origin": {
+            "type": "string",
+            "description": "optional origin field"
+          }
+        }
+      },
+      "Price": {
+        "type": "object",
+        "description": "price",
+        "required": [
+          "amount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "total amount, with vat or sales tax",
+            "example": 21.56,
+            "minimum": 0
+          },
+          "taxRate": {
+            "type": "number",
+            "description": "included vat rate in percent, only for tax type VAT",
+            "example": 19,
+            "minimum": 0
+          },
+          "taxAmount": {
+            "type": "number",
+            "description": "included sales tax, only for tax type SALETAX",
+            "example": 12.45,
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "currency iso code",
+            "example": "USD"
+          }
+        }
+      },
+      "GetOrderItem": {
+        "type": "object",
+        "properties": {
+          "orderItemReference": {
+            "type": "integer",
+            "description": "spreadconnect order item reference",
+            "example": 55000001
+          },
+          "externalOrderItemReference": {
+            "type": "string",
+            "description": "external order item reference from merchant (you)",
+            "example": "12810092145"
+          },
+          "state": {
+            "type": "string",
+            "description": "order item state",
+            "enum": [
+              "NEW",
+              "CHECKED",
+              "CANCELLED",
+              "PRODUCTION_ISSUE",
+              "IN_PRODUCTION",
+              "SENT"
+            ]
+          },
+          "sku": {
+            "type": "string",
+            "description": "stock keeping unit id from spreadconnect",
+            "example": "P1026247707A12S5"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "item quantity",
+            "default": 1
+          },
+          "price": {
+            "description": "item price for item with quantity n",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Price"
+              }
+            ]
+          },
+          "customerPrice": {
+            "description": "customer price for item with quantity n",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomerPrice"
+              }
+            ]
+          }
+        }
+      },
+      "ShippingType": {
+        "type": "object",
+        "description": "shipping type with id, name and description",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "shipping type id, needed for set shipping type",
+            "example": "29"
+          },
+          "company": {
+            "type": "string",
+            "description": "shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post",
+            "example": "DHL"
+          },
+          "name": {
+            "type": "string",
+            "example": "International Standard"
+          },
+          "description": {
+            "type": "string",
+            "example": "No tracking provided. May be subject to import taxes, customs, and duties upon delivery."
+          }
+        }
+      },
+      "GetOrder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "order id from spreadconnect",
+            "example": 123
+          },
+          "orderReference": {
+            "type": "integer",
+            "description": "order reference from spreadconnect, can be changed after order updates",
+            "example": 5550000
+          },
+          "externalOrderReference": {
+            "type": "string",
+            "description": "external order reference from merchant (you)",
+            "example": "1722995712"
+          },
+          "externalOrderName": {
+            "type": "string",
+            "description": "external order name from merchant (you)",
+            "example": "ORDER-12"
+          },
+          "state": {
+            "type": "string",
+            "description": "order state",
+            "enum": [
+              "NEW",
+              "CONFIRMED",
+              "PROCESSED",
+              "CANCELLED"
+            ]
+          },
+          "orderItems": {
+            "type": "array",
+            "description": "order items",
+            "items": {
+              "$ref": "#/components/schemas/GetOrderItem"
+            }
+          },
+          "shipping": {
+            "type": "object",
+            "description": "shipping information",
+            "properties": {
+              "address": {
+                "description": "shipping address",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                ]
+              },
+              "fromAddress": {
+                "description": "return to sender (RTS) address",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                ]
+              },
+              "type": {
+                "description": "shipping type",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShippingType"
+                  }
+                ]
+              },
+              "price": {
+                "description": "shipping price",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                ]
+              },
+              "customerPrice": {
+                "description": "shipping price for your customer",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPrice"
+                  }
+                ]
+              }
+            }
+          },
+          "billingAddress": {
+            "description": "billing address",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              }
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone used for the communication with the customer.",
+            "example": "+49 1520 1234567"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email used for the communication with the customer.",
+            "example": "joshua.anders@protonmail.ch"
+          },
+          "price": {
+            "description": "price for the complete order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Price"
+              }
+            ]
+          },
+          "taxType": {
+            "type": "string",
+            "description": "tax type, salestax or vat",
+            "enum": [
+              "SALESTAX",
+              "VAT",
+              "NOT_TAXABLE"
+            ]
+          },
+          "customerTaxType": {
+            "type": "string",
+            "description": "tax type, salestax or vat",
+            "enum": [
+              "SALESTAX",
+              "VAT",
+              "NOT_TAXABLE"
+            ]
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "error response",
+        "properties": {
+          "orderId": {
+            "type": "number",
+            "description": "spreadconnect order id, can be null, if order not created"
+          },
+          "reason": {
+            "type": "string",
+            "description": "error reason"
+          }
+        }
+      },
+      "AvailableShippingType": {
+        "type": "object",
+        "description": "shipping type with price",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ShippingType"
+          }
+        ],
+        "properties": {
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          }
+        }
+      },
+      "Shipment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "shipment id"
+          },
+          "orderId": {
+            "type": "integer",
+            "description": "spreadconnect order id"
+          },
+          "orderReference": {
+            "type": "integer",
+            "description": "order reference from spreadconnect, can be changed after order updates"
+          },
+          "externalOrderReference": {
+            "type": "string",
+            "description": "external order reference from merchant (you)"
+          },
+          "orderItemReferences": {
+            "type": "array",
+            "description": "spreadconnect order item references",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "externalOrderItemReferences": {
+            "type": "array",
+            "description": "external order item references",
+            "items": {
+              "type": "string"
+            }
+          },
+          "shipping": {
+            "type": "object",
+            "description": "shipment shipping information",
+            "properties": {
+              "address": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "type": {
+                "$ref": "#/components/schemas/ShippingType"
+              },
+              "price": {
+                "$ref": "#/components/schemas/Price"
+              }
+            }
+          },
+          "tracking": {
+            "type": "array",
+            "description": "tracking information for shipment",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "tracking code"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "tracking url"
+                }
+              }
+            }
+          },
+          "closedDate": {
+            "type": "string",
+            "description": "ready for shipment date"
+          },
+          "sentDate": {
+            "type": "string",
+            "description": "sent date"
+          }
+        }
+      },
+      "Subscription": {
+        "type": "object",
+        "required": [
+          "eventType",
+          "endpoint"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "Shipment.sent",
+              "Order.cancelled",
+              "Order.processed",
+              "Order.needs-action",
+              "Article.added",
+              "Article.updated",
+              "Article.removed"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "secret": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductTypes": {
+        "type": "object",
+        "description": null,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "customerDescription": {
+            "type": "string"
+          },
+          "merchantName": {
+            "type": "string"
+          },
+          "merchantDescription": {
+            "type": "string"
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "brand": "string",
+          "appearances": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "views": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "FRONT",
+                "BACK",
+                "LEFT",
+                "RIGHT",
+                "HOOD_LEFT",
+                "HOOD_RIGHT"
+              ]
+            }
+          },
+          "printAreas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "view": {
+                  "type": "string",
+                  "enum": [
+                    "FRONT",
+                    "BACK",
+                    "LEFT",
+                    "RIGHT",
+                    "HOOD_LEFT",
+                    "HOOD_RIGHT"
+                  ]
+                },
+                "widthMm": {
+                  "type": "number"
+                },
+                "heightMm": {
+                  "type": "number"
+                },
+                "widthInch": {
+                  "type": "number"
+                },
+                "heightInch": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "price": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          }
+        }
+      },
+      "Categories": {
+        "type": "object",
+        "description": null,
+        "properties": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "translation": {
+                  "type": "string"
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "description": "recursive"
+                }
+              }
+            }
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "translation": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "brands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "translation": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "genders": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "translation": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "SizeChart": {
+        "type": "object",
+        "description": null,
+        "properties": {
+          "sizeImageUrl": {
+            "type": "string",
+            "description": "At this url you will find an image with a basic representation of the product, and the names of the measurements (\"A\", \"B\", etc)"
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sizeId": {
+                  "type": "string",
+                  "description": "Id of the size"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the size, for example \"S\" or \"XL\""
+                },
+                "measurements": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "the letter which is on the image found at sizeImageUrl"
+                      },
+                      "valueMm": {
+                        "type": "number",
+                        "description": "the value of the measurement in mm"
+                      },
+                      "valueInch": {
+                        "type": "number",
+                        "description": "the value of the measurement in inch"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Views": {
+        "type": "object",
+        "description": null,
+        "properties": {
+          "views": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "FRONT"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hotspots": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "nullable": true,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "LEFT_CHEST"
+                      }
+                    }
+                  }
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "nullable": false,
+                    "properties": {
+                      "appearanceId": {
+                        "type": "string",
+                        "nullable": false
+                      },
+                      "image": {
+                        "type": "string",
+                        "nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Preview": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": "string",
+                "viewId": "string",
+                "viewName": "string"
+              }
+            }
+          }
+        }
+      },
+      "DesignUpload": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "bytes",
+            "description": "the image you wish to upload"
+          },
+          "url": {
+            "type": "string",
+            "description": "we download the image for you"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "The Spreadconnect API allows you to connect to the Spreadconnect system and lets you manage your products, submit orders and get \nthem fulfilled via requests.\n\nTo make sure that the requests send to the Spreadconnect API are indeed allowed to fetch and change your data in the Spreadconnect \nsystem, \nthey first need to be authenticated.\nYou can authenticate your requests to the Spreadconnect API by using your **Spreadconnect API Key**.  \n\n**How do I get my Spreadconnect API Key?**\n1. **Login** into your account or register a new one at https://login.spreadconnect.app.\n2. Under **\"Connect Integration\"** create a new Spreadconnect API Integration.\n3. The **Spreadconnect API Key** for this Integration can be found on the **Dashboard** or at the **Integration Settings** \npage. \n\n*For a more detailed explanation visit \nhttps://faq.spod.com/hc/en-us/articles/360020927339-How-do-I-get-started-with-the-API*  \n\nNow you can authenticate your requests by adding *X-SPOD-ACCESS-TOKEN* parameter with your **Spreadconnect API Key** as \nthe value in the header of your request. \n\n*Example:*\n```\n  curl 'https://api.spreadconnect.app/authentication' -H 'X-SPOD-ACCESS-TOKEN: {insert your Spreadconnect API Key}'\n```\n\n**Always keep your Spreadconnect API Key private!**  \nAnyone who has your **Spreadconnect API Key** can access and manipulate your Products, Orders, etc. that are managed by the\nAPI Integration linked to this key.\nSo be careful not to share it.\n"
+    },
+    {
+      "name": "Rate limits",
+      "description": "Spreadconnect REST API employs a limit of 60 calls per minute, per integration. \nBehind the hood, we use a token-bucket algorithm with refill at every minute.\nRequests over the rate limit receive a \n\"429 Too Many Requests\" response, along the header \"X-RateLimit-Retry-After-Seconds\" which represents the amount \nof seconds a client have to wait until a successful call can be made.\n\nFor every successful call the header \"X-RateLimit-Remaining\" is present, \nrepresenting the amount of calls available until the next refill.\n"
+    },
+    {
+      "name": "Articles"
+    },
+    {
+      "name": "Orders",
+      "description": "There are different ways to place an order in Spreadconnect REST API.\nYou can choose a simple way, where you have to send just one request or you can use a more complex way,\nwith more control over the workflow.\n\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" contentScriptType=\"application/ecmascript\" contentStyleType=\"text/css\" height=\"390px\" preserveAspectRatio=\"none\" style=\"width:721px;height:390px;\" version=\"1.1\" viewBox=\"0 0 721 390\" width=\"721px\" zoomAndPan=\"magnify\"><defs><filter height=\"300%\" id=\"f1cyim1xny9nhv\" width=\"300%\" x=\"-1\" y=\"-1\"><feGaussianBlur result=\"blurOut\" stdDeviation=\"2.0\"/><feColorMatrix in=\"blurOut\" result=\"blurOut2\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0\"/><feOffset dx=\"4.0\" dy=\"4.0\" in=\"blurOut2\" result=\"blurOut3\"/><feBlend in=\"SourceGraphic\" in2=\"blurOut3\" mode=\"normal\"/></filter></defs><g><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"18\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"242\" x=\"238.5\" y=\"26.708\">Spreadconnect API - order workflow</text><ellipse cx=\"367\" cy=\"40.9531\" fill=\"#000000\" filter=\"url(#f1cyim1xny9nhv)\" rx=\"10\" ry=\"10\" style=\"stroke: none; stroke-width: 1.0;\"/><polygon fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" points=\"342,70.9531,392,70.9531,404,82.9531,392,94.9531,342,94.9531,330,82.9531,342,70.9531\" style=\"stroke: #A80036; stroke-width: 1.5;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"50\" x=\"342\" y=\"86.7612\">Workflow</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"70\" x=\"260\" y=\"80.3589\">more easier</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"73\" x=\"404\" y=\"80.3589\">more control</text><path d=\"M10,104.9531 L10,145.2188 A0,0 0 0 0 10,145.2188 L212,145.2188 A0,0 0 0 0 212,145.2188 L212,129.0859 L232,125.0859 L212,121.0859 L212,114.9531 L202,104.9531 L10,104.9531 A0,0 0 0 0 10,104.9531 \" fill=\"#FBFB77\" filter=\"url(#f1cyim1xny9nhv)\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><path d=\"M202,104.9531 L202,114.9531 L212,114.9531 L202,104.9531 \" fill=\"#FBFB77\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"177\" x=\"16\" y=\"122.02\">with preferred shipping type</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"141\" x=\"16\" y=\"137.1528\">and state CONFIRMED</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"100\" x=\"232\" y=\"108.1016\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"80\" x=\"242\" y=\"129.2402\">Create order</text><path d=\"M522,109.3711 L522,117.9375 L502,121.9375 L522,125.9375 L522,134.5039 A0,0 0 0 0 522,134.5039 L709,134.5039 A0,0 0 0 0 709,134.5039 L709,119.3711 L699,109.3711 L522,109.3711 A0,0 0 0 0 522,109.3711 \" fill=\"#FBFB77\" filter=\"url(#f1cyim1xny9nhv)\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><path d=\"M699,109.3711 L699,119.3711 L709,119.3711 L699,109.3711 \" fill=\"#FBFB77\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"166\" x=\"528\" y=\"126.438\">only with mandatory fields</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"100\" x=\"402\" y=\"104.9531\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"80\" x=\"412\" y=\"126.0918\">Create order</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"200\" x=\"352\" y=\"165.2188\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"176\" x=\"362\" y=\"186.3574\">Get available shipping types</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"129\" x=\"387.5\" y=\"219.1875\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"109\" x=\"397.5\" y=\"240.3262\">Set shipping type</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"105\" x=\"399.5\" y=\"273.1563\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"85\" x=\"409.5\" y=\"294.2949\">Confirm order</text><polygon fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" points=\"367,313.125,379,325.125,367,337.125,355,325.125,367,313.125\" style=\"stroke: #A80036; stroke-width: 1.5;\"/><ellipse cx=\"367\" cy=\"368.125\" fill=\"#FFFFFF\" filter=\"url(#f1cyim1xny9nhv)\" rx=\"11\" ry=\"11\" style=\"stroke: #000000; stroke-width: 1.0;\"/><ellipse cx=\"367\" cy=\"368.125\" fill=\"#000000\" rx=\"6\" ry=\"6\" style=\"stroke: #7F7F7F; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"138.9219\" y2=\"165.2188\"/><polygon fill=\"#A80036\" points=\"448,155.2188,452,165.2188,456,155.2188,452,159.2188\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"199.1875\" y2=\"219.1875\"/><polygon fill=\"#A80036\" points=\"448,209.1875,452,219.1875,456,209.1875,452,213.1875\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"253.1563\" y2=\"273.1563\"/><polygon fill=\"#A80036\" points=\"448,263.1563,452,273.1563,456,263.1563,452,267.1563\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"330\" x2=\"282\" y1=\"82.9531\" y2=\"82.9531\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"282\" y1=\"82.9531\" y2=\"108.1016\"/><polygon fill=\"#A80036\" points=\"278,98.1016,282,108.1016,286,98.1016,282,102.1016\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"404\" x2=\"452\" y1=\"82.9531\" y2=\"82.9531\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"82.9531\" y2=\"104.9531\"/><polygon fill=\"#A80036\" points=\"448,94.9531,452,104.9531,456,94.9531,452,98.9531\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"282\" y1=\"142.0703\" y2=\"325.125\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"355\" y1=\"325.125\" y2=\"325.125\"/><polygon fill=\"#A80036\" points=\"345,321.125,355,325.125,345,329.125,349,325.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"307.125\" y2=\"325.125\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"379\" y1=\"325.125\" y2=\"325.125\"/><polygon fill=\"#A80036\" points=\"389,321.125,379,325.125,389,329.125,385,325.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"367\" x2=\"367\" y1=\"50.9531\" y2=\"70.9531\"/><polygon fill=\"#A80036\" points=\"363,60.9531,367,70.9531,371,60.9531,367,64.9531\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"367\" x2=\"367\" y1=\"337.125\" y2=\"357.125\"/><polygon fill=\"#A80036\" points=\"363,347.125,367,357.125,371,347.125,367,351.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/></g></svg>\n"
+    },
+    {
+      "name": "Subscriptions",
+      "description": "\nThis api offers you webhook subscriptions that will notify you about changes with your order via a POST request.\n\n### Acknowledge notifications\n\nNotifications are following the at *least once principal* and therefore are guaranteed to be\ndelivered at least once. Part of this principal is also that notifications needs to be acknowledged with\n\n* a status code of 202\n* a response within 8 seconds\n* the payload `[accepted]`\n\nIf any of the above criteria does not match, the notification is handled as not received and will be sent again\nat a later stage. The retry mechanism will increase the delay over time to not flood your system.\n\n### Validate authenticity of notifications\n\nWebhook will make notifications with the `X-SPRD-SIGNATURE` header if a subscription was setup with a secret.\n\nConsumers can protect against counterfeit requests by comparing the provided signature with what they've\ncalculated on their side. The signature is a `SHA256 HMAC` over the request body and is encoded in `Base64`.\n\n# Events\n\nIf you register a subscription, you will get the following events, in case there is a state change.\n\n## Article.added Event\n\nIf a new article is added to a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.added\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Article.updated Event\n\nIf a existing article is updated, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.updated\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n\n## Article.removed Event\n\nIf a article is removed from a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.removed\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Order.cancelled Event\n\nIf your order is cancelled, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.cancelled\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.processed Event\n\nIf your order is completely processed, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.processed\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.needs-action Event\n\nIf an error occurs in your order, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.needs-action\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"errorReason\": \"string\"\n      \"order\": \"...object\"\n    }\n  }\n```\n\n\n## Shipment.sent Event\nIf a part of your order is shipped, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getShipments](#operation/getShipments)\n```\n  {\n    \"eventType\": \"Shipment.sent\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"shipment\": \"...object\"\n    }\n  }\n```\n\n# Simulate Events\nSimulate order events by sending us a POST request. You can use this feature for development to trigger some of the available events,\nwithout modifying the orders.\nIt is available only for our staging environment.\n\n### How do I use simulated Events?\nTo use this feature you need to create an extra account on https://app.spreadconnect-staging.app and get a **Spreadconnect API \nKey** for this account. See step 2 and 3 in the **Authentication** section. \n\nTo send requests to the Spreadconnect API on staging you need use https://rest.spreadconnect-staging.app as the base url. Also \nyou will need to use the Spreadconnect API key from your staging account in the header of your request to authenticate it. \n\n\n### What is staging? \nStaging is a test environment separate from the live environment. \n\nThe data in the staging environment is for testing purposes only. Adding, manipulating or deleting articles and \norders in the staging environment does not have any real world effects. An order that is put into production \nin the staging environment will not actually get produced and shipped.\n\nAlso note that part of the content of the payload you get from simulated events is mocked and does not \nreflect the exact data which would be send if the real events would be triggered automatically. \n"
+    },
+    {
+      "name": "Product Types",
+      "description": "Product types represent our available base products that can be used for customisation. This information can also\nbe found in the User Interface of the Spreadconnect application when creating a product. The main difference is that here \nonly the products which contain the enabled print types are listed.\n\nAmong details as description and price, you will see in the response payload the IDs \nnecessary for the creation payload when building the article variants: \"sizes\", \"appearances\" and \"views\". \n\nThe \"sizes\" and \"appearances\" represent the size and colour attributes of the product\n\nThe \"views\" parameter represents the customizable areas of the product, where you may choose to place a design on.\n"
+    },
+    {
+      "name": "Stocks",
+      "description": "Get the available stock on the variants of the created articles.\n"
+    }
+  ],
+  "paths": {
+    "/authentication": {
+      "get": {
+        "operationId": "authentication info",
+        "summary": "REST API Authentication Info",
+        "description": "This resource could be used, to test your authentication and get some basic information about your authentication.",
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl 'https://api.spreadconnect.app/authentication' \\\n-H 'X-SPOD-ACCESS-TOKEN: {insert your SPOD API Key}'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "merchantId": {
+                      "type": "number",
+                      "description": "merchant identifier"
+                    },
+                    "pointOfSaleId": {
+                      "type": "number",
+                      "description": "point of sale identifier"
+                    },
+                    "pointOfSaleName": {
+                      "type": "string",
+                      "description": "point of sale name"
+                    },
+                    "pointOfSaleType": {
+                      "type": "string",
+                      "description": "point of sale type"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/articles": {
+      "get": {
+        "operationId": "getArticles",
+        "summary": "Get all articles",
+        "description": "This resource could be used, to get all created products for your point of sale.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "*General pagination option*: defines the number of results to show\n",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "define the offset to be queried.",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "Articles"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "description": "items",
+                      "items": {
+                        "$ref": "#/components/schemas/Article"
+                      }
+                    },
+                    "count": {
+                      "type": "integer",
+                      "default": 5
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "default": 100
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createArticle",
+        "summary": "Create a single article",
+        "description": "This resource could be used to create an article for your point of sale. \n\nIn order to get the available products that we offer, see the 'Product Types' section. There you can also find the\nnecessary ids required to build the payload.\n\nIn the variants array, you can enable the sizes and colours of your product.\n\nIn the configuration array, you can place designs via url. The image must be in PNG format and under 10 MB.\nAt this moment, the designs will be scaled as big as possible, keeping in mind the resolution of the chosen design \nand the limits of the print area.\n\nAdditionally, you can use a designId returned when uploading a design via Designs endpoint.\n\nAn image object must contain at least a url or a designId. If both are present, designId will be used.\n\nThe external id fields can be used for identifying articles and variants. They are optional, but if they are present\nthey are validated as being not duplicates, in the article context\n",
+        "tags": [
+          "Articles"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticleCreation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "description": "The unique identifier of the created article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{articleId}": {
+      "get": {
+        "operationId": "getArticle",
+        "summary": "Get a single article",
+        "description": "get a specific article with all details",
+        "tags": [
+          "Articles"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "description": "article id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Article not found"
+          },
+          "422": {
+            "description": "There is a problem with this article. Check the article in your Spreadconnect account for more information."
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteArticle",
+        "summary": "Delete a single article",
+        "description": "This resource could be used, to delete a product from the point of sale.",
+        "tags": [
+          "Articles"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "description": "articleId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "operationId": "createOrder",
+        "summary": "Create an order",
+        "description": "Place a new order in the API. You can choose the simple way and set the shipping type and the confirmed state in one request. Or you can create the order first and set the shipping type and the confirmed state later. It is also possible to mix both ways and set the shipping type direct and confirm later.\nYou can order existing articles, or one-time items, which are created just for the respective order, and deleted afterwards. You need to add at least one orderItem or oneTimeItem.",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrder"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Order payload invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}": {
+      "put": {
+        "operationId": "updateOrder",
+        "summary": "Update order",
+        "description": "update order",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrder"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "422": {
+            "description": "Order payload invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getOrder",
+        "summary": "Get a single order",
+        "description": "get a specific order with all details",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrder"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/shippingTypes": {
+      "get": {
+        "operationId": "getShippingTypes",
+        "summary": "Get available shipping types",
+        "description": "get a list with all possible shipping types for this order",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AvailableShippingType"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/shippingType": {
+      "post": {
+        "operationId": "setShippingType",
+        "summary": "Set shipping type",
+        "description": "Set a specific shipping type",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "29"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Order or Shipping Type not found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/confirm": {
+      "post": {
+        "operationId": "confirmOrder",
+        "summary": "Confirm order",
+        "description": "Try to confirm an order. To do it, it's necessary to set a shipping type before.",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Order couldn't be confirmed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/cancel": {
+      "post": {
+        "operationId": "cancelOrder",
+        "summary": "Cancel order",
+        "description": "Try to cancel an order. It is not possible to cancel orders that have already been sent or are already in production internally.",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Order could not be cancelled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/shipments": {
+      "get": {
+        "operationId": "getShipments",
+        "summary": "Get shipments",
+        "description": "get a list with all shipments for this order",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "description": "spreadconnect order id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Shipment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/subscriptions": {
+      "post": {
+        "operationId": "createSubscription",
+        "summary": "Create a new subscription",
+        "description": "add a new subscription",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subscription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getSubscriptions",
+        "summary": "Get all subscriptions",
+        "description": "get all subscriptions",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}": {
+      "delete": {
+        "operationId": "deleteSubscription",
+        "summary": "Delete a subscription",
+        "description": "delete a subscription",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscriptionId",
+            "description": "subscription id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/simulate/order-cancelled": {
+      "servers": [
+        {
+          "url": "https://api.spreadconnect-staging.app"
+        }
+      ],
+      "post": {
+        "operationId": "simulateOrderCancelledEvent",
+        "summary": "Simulate Order Cancelled Event",
+        "description": "Simulates an order cancelled event",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": false
+        }
+      }
+    },
+    "/orders/{orderId}/simulate/order-processed": {
+      "servers": [
+        {
+          "url": "https://api.spreadconnect-staging.app"
+        }
+      ],
+      "post": {
+        "operationId": "simulateOrderProcessedEvent",
+        "summary": "Simulate Order Processed Event",
+        "description": "Simulates an order processed event",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": false
+        }
+      }
+    },
+    "/orders/{orderId}/simulate/shipment-sent": {
+      "servers": [
+        {
+          "url": "https://api.spreadconnect-staging.app"
+        }
+      ],
+      "post": {
+        "operationId": "simulateShipmentSentEvent",
+        "summary": "Simulate Shipment Sent Event",
+        "description": "Simulates a shipment sent event",
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": false
+        }
+      }
+    },
+    "/productTypes": {
+      "get": {
+        "operationId": "getProductTypes",
+        "summary": "Get available product types",
+        "description": "get available product types",
+        "tags": [
+          "Product Types"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductTypes"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productTypes/categories": {
+      "get": {
+        "operationId": "getProductTypeCategories",
+        "summary": "Get the category tree",
+        "description": "Get the whole category tree",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}": {
+      "get": {
+        "operationId": "getProductType",
+        "summary": "Get a single product type",
+        "description": "get a specific product type with all details",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}/size-chart": {
+      "get": {
+        "operationId": "getProductTypeSizeChart",
+        "summary": "Get the size chart for a product type",
+        "description": "Get the size chart for a product type. It consists of an image of a simplified model of the product, with names of measurements (\"A\", \"B\", etc), and the values of the measurements, in both inches and mm, for each of products sizes.",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SizeChart"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}/views": {
+      "get": {
+        "operationId": "getProductTypeViews",
+        "summary": "Get the views for a product type",
+        "description": "Get the views, which contain hotspots and images, for a given product type.\n\nHotspots are certain default positions which we recommend for placing a design. \n\nNote: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the\n\"Get available hotspots for a product type and design\" endpoint.\n",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Views"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}/hotspots/design/{designId}": {
+      "get": {
+        "operationId": "getProductTypeViews",
+        "summary": "Get available hotspots for a product type and design",
+        "description": "Using this resource you can check which hotspots a certain design, uploaded beforehand using the Design Upload endpoint, is printable on.",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "desginId",
+            "description": "designId id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hotspots": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "LEFT_CHEST"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}/categories": {
+      "get": {
+        "operationId": "getProductTypeCategories",
+        "summary": "Get the categories assigned to a product type",
+        "description": "Get the categories assigned to a product type",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/productTypes/{productTypeId}/previews": {
+      "post": {
+        "operationId": "getProductTypePreviews",
+        "summary": "Get the previews for a product with hotspot configuration",
+        "description": "Get the preview images for a product type, given a list of configurations (pair of hotspots and designId). You need to upload an image using the Designs endpoint. At the moment this resource can give previews only for configurations using hotspots.\nWhile this resource is using POST, calling it does not affect the state of the server in any way.",
+        "tags": [
+          "Product Types"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "product type id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "configurations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "designId": {
+                          "type": "string"
+                        },
+                        "hotspot": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "appearanceId": {
+                    "type": "string"
+                  },
+                  "width": {
+                    "type": "number",
+                    "description": "optional width of the image. Default is 1000. Please use a multiple of 50, otherwise the default value would be used instead"
+                  },
+                  "height": {
+                    "type": "number",
+                    "description": "optional width of the image. Default is 1000. Please use a multiple of 50, otherwise the default value would be used instead"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preview"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product type not found"
+          }
+        }
+      }
+    },
+    "/stock": {
+      "get": {
+        "operationId": "getStocks",
+        "summary": "Get available stocks for all variants",
+        "description": "Get available stocks for all variants from the point of sale\n\nThe result is a map of variant's SKUs associated with their stock amount.\n",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "*General pagination option*: defines the number of results to show\n",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "define the offset to be queried.",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "Stocks"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "object",
+                      "description": "stock amount",
+                      "additionalProperties": {
+                        "type": "integer",
+                        "description": "stock amount"
+                      },
+                      "example": {
+                        "1059582691-P815A92S89": 256
+                      }
+                    },
+                    "count": {
+                      "type": "integer",
+                      "default": 5
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "default": 100
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stock/{sku}": {
+      "get": {
+        "operationId": "getStock",
+        "summary": "Get available stock for a certain variant",
+        "description": "Get available stocks for a certain variant, by its SKU",
+        "tags": [
+          "Stocks"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sku",
+            "description": "SKU of the variant",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Variant with given SKU not found"
+          }
+        }
+      }
+    },
+    "/stock/productType/{productTypeId}": {
+      "get": {
+        "operationId": "getStock",
+        "summary": "Get available stock for a certain product type",
+        "description": "Get available stocks for a certain product type with all the variants",
+        "tags": [
+          "Stocks"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productTypeId",
+            "description": "Product Type ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "variants": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "appearanceId": {
+                            "type": "string",
+                            "description": "appearance of the variant"
+                          },
+                          "sizeId": {
+                            "type": "string",
+                            "description": "size of the variant"
+                          },
+                          "stock": {
+                            "type": "integer",
+                            "description": "stock of the variant"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product Type not found"
+          }
+        }
+      }
+    },
+    "/designs/upload": {
+      "post": {
+        "operationId": "uploadDesign",
+        "summary": "Upload a new design",
+        "description": "Upload a new design",
+        "tags": [
+          "Designs"
+        ],
+        "security": [
+          {
+            "access_token": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/DesignUpload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "designId": {
+                      "type": "string",
+                      "description": "reusable design id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  }
+}

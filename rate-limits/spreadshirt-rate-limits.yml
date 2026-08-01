@@ -1,0 +1,15 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.spreadconnect.app/docs/
+api: SpreadConnect (SPOD) Fulfillment API
+rate_limits:
+- scope: per-integration
+  limit_count: 60
+  window: 1m
+  algorithm: token-bucket
+  headers:
+  - name: X-RateLimit-Remaining
+    meaning: remaining calls in the current window
+  - name: X-RateLimit-Retry-After-Seconds
+    meaning: seconds to wait after a throttled (429) response
+  note: 60 calls per minute per integration; throttling returns HTTP 429.

@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for SpreadConnect (SPOD) Fulfillment API
+  version: 1.0.0
+extends: openapi/spreadshirt-spreadconnect-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-api-evangelist-rating-family: print-on-demand
+    x-auth-model: apiKey-header (X-SPOD-ACCESS-TOKEN)
+    x-rate-limit: 60/min per integration (token-bucket)
+    x-webhooks: subscriptions + X-SPRD-SIGNATURE (SHA256 HMAC)
+- target: $.servers
+  update:
+  - url: https://api.spreadconnect.app
+    description: Production
+  - url: https://rest.spreadconnect-staging.app
+    description: Staging / integration testing

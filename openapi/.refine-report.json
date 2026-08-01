@@ -1,0 +1,26 @@
+{
+  "provider": "spreadshirt",
+  "sources": [
+    "spreadshirt-articles-api-openapi.yml",
+    "spreadshirt-authentication-api-openapi.yml",
+    "spreadshirt-designs-api-openapi.yml",
+    "spreadshirt-orders-api-openapi.yml",
+    "spreadshirt-product-types-api-openapi.yml",
+    "spreadshirt-stocks-api-openapi.yml",
+    "spreadshirt-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "spreadshirt-articles-api-openapi.yml",
+    "spreadshirt-authentication-api-openapi.yml",
+    "spreadshirt-designs-api-openapi.yml",
+    "spreadshirt-orders-api-openapi.yml",
+    "spreadshirt-product-types-api-openapi.yml",
+    "spreadshirt-stocks-api-openapi.yml",
+    "spreadshirt-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

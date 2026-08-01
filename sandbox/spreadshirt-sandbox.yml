@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.spreadconnect.app/docs/
+api: SpreadConnect (SPOD) Fulfillment API
+environments:
+- name: production
+  base_url: https://api.spreadconnect.app
+- name: staging
+  base_url: https://rest.spreadconnect-staging.app
+  note: Separate staging host for integration testing before going live.
+event_simulation:
+  note: On staging, webhook/order events can be triggered on demand to exercise a subscription
+    without real fulfillment.
+  endpoints:
+  - operation: simulateOrderCancelledEvent
+    method: POST
+    path: /orders/{orderId}/simulate/order-cancelled
+    fires_event: Order.cancelled
+  - operation: simulateOrderProcessedEvent
+    method: POST
+    path: /orders/{orderId}/simulate/order-processed
+    fires_event: Order.processed
+  - operation: simulateShipmentSentEvent
+    method: POST
+    path: /orders/{orderId}/simulate/shipment-sent
+    fires_event: Shipment.sent
+test_values:
+  note: No published magic/test card or identifier values; SPOD testing is done against the
+    staging host with the simulate endpoints above. Never invent test values.
