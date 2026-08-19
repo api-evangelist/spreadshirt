@@ -1,0 +1,589 @@
+{
+  "item": [
+    {
+      "id": "5c0a3deb-307f-455a-9b66-85f34565cb2d",
+      "name": "Subscriptions",
+      "description": {
+        "content": "\nThis api offers you webhook subscriptions that will notify you about changes with your order via a POST request.\n\n### Acknowledge notifications\n\nNotifications are following the at *least once principal* and therefore are guaranteed to be\ndelivered at least once. Part of this principal is also that notifications needs to be acknowledged with\n\n* a status code of 202\n* a response within 8 seconds\n* the payload `[accepted]`\n\nIf any of the above criteria does not match, the notification is handled as not received and will be sent again\nat a later stage. The retry mechanism will increase the delay over time to not flood your system.\n\n### Validate authenticity of notifications\n\nWebhook will make notifications with the `X-SPRD-SIGNATURE` header if a subscription was setup with a secret.\n\nConsumers can protect against counterfeit requests by comparing the provided signature with what they've\ncalculated on their side. The signature is a `SHA256 HMAC` over the request body and is encoded in `Base64`.\n\n# Events\n\nIf you register a subscription, you will get the following events, in case there is a state change.\n\n## Article.added Event\n\nIf a new article is added to a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.added\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Article.updated Event\n\nIf a existing article is updated, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.updated\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n\n## Article.removed Event\n\nIf a article is removed from a point of sale, you will get the following notification.\nIf you want to check how the article object looks like go to the link: [getArticle](#operation/getArticle)\n\n```\n  {\n    \"eventType\": \"Article.removed\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"article\": \"...object\"\n    }\n  }\n```\n\n## Order.cancelled Event\n\nIf your order is cancelled, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.cancelled\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.processed Event\n\nIf your order is completely processed, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.processed\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"order\": \"...object\"\n    }\n  }\n```\n\n## Order.needs-action Event\n\nIf an error occurs in your order, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getOrder](#operation/getOrder)\n\n```\n  {\n    \"eventType\": \"Order.needs-action\"\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"errorReason\": \"string\"\n      \"order\": \"...object\"\n    }\n  }\n```\n\n\n## Shipment.sent Event\nIf a part of your order is shipped, you will get the following notification.\nIf you want to check how the order object looks like go to the link: [getShipments](#operation/getShipments)\n```\n  {\n    \"eventType\": \"Shipment.sent\",\n    \"data\": {\n      \"pointOfSaleId\": \"123\",\n      \"shipment\": \"...object\"\n    }\n  }\n```\n\n# Simulate Events\nSimulate order events by sending us a POST request. You can use this feature for development to trigger some of the available events,\nwithout modifying the orders.\nIt is available only for our staging environment.\n\n### How do I use simulated Events?\nTo use this feature you need to create an extra account on https://app.spreadconnect-staging.app and get a **Spreadconnect API \nKey** for this account. See step 2 and 3 in the **Authentication** section. \n\nTo send requests to the Spreadconnect API on staging you need use https://rest.spreadconnect-staging.app as the base url. Also \nyou will need to use the Spreadconnect API key from your staging account in the header of your request to authenticate it. \n\n\n### What is staging? \nStaging is a test environment separate from the live environment. \n\nThe data in the staging environment is for testing purposes only. Adding, manipulating or deleting articles and \norders in the staging environment does not have any real world effects. An order that is put into production \nin the staging environment will not actually get produced and shipped.\n\nAlso note that part of the content of the payload you get from simulated events is mocked and does not \nreflect the exact data which would be send if the real events would be triggered automatically. \n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "39fd2e3c-556a-4d8f-8ce5-c23c7bb40864",
+          "name": "Create a new subscription",
+          "request": {
+            "name": "Create a new subscription",
+            "description": {
+              "content": "add a new subscription",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventType\": \"<string>\",\n  \"url\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4ad6c38-7c9d-457f-83bb-379c5a4cdf58",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"<string>\",\n  \"url\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e69fff0-8d13-4fe4-b0ae-388242387dd2",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"<string>\",\n  \"url\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "815e3d7d-cbb7-48e9-b02d-256cfb467b5b",
+          "name": "Get all subscriptions",
+          "request": {
+            "name": "Get all subscriptions",
+            "description": {
+              "content": "get all subscriptions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "347bb0a2-1513-4511-9a81-a5b6a4832c67",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"eventType\": \"<string>\",\n    \"id\": \"ea70e410-3e23-92d7-9d60-ee42c5abe03c\",\n    \"url\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  {\n    \"eventType\": \"<string>\",\n    \"id\": \"1795f3da-6ce6-ebff-fff3-08ce3229d730\",\n    \"url\": \"<string>\",\n    \"secret\": \"<string>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4a92fb6-9265-411c-ae12-e5249106b663",
+          "name": "Delete a subscription",
+          "request": {
+            "name": "Delete a subscription",
+            "description": {
+              "content": "delete a subscription",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) subscription id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5fcd18a8-a9da-4e29-a13a-fb09696e0d9b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a8319a2-4b01-40da-89b2-916c836c6724",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "573d816b-235f-478f-8afa-3c71de955397",
+          "name": "Simulate Order Cancelled Event",
+          "request": {
+            "name": "Simulate Order Cancelled Event",
+            "description": {
+              "content": "Simulates an order cancelled event",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "simulate",
+                "order-cancelled"
+              ],
+              "host": [
+                "{{orders-orderId-simulate-order-cancelled-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {}
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b49d99b7-d780-4d07-8e6d-43d7eee56810",
+          "name": "Simulate Order Processed Event",
+          "request": {
+            "name": "Simulate Order Processed Event",
+            "description": {
+              "content": "Simulates an order processed event",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "simulate",
+                "order-processed"
+              ],
+              "host": [
+                "{{orders-orderId-simulate-order-processed-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {}
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4be8aecf-3059-4a00-89e7-163b2ab275b8",
+          "name": "Simulate Shipment Sent Event",
+          "request": {
+            "name": "Simulate Shipment Sent Event",
+            "description": {
+              "content": "Simulates a shipment sent event",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "simulate",
+                "shipment-sent"
+              ],
+              "host": [
+                "{{orders-orderId-simulate-shipment-sent-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {}
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect-staging.app",
+      "key": "orders-orderId-simulate-order-cancelled-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect-staging.app",
+      "key": "orders-orderId-simulate-order-processed-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect-staging.app",
+      "key": "orders-orderId-simulate-shipment-sent-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "2bbbdf1f-2f1d-4263-b12e-653a71fcbb5f",
+    "name": "Spreadconnect fulfillment service REST Articles Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

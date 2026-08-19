@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Articles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all articles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/articles",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "*General pagination option*: defines the number of results to show\n"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "define the offset to be queried."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This resource could be used, to get all created products for your point of sale."
+        },
+        {
+          "info": {
+            "name": "Create a single article",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/articles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This resource could be used to create an article for your point of sale. \n\nIn order to get the available products that we offer, see the 'Product Types' section. There you can also find the\nnecessary ids required to build the payload.\n\nIn the variants array, you can enable the sizes and colours of your product.\n\nIn the configuration array, you can place designs via url. The image must be in PNG format and under 10 MB.\nAt this moment, the designs will be scaled as big as possible, keeping in mind"
+        },
+        {
+          "info": {
+            "name": "Get a single article",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/articles/:articleId",
+            "params": [
+              {
+                "name": "articleId",
+                "value": "",
+                "type": "path",
+                "description": "article id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get a specific article with all details"
+        },
+        {
+          "info": {
+            "name": "Delete a single article",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.spreadconnect.app/articles/:articleId",
+            "params": [
+              {
+                "name": "articleId",
+                "value": "",
+                "type": "path",
+                "description": "articleId"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This resource could be used, to delete a product from the point of sale."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

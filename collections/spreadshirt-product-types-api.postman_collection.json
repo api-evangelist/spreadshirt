@@ -1,0 +1,1269 @@
+{
+  "item": [
+    {
+      "id": "d661c721-32bb-4fb5-80c6-1546af7669f0",
+      "name": "Product Types",
+      "description": {
+        "content": "Product types represent our available base products that can be used for customisation. This information can also\nbe found in the User Interface of the Spreadconnect application when creating a product. The main difference is that here \nonly the products which contain the enabled print types are listed.\n\nAmong details as description and price, you will see in the response payload the IDs \nnecessary for the creation payload when building the article variants: \"sizes\", \"appearances\" and \"views\". \n\nThe \"sizes\" and \"appearances\" represent the size and colour attributes of the product\n\nThe \"views\" parameter represents the customizable areas of the product, where you may choose to place a design on.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "371a4210-8425-4c90-a0f0-0eb8ba8d3534",
+          "name": "Get available product types",
+          "request": {
+            "name": "Get available product types",
+            "description": {
+              "content": "get available product types",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "915fe11e-cc27-4966-8944-bf3c52a6613b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"customerName\": \"string\",\n    \"customerDescription\": \"string\",\n    \"merchantName\": \"string\",\n    \"merchantDescription\": \"string\",\n    \"sizes\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"brand\": {},\n    \"appearances\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"views\": [\n      \"HOOD_LEFT\",\n      \"BACK\"\n    ],\n    \"printAreas\": [\n      {\n        \"view\": \"BACK\",\n        \"widthMm\": 9743.442416323249,\n        \"heightMm\": 3539.721327467896,\n        \"widthInch\": 7288.364642860602,\n        \"heightInch\": 5912.952392352634\n      },\n      {\n        \"view\": \"BACK\",\n        \"widthMm\": 2941.0673653640397,\n        \"heightMm\": 3573.5078851378644,\n        \"widthInch\": 8763.019725198516,\n        \"heightInch\": 7444.6845466058585\n      }\n    ],\n    \"price\": 6995.4501286914265,\n    \"currency\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"customerName\": \"string\",\n    \"customerDescription\": \"string\",\n    \"merchantName\": \"string\",\n    \"merchantDescription\": \"string\",\n    \"sizes\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"brand\": {},\n    \"appearances\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"views\": [\n      \"HOOD_LEFT\",\n      \"BACK\"\n    ],\n    \"printAreas\": [\n      {\n        \"view\": \"LEFT\",\n        \"widthMm\": 6598.0546811611675,\n        \"heightMm\": 7503.724447701621,\n        \"widthInch\": 7486.858349260334,\n        \"heightInch\": 6689.951478923343\n      },\n      {\n        \"view\": \"HOOD_LEFT\",\n        \"widthMm\": 8855.438661349142,\n        \"heightMm\": 54.477357703692775,\n        \"widthInch\": 943.8889775325355,\n        \"heightInch\": 4941.771263452538\n      }\n    ],\n    \"price\": 3594.9120456210426,\n    \"currency\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad6278ea-7288-41c9-8e04-ece0e0eafc77",
+          "name": "Get the category tree",
+          "request": {
+            "name": "Get the category tree",
+            "description": {
+              "content": "Get the whole category tree",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e82eaf91-e013-4828-a312-4f66e3b5efba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categories\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"features\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"brands\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"genders\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f785ef9-da8a-4211-8c07-13e25034e018",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b27fea4-e30e-49ca-bfdc-8d0f2c040007",
+          "name": "Get a single product type",
+          "request": {
+            "name": "Get a single product type",
+            "description": {
+              "content": "get a specific product type with all details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d909ca2-56c4-4a8a-b56d-9148c0271951",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customerName\": \"string\",\n  \"customerDescription\": \"string\",\n  \"merchantName\": \"string\",\n  \"merchantDescription\": \"string\",\n  \"sizes\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"brand\": {},\n  \"appearances\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"views\": [\n    \"RIGHT\",\n    \"HOOD_RIGHT\"\n  ],\n  \"printAreas\": [\n    {\n      \"view\": \"HOOD_RIGHT\",\n      \"widthMm\": 6227.702921062262,\n      \"heightMm\": 1815.207740085132,\n      \"widthInch\": 494.7399414035425,\n      \"heightInch\": 2728.9309341584444\n    },\n    {\n      \"view\": \"BACK\",\n      \"widthMm\": 2031.1254440704863,\n      \"heightMm\": 8486.16965717236,\n      \"widthInch\": 544.2855320966966,\n      \"heightInch\": 4226.085654109861\n    }\n  ],\n  \"price\": 6372.160494610825,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2a8c10a-0847-46d0-aff7-8b223ea038ba",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc6850cb-2d95-43a3-8e93-dbb1d3ec3d4b",
+          "name": "Get the size chart for a product type",
+          "request": {
+            "name": "Get the size chart for a product type",
+            "description": {
+              "content": "Get the size chart for a product type. It consists of an image of a simplified model of the product, with names of measurements (\"A\", \"B\", etc), and the values of the measurements, in both inches and mm, for each of products sizes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId",
+                "size-chart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ccfd707-4e1a-4c01-9d88-5a8dbceff3fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "size-chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sizeImageUrl\": \"string\",\n  \"sizes\": [\n    {\n      \"sizeId\": \"string\",\n      \"name\": \"string\",\n      \"measurements\": [\n        {\n          \"name\": \"string\",\n          \"valueMm\": 3174.4246453700644,\n          \"valueInch\": 7206.162261451417\n        },\n        {\n          \"name\": \"string\",\n          \"valueMm\": 757.1851712468558,\n          \"valueInch\": 8081.861980576998\n        }\n      ]\n    },\n    {\n      \"sizeId\": \"string\",\n      \"name\": \"string\",\n      \"measurements\": [\n        {\n          \"name\": \"string\",\n          \"valueMm\": 4354.006405214504,\n          \"valueInch\": 200.4891977767831\n        },\n        {\n          \"name\": \"string\",\n          \"valueMm\": 8560.188228950123,\n          \"valueInch\": 3429.317034107917\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec8cc5fb-0265-44c6-aa47-e207b1234637",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "size-chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e164f889-fd97-426b-80a4-cdf7237eec52",
+          "name": "Get the views for a product type",
+          "request": {
+            "name": "Get the views for a product type",
+            "description": {
+              "content": "Get the views, which contain hotspots and images, for a given product type.\n\nHotspots are certain default positions which we recommend for placing a design. \n\nNote: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the\n\"Get available hotspots for a product type and design\" endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId",
+                "views"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f2ff423a-aa4b-44df-a917-829724e35006",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"views\": [\n    {\n      \"name\": \"FRONT\",\n      \"id\": \"string\",\n      \"hotspots\": [\n        {\n          \"name\": \"LEFT_CHEST\"\n        },\n        {\n          \"name\": \"LEFT_CHEST\"\n        }\n      ],\n      \"images\": [\n        {\n          \"appearanceId\": \"string\",\n          \"image\": \"string\"\n        },\n        {\n          \"appearanceId\": \"string\",\n          \"image\": \"string\"\n        }\n      ]\n    },\n    {\n      \"name\": \"FRONT\",\n      \"id\": \"string\",\n      \"hotspots\": [\n        {\n          \"name\": \"LEFT_CHEST\"\n        },\n        {\n          \"name\": \"LEFT_CHEST\"\n        }\n      ],\n      \"images\": [\n        {\n          \"appearanceId\": \"string\",\n          \"image\": \"string\"\n        },\n        {\n          \"appearanceId\": \"string\",\n          \"image\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c9d621-3533-4173-af6f-3abc28abd937",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b49f3b3-9372-405e-b0b6-544472291c87",
+          "name": "Get available hotspots for a product type and design",
+          "request": {
+            "name": "Get available hotspots for a product type and design",
+            "description": {
+              "content": "Using this resource you can check which hotspots a certain design, uploaded beforehand using the Design Upload endpoint, is printable on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId",
+                "hotspots",
+                "design",
+                ":designId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "desginId",
+                  "description": "(Required) designId id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b17e34c0-cab6-4f49-a61a-855f56be142b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "hotspots",
+                    "design",
+                    ":designId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "desginId",
+                      "description": "(Required) designId id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hotspots\": [\n    {\n      \"name\": \"LEFT_CHEST\"\n    },\n    {\n      \"name\": \"LEFT_CHEST\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd054bce-2424-4e57-924f-9561e0921e83",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "hotspots",
+                    "design",
+                    ":designId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "desginId",
+                      "description": "(Required) designId id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c80d4f05-1267-4b45-86ba-7baff2760f57",
+          "name": "Get the categories assigned to a product type",
+          "request": {
+            "name": "Get the categories assigned to a product type",
+            "description": {
+              "content": "Get the categories assigned to a product type",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81d8c8c0-a983-4789-b04b-b80277a07a4a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categories\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"features\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"brands\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ],\n  \"genders\": [\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"translation\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09ed1670-7b8e-42d6-a4de-832bcb669a43",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ae69ee4-ccc7-4033-baea-d31389785740",
+          "name": "Get the previews for a product with hotspot configuration",
+          "request": {
+            "name": "Get the previews for a product with hotspot configuration",
+            "description": {
+              "content": "Get the preview images for a product type, given a list of configurations (pair of hotspots and designId). You need to upload an image using the Designs endpoint. At the moment this resource can give previews only for configurations using hotspots.\nWhile this resource is using POST, calling it does not affect the state of the server in any way.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productTypes",
+                ":productTypeId",
+                "previews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) product type id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configurations\": [\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    },\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    }\n  ],\n  \"appearanceId\": \"<string>\",\n  \"width\": \"<number>\",\n  \"height\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f0c8da4-fa85-440c-9516-913aa876ccf1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configurations\": [\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    },\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    }\n  ],\n  \"appearanceId\": \"<string>\",\n  \"width\": \"<number>\",\n  \"height\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": [\n    {\n      \"url\": {},\n      \"viewId\": {},\n      \"viewName\": {}\n    },\n    {\n      \"url\": {},\n      \"viewId\": {},\n      \"viewName\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bddc00c5-7ae0-49ca-89f1-8f06f3dd0288",
+              "name": "Product type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productTypes",
+                    ":productTypeId",
+                    "previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) product type id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configurations\": [\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    },\n    {\n      \"designId\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    }\n  ],\n  \"appearanceId\": \"<string>\",\n  \"width\": \"<number>\",\n  \"height\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e58d7973-bb23-4a26-81e9-87376ca7e352",
+    "name": "Spreadconnect fulfillment service REST Articles Product Types API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

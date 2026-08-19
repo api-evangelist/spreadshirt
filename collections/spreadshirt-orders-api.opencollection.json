@@ -1,0 +1,222 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles Orders API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Place a new order in the API. You can choose the simple way and set the shipping type and the confirmed state in one request. Or you can create the order first and set the shipping type and the confirmed state later. It is also possible to mix both ways and set the shipping type direct and confirm later.\nYou can order existing articles, or one-time items, which are created just for the respective order, and deleted afterwards. You need to add at least one orderItem or oneTimeItem."
+        },
+        {
+          "info": {
+            "name": "Get a single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get a specific order with all details"
+        },
+        {
+          "info": {
+            "name": "Update order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.spreadconnect.app/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "update order"
+        },
+        {
+          "info": {
+            "name": "Get available shipping types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/orders/:orderId/shippingTypes",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get a list with all possible shipping types for this order"
+        },
+        {
+          "info": {
+            "name": "Set shipping type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/shippingType",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set a specific shipping type"
+        },
+        {
+          "info": {
+            "name": "Confirm order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/confirm",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Try to confirm an order. To do it, it's necessary to set a shipping type before."
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/cancel",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Try to cancel an order. It is not possible to cancel orders that have already been sent or are already in production internally."
+        },
+        {
+          "info": {
+            "name": "Get shipments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/orders/:orderId/shipments",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "spreadconnect order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get a list with all shipments for this order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

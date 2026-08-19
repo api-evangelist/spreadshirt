@@ -1,0 +1,471 @@
+{
+  "item": [
+    {
+      "id": "a6285687-d886-4c53-9ee5-580ce4836984",
+      "name": "Stocks",
+      "description": {
+        "content": "Get the available stock on the variants of the created articles.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a8f8aed-c753-4dd8-bed2-1f2609ee03da",
+          "name": "Get available stocks for all variants",
+          "request": {
+            "name": "Get available stocks for all variants",
+            "description": {
+              "content": "Get available stocks for all variants from the point of sale\n\nThe result is a map of variant's SKUs associated with their stock amount.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stock"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "*General pagination option*: defines the number of results to show\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "define the offset to be queried."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "43f900f1-f828-439a-9a38-88e2e6b8d35e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": {\n    \"1059582691-P815A92S89\": 256\n  },\n  \"count\": 5,\n  \"limit\": 100,\n  \"offset\": 696\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c62b7c2b-3245-4ce6-acec-6cf7f73b0be0",
+          "name": "Get available stock for a certain variant",
+          "request": {
+            "name": "Get available stock for a certain variant",
+            "description": {
+              "content": "Get available stocks for a certain variant, by its SKU",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stock",
+                ":sku"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sku",
+                  "description": "(Required) SKU of the variant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ba85f4e-99a4-4198-ac03-c10c1720e583",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    ":sku"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sku",
+                      "description": "(Required) SKU of the variant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "8372",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d82c70-e6fd-419b-975c-1b0d7a3a00ab",
+              "name": "Variant with given SKU not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    ":sku"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sku",
+                      "description": "(Required) SKU of the variant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c84db7f7-3605-498c-9b19-0ae2b057c638",
+          "name": "Get available stock for a certain product type",
+          "request": {
+            "name": "Get available stock for a certain product type",
+            "description": {
+              "content": "Get available stocks for a certain product type with all the variants",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stock",
+                "productType",
+                ":productTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productTypeId",
+                  "description": "(Required) Product Type ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "78b4a1b2-8f6e-4428-a772-078e14fb5a64",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "productType",
+                    ":productTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) Product Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"variants\": [\n    {\n      \"appearanceId\": \"string\",\n      \"sizeId\": \"string\",\n      \"stock\": 6159\n    },\n    {\n      \"appearanceId\": \"string\",\n      \"sizeId\": \"string\",\n      \"stock\": 8518\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54e54d3f-3b03-4f01-83f8-db3ec589e904",
+              "name": "Product Type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "productType",
+                    ":productTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productTypeId",
+                      "description": "(Required) Product Type ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dc96fdcd-2d49-47d1-9b0c-3585801d0301",
+    "name": "Spreadconnect fulfillment service REST Articles Stocks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

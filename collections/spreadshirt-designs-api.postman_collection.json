@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "67ea96fe-6d8c-4a9f-b6d5-612815b3efdc",
+      "name": "Designs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1b5b4978-94b1-4991-b265-fffa8bba29d2",
+          "name": "Upload a new design",
+          "request": {
+            "name": "Upload a new design",
+            "description": {
+              "content": "Upload a new design",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "designs",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<bytes>",
+                  "type": "text",
+                  "description": "the image you wish to upload"
+                },
+                {
+                  "key": "url",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "we download the image for you"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dac5e7c3-d58b-492f-86b4-51ba55d43711",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "designs",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "the image you wish to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<bytes>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "we download the image for you",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"designId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17010e01-146a-44ff-92c3-79499a048482",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "designs",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "the image you wish to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<bytes>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "we download the image for you",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed51a7e6-38f7-497b-9b03-ba26aaa58820",
+    "name": "Spreadconnect fulfillment service REST Articles Designs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

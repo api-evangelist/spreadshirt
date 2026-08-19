@@ -1,0 +1,1541 @@
+{
+  "item": [
+    {
+      "id": "385b0b09-6422-4ff9-9c81-da003f6960b4",
+      "name": "Orders",
+      "description": {
+        "content": "There are different ways to place an order in Spreadconnect REST API.\nYou can choose a simple way, where you have to send just one request or you can use a more complex way,\nwith more control over the workflow.\n\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" contentScriptType=\"application/ecmascript\" contentStyleType=\"text/css\" height=\"390px\" preserveAspectRatio=\"none\" style=\"width:721px;height:390px;\" version=\"1.1\" viewBox=\"0 0 721 390\" width=\"721px\" zoomAndPan=\"magnify\"><defs><filter height=\"300%\" id=\"f1cyim1xny9nhv\" width=\"300%\" x=\"-1\" y=\"-1\"><feGaussianBlur result=\"blurOut\" stdDeviation=\"2.0\"/><feColorMatrix in=\"blurOut\" result=\"blurOut2\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0\"/><feOffset dx=\"4.0\" dy=\"4.0\" in=\"blurOut2\" result=\"blurOut3\"/><feBlend in=\"SourceGraphic\" in2=\"blurOut3\" mode=\"normal\"/></filter></defs><g><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"18\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"242\" x=\"238.5\" y=\"26.708\">Spreadconnect API - order workflow</text><ellipse cx=\"367\" cy=\"40.9531\" fill=\"#000000\" filter=\"url(#f1cyim1xny9nhv)\" rx=\"10\" ry=\"10\" style=\"stroke: none; stroke-width: 1.0;\"/><polygon fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" points=\"342,70.9531,392,70.9531,404,82.9531,392,94.9531,342,94.9531,330,82.9531,342,70.9531\" style=\"stroke: #A80036; stroke-width: 1.5;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"50\" x=\"342\" y=\"86.7612\">Workflow</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"70\" x=\"260\" y=\"80.3589\">more easier</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"11\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"73\" x=\"404\" y=\"80.3589\">more control</text><path d=\"M10,104.9531 L10,145.2188 A0,0 0 0 0 10,145.2188 L212,145.2188 A0,0 0 0 0 212,145.2188 L212,129.0859 L232,125.0859 L212,121.0859 L212,114.9531 L202,104.9531 L10,104.9531 A0,0 0 0 0 10,104.9531 \" fill=\"#FBFB77\" filter=\"url(#f1cyim1xny9nhv)\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><path d=\"M202,104.9531 L202,114.9531 L212,114.9531 L202,104.9531 \" fill=\"#FBFB77\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"177\" x=\"16\" y=\"122.02\">with preferred shipping type</text><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"141\" x=\"16\" y=\"137.1528\">and state CONFIRMED</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"100\" x=\"232\" y=\"108.1016\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"80\" x=\"242\" y=\"129.2402\">Create order</text><path d=\"M522,109.3711 L522,117.9375 L502,121.9375 L522,125.9375 L522,134.5039 A0,0 0 0 0 522,134.5039 L709,134.5039 A0,0 0 0 0 709,134.5039 L709,119.3711 L699,109.3711 L522,109.3711 A0,0 0 0 0 522,109.3711 \" fill=\"#FBFB77\" filter=\"url(#f1cyim1xny9nhv)\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><path d=\"M699,109.3711 L699,119.3711 L709,119.3711 L699,109.3711 \" fill=\"#FBFB77\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"13\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"166\" x=\"528\" y=\"126.438\">only with mandatory fields</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"100\" x=\"402\" y=\"104.9531\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"80\" x=\"412\" y=\"126.0918\">Create order</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"200\" x=\"352\" y=\"165.2188\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"176\" x=\"362\" y=\"186.3574\">Get available shipping types</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"129\" x=\"387.5\" y=\"219.1875\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"109\" x=\"397.5\" y=\"240.3262\">Set shipping type</text><rect fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" height=\"33.9688\" rx=\"12.5\" ry=\"12.5\" style=\"stroke: #A80036; stroke-width: 1.5;\" width=\"105\" x=\"399.5\" y=\"273.1563\"/><text fill=\"#000000\" font-family=\"sans-serif\" font-size=\"12\" lengthAdjust=\"spacingAndGlyphs\" textLength=\"85\" x=\"409.5\" y=\"294.2949\">Confirm order</text><polygon fill=\"#FEFECE\" filter=\"url(#f1cyim1xny9nhv)\" points=\"367,313.125,379,325.125,367,337.125,355,325.125,367,313.125\" style=\"stroke: #A80036; stroke-width: 1.5;\"/><ellipse cx=\"367\" cy=\"368.125\" fill=\"#FFFFFF\" filter=\"url(#f1cyim1xny9nhv)\" rx=\"11\" ry=\"11\" style=\"stroke: #000000; stroke-width: 1.0;\"/><ellipse cx=\"367\" cy=\"368.125\" fill=\"#000000\" rx=\"6\" ry=\"6\" style=\"stroke: #7F7F7F; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"138.9219\" y2=\"165.2188\"/><polygon fill=\"#A80036\" points=\"448,155.2188,452,165.2188,456,155.2188,452,159.2188\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"199.1875\" y2=\"219.1875\"/><polygon fill=\"#A80036\" points=\"448,209.1875,452,219.1875,456,209.1875,452,213.1875\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"253.1563\" y2=\"273.1563\"/><polygon fill=\"#A80036\" points=\"448,263.1563,452,273.1563,456,263.1563,452,267.1563\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"330\" x2=\"282\" y1=\"82.9531\" y2=\"82.9531\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"282\" y1=\"82.9531\" y2=\"108.1016\"/><polygon fill=\"#A80036\" points=\"278,98.1016,282,108.1016,286,98.1016,282,102.1016\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"404\" x2=\"452\" y1=\"82.9531\" y2=\"82.9531\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"82.9531\" y2=\"104.9531\"/><polygon fill=\"#A80036\" points=\"448,94.9531,452,104.9531,456,94.9531,452,98.9531\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"282\" y1=\"142.0703\" y2=\"325.125\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"282\" x2=\"355\" y1=\"325.125\" y2=\"325.125\"/><polygon fill=\"#A80036\" points=\"345,321.125,355,325.125,345,329.125,349,325.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"452\" y1=\"307.125\" y2=\"325.125\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"452\" x2=\"379\" y1=\"325.125\" y2=\"325.125\"/><polygon fill=\"#A80036\" points=\"389,321.125,379,325.125,389,329.125,385,325.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"367\" x2=\"367\" y1=\"50.9531\" y2=\"70.9531\"/><polygon fill=\"#A80036\" points=\"363,60.9531,367,70.9531,371,60.9531,367,64.9531\" style=\"stroke: #A80036; stroke-width: 1.0;\"/><line style=\"stroke: #A80036; stroke-width: 1.5;\" x1=\"367\" x2=\"367\" y1=\"337.125\" y2=\"357.125\"/><polygon fill=\"#A80036\" points=\"363,347.125,367,357.125,371,347.125,367,351.125\" style=\"stroke: #A80036; stroke-width: 1.0;\"/></g></svg>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4380b781-7e54-4fd2-8cdd-0c48d2cb2973",
+          "name": "Create an order",
+          "request": {
+            "name": "Create an order",
+            "description": {
+              "content": "Place a new order in the API. You can choose the simple way and set the shipping type and the confirmed state in one request. Or you can create the order first and set the shipping type and the confirmed state later. It is also possible to mix both ways and set the shipping type direct and confirm later.\nYou can order existing articles, or one-time items, which are created just for the respective order, and deleted afterwards. You need to add at least one orderItem or oneTimeItem.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalOrderReference\": \"<string>\",\n  \"orderItems\": [\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"externalOrderItemReference\": \"<string>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"externalOrderItemReference\": \"<string>\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"company\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"streetAnnex\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"customerPrice\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"company\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"streetAnnex\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        },\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        },\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"company\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"streetAnnex\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"externalOrderName\": \"<string>\",\n  \"state\": \"<string>\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12b1f75a-b763-4d79-aa23-3601194659ff",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123,\n  \"orderReference\": 5550000,\n  \"externalOrderReference\": \"1722995712\",\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"NEW\",\n  \"orderItems\": [\n    {\n      \"orderItemReference\": 55000001,\n      \"externalOrderItemReference\": \"12810092145\",\n      \"state\": \"SENT\",\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      },\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"orderItemReference\": 55000001,\n      \"externalOrderItemReference\": \"12810092145\",\n      \"state\": \"CHECKED\",\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      },\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"type\": {\n      \"id\": \"29\",\n      \"company\": \"DHL\",\n      \"name\": \"International Standard\",\n      \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n    },\n    \"price\": {\n      \"amount\": 21.56,\n      \"taxRate\": 19,\n      \"taxAmount\": 12.45,\n      \"currency\": \"USD\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    }\n  },\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"price\": {\n    \"amount\": 21.56,\n    \"taxRate\": 19,\n    \"taxAmount\": 12.45,\n    \"currency\": \"USD\"\n  },\n  \"taxType\": \"VAT\",\n  \"customerTaxType\": \"VAT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24761cee-3669-4b4a-8f8f-ec7417d123a2",
+              "name": "Order payload invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": 3818.171911554672,\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3edcef99-b37b-4cb6-84d1-cff199259751",
+          "name": "Update order",
+          "request": {
+            "name": "Update order",
+            "description": {
+              "content": "update order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalOrderReference\": \"<string>\",\n  \"orderItems\": [\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"externalOrderItemReference\": \"<string>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"externalOrderItemReference\": \"<string>\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"company\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"streetAnnex\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"customerPrice\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"company\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"streetAnnex\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        },\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        },\n        {\n          \"image\": {\n            \"url\": \"<string>\",\n            \"designId\": \"<string>\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"<string>\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"company\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"streetAnnex\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"externalOrderName\": \"<string>\",\n  \"state\": \"<string>\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59214ab7-721b-4415-af7d-da4817f6e82a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2dffafd-c39c-438d-99fb-25983c804a4f",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f2d90b7-b15b-42d9-ab24-6bf77d8078c3",
+              "name": "Order payload invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalOrderReference\": \"1722995712\",\n  \"orderItems\": [\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    },\n    {\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      },\n      \"externalOrderItemReference\": \"12810092145\"\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"preferredType\": \"<string>\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"oneTimeItems\": [\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"quantityItems\": [\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        },\n        {\n          \"quantity\": \"<number>\",\n          \"sizeId\": \"<number>\",\n          \"appearanceId\": {}\n        }\n      ],\n      \"configurations\": [\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        },\n        {\n          \"image\": {\n            \"url\": \"https://link.to.image\",\n            \"designId\": \"1231\"\n          },\n          \"view\": \"<string>\",\n          \"hotspot\": \"LEFT_CHEST\"\n        }\n      ],\n      \"productTypeId\": \"<number>\",\n      \"externalOrderItemReference\": \"<string>\",\n      \"customerPricePerItem\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"CONFIRMED\",\n  \"customerTaxType\": \"<string>\",\n  \"origin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": 3818.171911554672,\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51680b6f-3d7d-4821-ad90-a503a083e3b1",
+          "name": "Get a single order",
+          "request": {
+            "name": "Get a single order",
+            "description": {
+              "content": "get a specific order with all details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c4fb5f71-7c3f-4835-b38e-90d3d2771d14",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123,\n  \"orderReference\": 5550000,\n  \"externalOrderReference\": \"1722995712\",\n  \"externalOrderName\": \"ORDER-12\",\n  \"state\": \"NEW\",\n  \"orderItems\": [\n    {\n      \"orderItemReference\": 55000001,\n      \"externalOrderItemReference\": \"12810092145\",\n      \"state\": \"CANCELLED\",\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      },\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"orderItemReference\": 55000001,\n      \"externalOrderItemReference\": \"12810092145\",\n      \"state\": \"PRODUCTION_ISSUE\",\n      \"sku\": \"P1026247707A12S5\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      },\n      \"customerPrice\": {\n        \"amount\": 21.56,\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"shipping\": {\n    \"address\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"fromAddress\": {\n      \"lastName\": \"Anderson\",\n      \"street\": \"1572 Roseytown Rd\",\n      \"city\": \"Greensburg\",\n      \"country\": \"US\",\n      \"zipCode\": \"15601\",\n      \"company\": \"Example Ltd.\",\n      \"firstName\": \"Joshua\",\n      \"streetAnnex\": \"2nd Floor\",\n      \"state\": \"AL\"\n    },\n    \"type\": {\n      \"id\": \"29\",\n      \"company\": \"DHL\",\n      \"name\": \"International Standard\",\n      \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n    },\n    \"price\": {\n      \"amount\": 21.56,\n      \"taxRate\": 19,\n      \"taxAmount\": 12.45,\n      \"currency\": \"USD\"\n    },\n    \"customerPrice\": {\n      \"amount\": 21.56,\n      \"currency\": \"USD\"\n    }\n  },\n  \"billingAddress\": {\n    \"lastName\": \"Anderson\",\n    \"street\": \"1572 Roseytown Rd\",\n    \"city\": \"Greensburg\",\n    \"country\": \"US\",\n    \"zipCode\": \"15601\",\n    \"company\": \"Example Ltd.\",\n    \"firstName\": \"Joshua\",\n    \"streetAnnex\": \"2nd Floor\",\n    \"state\": \"AL\"\n  },\n  \"phone\": \"+49 1520 1234567\",\n  \"email\": \"joshua.anders@protonmail.ch\",\n  \"price\": {\n    \"amount\": 21.56,\n    \"taxRate\": 19,\n    \"taxAmount\": 12.45,\n    \"currency\": \"USD\"\n  },\n  \"taxType\": \"SALESTAX\",\n  \"customerTaxType\": \"NOT_TAXABLE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed9a9172-2452-4b38-a864-ee87cc7cf0e3",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31a0731d-323d-475a-bbb1-21cd884f3e45",
+          "name": "Get available shipping types",
+          "request": {
+            "name": "Get available shipping types",
+            "description": {
+              "content": "get a list with all possible shipping types for this order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "shippingTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d823a3a5-40b9-4359-971c-331d2fd8643e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shippingTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"price\": {\n      \"amount\": 21.56,\n      \"taxRate\": 19,\n      \"taxAmount\": 12.45,\n      \"currency\": \"USD\"\n    },\n    \"id\": \"29\",\n    \"company\": \"DHL\",\n    \"name\": \"International Standard\",\n    \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n  },\n  {\n    \"price\": {\n      \"amount\": 21.56,\n      \"taxRate\": 19,\n      \"taxAmount\": 12.45,\n      \"currency\": \"USD\"\n    },\n    \"id\": \"29\",\n    \"company\": \"DHL\",\n    \"name\": \"International Standard\",\n    \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efd17b9c-5c80-4202-9701-664a43019985",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shippingTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "025c470b-8762-4f59-bbd9-23e8516b66d8",
+          "name": "Set shipping type",
+          "request": {
+            "name": "Set shipping type",
+            "description": {
+              "content": "Set a specific shipping type",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "shippingType"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6b743f4-07b2-421f-9a55-a9ca1c0602e1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shippingType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"29\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8266dcf0-66a0-4eee-bf59-76c6b143cf68",
+              "name": "Order or Shipping Type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shippingType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"29\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3985b9a3-9f90-49f6-824d-917bb05961e1",
+          "name": "Confirm order",
+          "request": {
+            "name": "Confirm order",
+            "description": {
+              "content": "Try to confirm an order. To do it, it's necessary to set a shipping type before.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6d36316-2bfe-4385-9892-acf68123393f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8089a8e1-c0a7-4941-ac44-2247d633a888",
+              "name": "Order couldn't be confirmed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": 3818.171911554672,\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fd90798-d356-47bf-b4d5-999c7e9cf85f",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f5de461-7982-4b60-8911-fe5741b58a05",
+          "name": "Cancel order",
+          "request": {
+            "name": "Cancel order",
+            "description": {
+              "content": "Try to cancel an order. It is not possible to cancel orders that have already been sent or are already in production internally.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4dde345f-5701-41b8-8b7e-5931bc4086a1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "545bdbae-a8eb-40b6-996f-413208903b1e",
+              "name": "Order could not be cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": 3818.171911554672,\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4603c6b-e345-4123-aef2-8ee19a84237f",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a8a0a54-44e0-46fe-9a12-abd4c7c4dd97",
+          "name": "Get shipments",
+          "request": {
+            "name": "Get shipments",
+            "description": {
+              "content": "get a list with all shipments for this order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "shipments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) spreadconnect order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cbc44ce-a40d-4929-8d6a-d6cc952e92fa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1151,\n    \"orderId\": 466,\n    \"orderReference\": 9650,\n    \"externalOrderReference\": \"string\",\n    \"orderItemReferences\": [\n      3957,\n      7310\n    ],\n    \"externalOrderItemReferences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"shipping\": {\n      \"address\": {\n        \"lastName\": \"Anderson\",\n        \"street\": \"1572 Roseytown Rd\",\n        \"city\": \"Greensburg\",\n        \"country\": \"US\",\n        \"zipCode\": \"15601\",\n        \"company\": \"Example Ltd.\",\n        \"firstName\": \"Joshua\",\n        \"streetAnnex\": \"2nd Floor\",\n        \"state\": \"AL\"\n      },\n      \"type\": {\n        \"id\": \"29\",\n        \"company\": \"DHL\",\n        \"name\": \"International Standard\",\n        \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n      },\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      }\n    },\n    \"tracking\": [\n      {\n        \"code\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"url\": \"string\"\n      }\n    ],\n    \"closedDate\": \"string\",\n    \"sentDate\": \"string\"\n  },\n  {\n    \"id\": 7490,\n    \"orderId\": 7543,\n    \"orderReference\": 112,\n    \"externalOrderReference\": \"string\",\n    \"orderItemReferences\": [\n      3965,\n      1693\n    ],\n    \"externalOrderItemReferences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"shipping\": {\n      \"address\": {\n        \"lastName\": \"Anderson\",\n        \"street\": \"1572 Roseytown Rd\",\n        \"city\": \"Greensburg\",\n        \"country\": \"US\",\n        \"zipCode\": \"15601\",\n        \"company\": \"Example Ltd.\",\n        \"firstName\": \"Joshua\",\n        \"streetAnnex\": \"2nd Floor\",\n        \"state\": \"AL\"\n      },\n      \"type\": {\n        \"id\": \"29\",\n        \"company\": \"DHL\",\n        \"name\": \"International Standard\",\n        \"description\": \"No tracking provided. May be subject to import taxes, customs, and duties upon delivery.\"\n      },\n      \"price\": {\n        \"amount\": 21.56,\n        \"taxRate\": 19,\n        \"taxAmount\": 12.45,\n        \"currency\": \"USD\"\n      }\n    },\n    \"tracking\": [\n      {\n        \"code\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"url\": \"string\"\n      }\n    ],\n    \"closedDate\": \"string\",\n    \"sentDate\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68e972a1-6b3d-4fa6-96a1-890c510dfa17",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) spreadconnect order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4f725642-0e53-4319-8879-9abbe8f69ca2",
+    "name": "Spreadconnect fulfillment service REST Articles Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

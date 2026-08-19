@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles Subscriptions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/subscriptions",
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get all subscriptions"
+        },
+        {
+          "info": {
+            "name": "Create a new subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "add a new subscription"
+        },
+        {
+          "info": {
+            "name": "Delete a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.spreadconnect.app/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "subscription id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "delete a subscription"
+        },
+        {
+          "info": {
+            "name": "Simulate Order Cancelled Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/simulate/order-cancelled",
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Simulates an order cancelled event"
+        },
+        {
+          "info": {
+            "name": "Simulate Order Processed Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/simulate/order-processed",
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Simulates an order processed event"
+        },
+        {
+          "info": {
+            "name": "Simulate Shipment Sent Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/orders/:orderId/simulate/shipment-sent",
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Simulates a shipment sent event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

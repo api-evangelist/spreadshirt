@@ -1,0 +1,165 @@
+{
+  "item": [
+    {
+      "id": "dec40414-49e1-48b7-938d-e2fb96839f08",
+      "name": "Authentication",
+      "description": {
+        "content": "The Spreadconnect API allows you to connect to the Spreadconnect system and lets you manage your products, submit orders and get \nthem fulfilled via requests.\n\nTo make sure that the requests send to the Spreadconnect API are indeed allowed to fetch and change your data in the Spreadconnect \nsystem, \nthey first need to be authenticated.\nYou can authenticate your requests to the Spreadconnect API by using your **Spreadconnect API Key**.  \n\n**How do I get my Spreadconnect API Key?**\n1. **Login** into your account or register a new one at https://login.spreadconnect.app.\n2. Under **\"Connect Integration\"** create a new Spreadconnect API Integration.\n3. The **Spreadconnect API Key** for this Integration can be found on the **Dashboard** or at the **Integration Settings** \npage. \n\n*For a more detailed explanation visit \nhttps://faq.spod.com/hc/en-us/articles/360020927339-How-do-I-get-started-with-the-API*  \n\nNow you can authenticate your requests by adding *X-SPOD-ACCESS-TOKEN* parameter with your **Spreadconnect API Key** as \nthe value in the header of your request. \n\n*Example:*\n```\n  curl 'https://api.spreadconnect.app/authentication' -H 'X-SPOD-ACCESS-TOKEN: {insert your Spreadconnect API Key}'\n```\n\n**Always keep your Spreadconnect API Key private!**  \nAnyone who has your **Spreadconnect API Key** can access and manipulate your Products, Orders, etc. that are managed by the\nAPI Integration linked to this key.\nSo be careful not to share it.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9823c2d5-0acc-49a2-a99e-5c94269ceedc",
+          "name": "REST API Authentication Info",
+          "request": {
+            "name": "REST API Authentication Info",
+            "description": {
+              "content": "This resource could be used, to test your authentication and get some basic information about your authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authentication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac3a6839-3522-4dc7-b3db-740b39824ab0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"merchantId\": 8801.889874066535,\n  \"pointOfSaleId\": 1686.788033507839,\n  \"pointOfSaleName\": \"string\",\n  \"pointOfSaleType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40b88ca7-fd6d-4687-9f46-374a41418b37",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "732001c5-972d-441c-81ff-726df4eb4d30",
+    "name": "Spreadconnect fulfillment service REST Articles Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}

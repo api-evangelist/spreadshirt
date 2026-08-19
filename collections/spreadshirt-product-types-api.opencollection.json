@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles Product Types API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available product types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes"
+          },
+          "docs": "get available product types"
+        },
+        {
+          "info": {
+            "name": "Get the category tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/categories",
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the whole category tree"
+        },
+        {
+          "info": {
+            "name": "Get a single product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "get a specific product type with all details"
+        },
+        {
+          "info": {
+            "name": "Get the size chart for a product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId/size-chart",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the size chart for a product type. It consists of an image of a simplified model of the product, with names of measurements (\"A\", \"B\", etc), and the values of the measurements, in both inches and mm, for each of products sizes."
+        },
+        {
+          "info": {
+            "name": "Get the views for a product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId/views",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the views, which contain hotspots and images, for a given product type.\n\nHotspots are certain default positions which we recommend for placing a design. \n\nNote: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the\n\"Get available hotspots for a product type and design\" endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Get available hotspots for a product type and design",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId/hotspots/design/:designId",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              },
+              {
+                "name": "desginId",
+                "value": "",
+                "type": "path",
+                "description": "designId id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Using this resource you can check which hotspots a certain design, uploaded beforehand using the Design Upload endpoint, is printable on."
+        },
+        {
+          "info": {
+            "name": "Get the categories assigned to a product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId/categories",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the categories assigned to a product type"
+        },
+        {
+          "info": {
+            "name": "Get the previews for a product with hotspot configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/productTypes/:productTypeId/previews",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "product type id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the preview images for a product type, given a list of configurations (pair of hotspots and designId). You need to upload an image using the Designs endpoint. At the moment this resource can give previews only for configurations using hotspots.\nWhile this resource is using POST, calling it does not affect the state of the server in any way."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

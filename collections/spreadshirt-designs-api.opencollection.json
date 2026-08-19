@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles Designs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Designs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a new design",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spreadconnect.app/designs/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload a new design"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

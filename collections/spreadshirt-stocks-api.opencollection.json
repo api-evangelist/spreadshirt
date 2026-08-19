@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spreadconnect fulfillment service REST Articles Stocks API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available stocks for all variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/stock",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "*General pagination option*: defines the number of results to show\n"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "define the offset to be queried."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get available stocks for all variants from the point of sale\n\nThe result is a map of variant's SKUs associated with their stock amount.\n"
+        },
+        {
+          "info": {
+            "name": "Get available stock for a certain variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/stock/:sku",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path",
+                "description": "SKU of the variant"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get available stocks for a certain variant, by its SKU"
+        },
+        {
+          "info": {
+            "name": "Get available stock for a certain product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spreadconnect.app/stock/productType/:productTypeId",
+            "params": [
+              {
+                "name": "productTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Product Type ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-SPOD-ACCESS-TOKEN",
+              "value": "{{X-SPOD-ACCESS-TOKEN}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get available stocks for a certain product type with all the variants"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

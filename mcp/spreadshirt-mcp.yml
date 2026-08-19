@@ -100,3 +100,9 @@ tools:
 - name: uploadDesign
   description: Upload a new design
   source_operation: openapi/spreadshirt-spreadconnect-openapi.json#uploadDesign
+deployment:
+  mode: none
+  verified: derived
+  tools: 31
+  checked: '2026-08-12'
+  source: catalog MCP census

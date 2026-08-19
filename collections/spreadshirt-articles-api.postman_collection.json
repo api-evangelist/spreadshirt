@@ -1,0 +1,573 @@
+{
+  "item": [
+    {
+      "id": "b79334ee-bb32-43d7-afde-4a5742129c9e",
+      "name": "Articles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa14873c-ff7c-4fd6-9643-e32079c37e8e",
+          "name": "Get all articles",
+          "request": {
+            "name": "Get all articles",
+            "description": {
+              "content": "This resource could be used, to get all created products for your point of sale.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "articles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "*General pagination option*: defines the number of results to show\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "define the offset to be queried."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acbd048e-84a8-49a1-a269-41dc9d2c8640",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": 8508,\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"variants\": [\n        {\n          \"id\": 9942,\n          \"productTypeId\": 1519,\n          \"productTypeName\": \"string\",\n          \"productId\": 1650,\n          \"appearanceId\": 1961,\n          \"appearanceName\": \"string\",\n          \"appearanceColorValue\": \"string\",\n          \"sizeId\": 8137,\n          \"sizeName\": \"string\",\n          \"sku\": \"P1026247707A12S5\",\n          \"d2cPrice\": 21.56,\n          \"b2bPrice\": 21.56,\n          \"imageIds\": [\n            8795,\n            4660\n          ]\n        },\n        {\n          \"id\": 8574,\n          \"productTypeId\": 1737,\n          \"productTypeName\": \"string\",\n          \"productId\": 4126,\n          \"appearanceId\": 293,\n          \"appearanceName\": \"string\",\n          \"appearanceColorValue\": \"string\",\n          \"sizeId\": 6496,\n          \"sizeName\": \"string\",\n          \"sku\": \"P1026247707A12S5\",\n          \"d2cPrice\": 21.56,\n          \"b2bPrice\": 21.56,\n          \"imageIds\": [\n            4505,\n            7150\n          ]\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 560860288,\n          \"productId\": 9081,\n          \"appearanceId\": 6899,\n          \"appearanceName\": \"string\",\n          \"perspective\": \"string\",\n          \"imageUrl\": \"string\"\n        },\n        {\n          \"id\": 560860288,\n          \"productId\": 7400,\n          \"appearanceId\": 8600,\n          \"appearanceName\": \"string\",\n          \"perspective\": \"string\",\n          \"imageUrl\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 2626,\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"variants\": [\n        {\n          \"id\": 4075,\n          \"productTypeId\": 8891,\n          \"productTypeName\": \"string\",\n          \"productId\": 5613,\n          \"appearanceId\": 5509,\n          \"appearanceName\": \"string\",\n          \"appearanceColorValue\": \"string\",\n          \"sizeId\": 9707,\n          \"sizeName\": \"string\",\n          \"sku\": \"P1026247707A12S5\",\n          \"d2cPrice\": 21.56,\n          \"b2bPrice\": 21.56,\n          \"imageIds\": [\n            7782,\n            2385\n          ]\n        },\n        {\n          \"id\": 7904,\n          \"productTypeId\": 4125,\n          \"productTypeName\": \"string\",\n          \"productId\": 697,\n          \"appearanceId\": 9646,\n          \"appearanceName\": \"string\",\n          \"appearanceColorValue\": \"string\",\n          \"sizeId\": 6473,\n          \"sizeName\": \"string\",\n          \"sku\": \"P1026247707A12S5\",\n          \"d2cPrice\": 21.56,\n          \"b2bPrice\": 21.56,\n          \"imageIds\": [\n            3504,\n            6679\n          ]\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 560860288,\n          \"productId\": 7635,\n          \"appearanceId\": 9083,\n          \"appearanceName\": \"string\",\n          \"perspective\": \"string\",\n          \"imageUrl\": \"string\"\n        },\n        {\n          \"id\": 560860288,\n          \"productId\": 6790,\n          \"appearanceId\": 1423,\n          \"appearanceName\": \"string\",\n          \"perspective\": \"string\",\n          \"imageUrl\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"count\": 5,\n  \"limit\": 100,\n  \"offset\": 4154\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dae0aa3d-28ea-4874-b213-d0d362299f29",
+          "name": "Create a single article",
+          "request": {
+            "name": "Create a single article",
+            "description": {
+              "content": "This resource could be used to create an article for your point of sale. \n\nIn order to get the available products that we offer, see the 'Product Types' section. There you can also find the\nnecessary ids required to build the payload.\n\nIn the variants array, you can enable the sizes and colours of your product.\n\nIn the configuration array, you can place designs via url. The image must be in PNG format and under 10 MB.\nAt this moment, the designs will be scaled as big as possible, keeping in mind the resolution of the chosen design \nand the limits of the print area.\n\nAdditionally, you can use a designId returned when uploading a design via Designs endpoint.\n\nAn image object must contain at least a url or a designId. If both are present, designId will be used.\n\nThe external id fields can be used for identifying articles and variants. They are optional, but if they are present\nthey are validated as being not duplicates, in the article context\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "articles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"variants\": [\n    {\n      \"productTypeId\": \"<integer>\",\n      \"appearanceId\": \"<integer>\",\n      \"sizeId\": \"<integer>\",\n      \"d2cPrice\": \"<number>\",\n      \"externalId\": \"<string>\"\n    },\n    {\n      \"productTypeId\": \"<integer>\",\n      \"appearanceId\": \"<integer>\",\n      \"sizeId\": \"<integer>\",\n      \"d2cPrice\": \"<number>\",\n      \"externalId\": \"<string>\"\n    }\n  ],\n  \"configurations\": [\n    {\n      \"image\": {\n        \"url\": \"<string>\",\n        \"designId\": \"<string>\"\n      },\n      \"view\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    },\n    {\n      \"image\": {\n        \"url\": \"<string>\",\n        \"designId\": \"<string>\"\n      },\n      \"view\": \"<string>\",\n      \"hotspot\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "032206ac-2d1c-4b32-924b-96ebb70fd493",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"variants\": [\n    {\n      \"productTypeId\": \"<integer>\",\n      \"appearanceId\": \"<integer>\",\n      \"sizeId\": \"<integer>\",\n      \"d2cPrice\": 21.56,\n      \"externalId\": \"20354d7a-e4fe-47af-8ff6-187bca92f3f9\"\n    },\n    {\n      \"productTypeId\": \"<integer>\",\n      \"appearanceId\": \"<integer>\",\n      \"sizeId\": \"<integer>\",\n      \"d2cPrice\": 21.56,\n      \"externalId\": \"20354d7a-e4fe-47af-8ff6-187bca92f3f9\"\n    }\n  ],\n  \"configurations\": [\n    {\n      \"image\": {\n        \"url\": \"https://link.to.image\",\n        \"designId\": \"1231\"\n      },\n      \"view\": \"<string>\",\n      \"hotspot\": \"MEDIUM_FRONT\"\n    },\n    {\n      \"image\": {\n        \"url\": \"https://link.to.image\",\n        \"designId\": \"1231\"\n      },\n      \"view\": \"<string>\",\n      \"hotspot\": \"MEDIUM_FRONT\"\n    }\n  ],\n  \"externalId\": \"20354d7a-e4fe-47af-8ff6-187bca92f3f9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "5705.046581052673",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6a8deee-e0d8-442d-bef0-83b03ac90020",
+          "name": "Get a single article",
+          "request": {
+            "name": "Get a single article",
+            "description": {
+              "content": "get a specific article with all details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "articles",
+                ":articleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "articleId",
+                  "description": "(Required) article id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ec4ee8e-6667-4e9e-913e-3b5f3233bb9f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles",
+                    ":articleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "articleId",
+                      "description": "(Required) article id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4647,\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"variants\": [\n    {\n      \"id\": 5948,\n      \"productTypeId\": 4859,\n      \"productTypeName\": \"string\",\n      \"productId\": 1970,\n      \"appearanceId\": 7422,\n      \"appearanceName\": \"string\",\n      \"appearanceColorValue\": \"string\",\n      \"sizeId\": 2380,\n      \"sizeName\": \"string\",\n      \"sku\": \"P1026247707A12S5\",\n      \"d2cPrice\": 21.56,\n      \"b2bPrice\": 21.56,\n      \"imageIds\": [\n        7933,\n        4220\n      ]\n    },\n    {\n      \"id\": 8169,\n      \"productTypeId\": 1709,\n      \"productTypeName\": \"string\",\n      \"productId\": 4869,\n      \"appearanceId\": 5242,\n      \"appearanceName\": \"string\",\n      \"appearanceColorValue\": \"string\",\n      \"sizeId\": 2863,\n      \"sizeName\": \"string\",\n      \"sku\": \"P1026247707A12S5\",\n      \"d2cPrice\": 21.56,\n      \"b2bPrice\": 21.56,\n      \"imageIds\": [\n        7892,\n        1205\n      ]\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 560860288,\n      \"productId\": 8400,\n      \"appearanceId\": 908,\n      \"appearanceName\": \"string\",\n      \"perspective\": \"string\",\n      \"imageUrl\": \"string\"\n    },\n    {\n      \"id\": 560860288,\n      \"productId\": 7882,\n      \"appearanceId\": 572,\n      \"appearanceName\": \"string\",\n      \"perspective\": \"string\",\n      \"imageUrl\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5ab469d-48cc-46f7-8ed4-9ee0e579d544",
+              "name": "Article not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles",
+                    ":articleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "articleId",
+                      "description": "(Required) article id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9b7a1df3-9437-4571-8376-2ae33f57ae46",
+              "name": "There is a problem with this article. Check the article in your Spreadconnect account for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles",
+                    ":articleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "articleId",
+                      "description": "(Required) article id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09e167d1-3fcf-43b1-9191-e8e6ebafd2a0",
+          "name": "Delete a single article",
+          "request": {
+            "name": "Delete a single article",
+            "description": {
+              "content": "This resource could be used, to delete a product from the point of sale.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "articles",
+                ":articleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "articleId",
+                  "description": "(Required) articleId"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SPOD-ACCESS-TOKEN"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9ada71db-2464-4417-afe5-2a08d672c6c2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "articles",
+                    ":articleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "articleId",
+                      "description": "(Required) articleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SPOD-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.spreadconnect.app",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8dd7c8e5-1eb2-4e1c-9309-3098f920ea56",
+    "name": "Spreadconnect fulfillment service REST Articles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With this API you can create products and place orders in the Spreadconnect system.\nThis gives you the opportunity to connect any shop system with Spreadconnect.\n\n\nContact Support:\n Name: Spreadconnect\n Email: business@spreadconnect.app",
+      "type": "text/plain"
+    }
+  }
+}
