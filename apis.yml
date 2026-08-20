@@ -40,6 +40,16 @@ tags:
 - Company
 - Consumer
 - Print on Demand
+- E-Commerce
+- Apparel
+- Custom Merchandise
+- Fulfillment
+- Dropshipping
+- Webhook
+tags_raw:
+- Company
+- Consumer
+- Print on Demand
 - E-commerce
 - Apparel
 - Custom Merchandise
@@ -59,6 +69,10 @@ apis:
   humanURL: https://developer.spreadshirt.net/
   baseURL: https://api.spreadshirt.net
   tags:
+  - E-Commerce
+  - Storefront
+  - Marketplace
+  tags_raw:
   - E-commerce
   - Storefront
   - Marketplace
@@ -203,6 +217,8 @@ apis:
   humanURL: https://api.spreadconnect.app/docs/
   baseURL: https://api.spreadconnect.app
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -302,6 +318,8 @@ apis:
   humanURL: https://api.spreadconnect.app/docs/
   baseURL: https://api.spreadconnect.app
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
