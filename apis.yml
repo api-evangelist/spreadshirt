@@ -8,6 +8,18 @@ description: 'Spreadshirt (Spread Group) is a European print-on-demand and custo
   and the older Spreadshirt Public Shop API for building custom storefronts against the
   EU and North American marketplaces. Added to the API Evangelist network as a consumer /
   print-on-demand provider and enriched by the pipeline.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
