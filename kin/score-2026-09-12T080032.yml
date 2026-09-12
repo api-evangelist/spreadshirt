@@ -1,38 +1,43 @@
-# Kin Score artifact — spreadshirt — 2026-08-05T153418
+# Kin Score artifact — spreadshirt — 2026-09-12T080032
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: spreadshirt
-  schema_version: 0.9.1
-  scored_at: '2026-08-05'
-  run_ts: 2026-08-05T153418
-  composite: 48.9
+  schema_version: 0.21.0
+  scored_at: '2026-09-12'
+  run_ts: 2026-09-12T080032
+  composite: 43.9
   band: developing
   facets:
-    discoverability: 92.6
-    contract_quality: 70.8
-    governance: 11.5
-    operational_transparency: 44.7
-    developer_ergonomics: 60.3
-    commercial_clarity: 13.2
+    discoverability: 75.9
+    contract_quality: 61.9
+    contract_governance: 4.5
+    operational_transparency: 42.1
+    developer_ergonomics: 63.7
+    access_clarity: 0.0
   agent_readiness:
-    score: 54.3
+    score: 33.2
     band: agent-ready
     dimensions:
       spec_presence: true
       agentic_access: false
-      mcp_server: derived
-      auth_clarity: true
+      reversibility_documented: documented
+      mcp_server: false
+      auth_clarity: bearer
       idempotency: false
       error_semantics: verified
       openapi_examples: partial
       rate_limit_signal: documented
       event_surface_described: true
       agent_skills: derived
-      well_known_catalog: true
-      consent_identity: true
+      well_known_catalog: false
+      consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: false
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   provenance:
     mcp: derived
     skills: derived
