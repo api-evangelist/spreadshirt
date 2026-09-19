@@ -142,6 +142,8 @@ apis:
   humanURL: https://api.spreadconnect.app/docs/
   baseURL: https://api.spreadconnect.app
   tags:
+  - Design
+  tags_raw:
   - Designs
   properties:
   - type: OpenAPI
