@@ -1,7 +1,7 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
   version: 0.1.0
-  title: Spreadconnect fulfillment service REST Articles Product Types API
+  title: Spreadconnect fulfillment service REST Product Types API
   contact:
     name: Spreadconnect
     email: business@spreadconnect.app
@@ -10,15 +10,13 @@ info:
     url: https://assets.spod.com/merea/spreadconnect-logo-black.svg
   description: 'With this API you can create products and place orders in the Spreadconnect system.
 
-    This gives you the opportunity to connect any shop system with Spreadconnect.
-
-    '
+    This gives you the opportunity to connect any shop system with Spreadconnect.'
   termsOfService: https://faq.spod.com/hc/en-us/articles/360020630280
 servers:
 - url: https://api.spreadconnect.app
 tags:
 - name: Product Types
-  description: "Product types represent our available base products that can be used for customisation. This information can also\nbe found in the User Interface of the Spreadconnect application when creating a product. The main difference is that here \nonly the products which contain the enabled print types are listed.\n\nAmong details as description and price, you will see in the response payload the IDs \nnecessary for the creation payload when building the article variants: \"sizes\", \"appearances\" and \"views\". \n\nThe \"sizes\" and \"appearances\" represent the size and colour attributes of the product\n\nThe \"views\" parameter represents the customizable areas of the product, where you may choose to place a design on.\n"
+  description: Product types represent our available base products that can be used for customisation.
 paths:
   /productTypes:
     get:
@@ -108,7 +106,15 @@ paths:
     get:
       operationId: getProductTypeViews
       summary: Get the views for a product type
-      description: "Get the views, which contain hotspots and images, for a given product type.\n\nHotspots are certain default positions which we recommend for placing a design. \n\nNote: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the\n\"Get available hotspots for a product type and design\" endpoint.\n"
+      description: 'Get the views, which contain hotspots and images, for a given product type.
+
+
+        Hotspots are certain default positions which we recommend for placing a design.
+
+
+        Note: we can not guarantee that every design you upload is printable on these hotspots. For checking a certain design, please use the
+
+        "Get available hotspots for a product type and design" endpoint.'
       tags:
       - Product Types
       security:
@@ -162,8 +168,9 @@ paths:
                   hotspots:
                     type: array
                     items:
-                      type: object
-                      nullable: true
+                      type:
+                      - object
+                      - 'null'
                       properties:
                         name:
                           type: string
@@ -174,7 +181,6 @@ paths:
     get:
       operationId: getProductTypeCategories
       summary: Get the categories assigned to a product type
-      description: Get the categories assigned to a product type
       tags:
       - Product Types
       security:
@@ -265,8 +271,9 @@ components:
               hotspots:
                 type: array
                 items:
-                  type: object
-                  nullable: true
+                  type:
+                  - object
+                  - 'null'
                   properties:
                     name:
                       type: string
@@ -275,14 +282,99 @@ components:
                 type: array
                 items:
                   type: object
-                  nullable: false
                   properties:
                     appearanceId:
                       type: string
-                      nullable: false
                     image:
                       type: string
-                      nullable: false
+    SizeChart:
+      type: object
+      description: null
+      properties:
+        sizeImageUrl:
+          type: string
+          description: At this url you will find an image with a basic representation of the product, and the names of the measurements ("A", "B", etc)
+        sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              sizeId:
+                type: string
+                description: Id of the size
+              name:
+                type: string
+                description: Name of the size, for example "S" or "XL"
+              measurements:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: the letter which is on the image found at sizeImageUrl
+                    valueMm:
+                      type: number
+                      description: the value of the measurement in mm
+                    valueInch:
+                      type: number
+                      description: the value of the measurement in inch
+    Categories:
+      type: object
+      description: null
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+              children:
+                type: array
+                items:
+                  type: object
+                description: recursive
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+        brands:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+        genders:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              translation:
+                type: string
+    Preview:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url: string
+              viewId: string
+              viewName: string
     ProductTypes:
       type: object
       description: null
@@ -353,94 +445,6 @@ components:
           type: number
         currency:
           type: string
-    Categories:
-      type: object
-      description: null
-      properties:
-        categories:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              translation:
-                type: string
-              children:
-                type: array
-                items:
-                  type: object
-                description: recursive
-        features:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              translation:
-                type: string
-        brands:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              translation:
-                type: string
-        genders:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              translation:
-                type: string
-    SizeChart:
-      type: object
-      description: null
-      properties:
-        sizeImageUrl:
-          type: string
-          description: At this url you will find an image with a basic representation of the product, and the names of the measurements ("A", "B", etc)
-        sizes:
-          type: array
-          items:
-            type: object
-            properties:
-              sizeId:
-                type: string
-                description: Id of the size
-              name:
-                type: string
-                description: Name of the size, for example "S" or "XL"
-              measurements:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description: the letter which is on the image found at sizeImageUrl
-                    valueMm:
-                      type: number
-                      description: the value of the measurement in mm
-                    valueInch:
-                      type: number
-                      description: the value of the measurement in inch
-    Preview:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            type: object
-            properties:
-              url: string
-              viewId: string
-              viewName: string
   securitySchemes:
     access_token:
       type: apiKey

@@ -1,13 +1,7 @@
 {
   "provider": "spreadshirt",
   "sources": [
-    "spreadshirt-articles-api-openapi.yml",
-    "spreadshirt-authentication-api-openapi.yml",
-    "spreadshirt-designs-api-openapi.yml",
-    "spreadshirt-orders-api-openapi.yml",
-    "spreadshirt-product-types-api-openapi.yml",
-    "spreadshirt-stocks-api-openapi.yml",
-    "spreadshirt-subscriptions-api-openapi.yml"
+    "_original/spreadshirt-spreadconnect-openapi.json"
   ],
   "outputs": [
     "spreadshirt-articles-api-openapi.yml",
@@ -21,6 +15,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "spreadshirt-spreadconnect-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "spreadshirt-spreadconnect-openapi.json: declared missing tag: Designs",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "spreadshirt-articles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-designs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-product-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-stocks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spreadshirt-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
