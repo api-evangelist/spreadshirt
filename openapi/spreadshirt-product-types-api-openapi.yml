@@ -137,7 +137,7 @@ paths:
           description: Product type not found
   /productTypes/{productTypeId}/hotspots/design/{designId}:
     get:
-      operationId: getProductTypeViews
+      operationId: getProductTypesByProductTypeIdHotspotsDesignByDesignId
       summary: Get available hotspots for a product type and design
       description: Using this resource you can check which hotspots a certain design, uploaded beforehand using the Design Upload endpoint, is printable on.
       tags:
@@ -177,9 +177,11 @@ paths:
                           example: LEFT_CHEST
         '404':
           description: Product type not found
+      x-operation-id-source: normalized
+      x-operation-id-original: getProductTypeViews
   /productTypes/{productTypeId}/categories:
     get:
-      operationId: getProductTypeCategories
+      operationId: getProductTypesByProductTypeIdCategories
       summary: Get the categories assigned to a product type
       tags:
       - Product Types
@@ -201,6 +203,8 @@ paths:
                 $ref: '#/components/schemas/Categories'
         '404':
           description: Product type not found
+      x-operation-id-source: normalized
+      x-operation-id-original: getProductTypeCategories
   /productTypes/{productTypeId}/previews:
     post:
       operationId: getProductTypePreviews
@@ -254,6 +258,87 @@ paths:
           description: Product type not found
 components:
   schemas:
+    ProductTypes:
+      type: object
+      description: null
+      properties:
+        id:
+          type: string
+        customerName:
+          type: string
+        customerDescription:
+          type: string
+        merchantName:
+          type: string
+        merchantDescription:
+          type: string
+        sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        brand: string
+        appearances:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        views:
+          type: array
+          items:
+            type: string
+            enum:
+            - FRONT
+            - BACK
+            - LEFT
+            - RIGHT
+            - HOOD_LEFT
+            - HOOD_RIGHT
+        printAreas:
+          type: array
+          items:
+            type: object
+            properties:
+              view:
+                type: string
+                enum:
+                - FRONT
+                - BACK
+                - LEFT
+                - RIGHT
+                - HOOD_LEFT
+                - HOOD_RIGHT
+              widthMm:
+                type: number
+              heightMm:
+                type: number
+              widthInch:
+                type: number
+              heightInch:
+                type: number
+        price:
+          type: number
+        currency:
+          type: string
+    Preview:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url: string
+              viewId: string
+              viewName: string
     Views:
       type: object
       description: null
@@ -364,87 +449,6 @@ components:
                 type: string
               translation:
                 type: string
-    Preview:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            type: object
-            properties:
-              url: string
-              viewId: string
-              viewName: string
-    ProductTypes:
-      type: object
-      description: null
-      properties:
-        id:
-          type: string
-        customerName:
-          type: string
-        customerDescription:
-          type: string
-        merchantName:
-          type: string
-        merchantDescription:
-          type: string
-        sizes:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-        brand: string
-        appearances:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-        views:
-          type: array
-          items:
-            type: string
-            enum:
-            - FRONT
-            - BACK
-            - LEFT
-            - RIGHT
-            - HOOD_LEFT
-            - HOOD_RIGHT
-        printAreas:
-          type: array
-          items:
-            type: object
-            properties:
-              view:
-                type: string
-                enum:
-                - FRONT
-                - BACK
-                - LEFT
-                - RIGHT
-                - HOOD_LEFT
-                - HOOD_RIGHT
-              widthMm:
-                type: number
-              heightMm:
-                type: number
-              widthInch:
-                type: number
-              heightInch:
-                type: number
-        price:
-          type: number
-        currency:
-          type: string
   securitySchemes:
     access_token:
       type: apiKey

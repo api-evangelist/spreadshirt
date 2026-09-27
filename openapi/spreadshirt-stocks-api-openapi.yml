@@ -98,7 +98,7 @@ paths:
           description: Variant with given SKU not found
   /stock/productType/{productTypeId}:
     get:
-      operationId: getStock
+      operationId: getStockProductTypeByProductTypeId
       summary: Get available stock for a certain product type
       description: Get available stocks for a certain product type with all the variants
       tags:
@@ -136,6 +136,8 @@ paths:
                           description: stock of the variant
         '404':
           description: Product Type not found
+      x-operation-id-source: normalized
+      x-operation-id-original: getStock
 components:
   securitySchemes:
     access_token:

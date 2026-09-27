@@ -22,7 +22,7 @@ tags:
 paths:
   /authentication:
     get:
-      operationId: authentication info
+      operationId: authenticationInfo
       summary: REST API Authentication Info
       description: This resource could be used, to test your authentication and get some basic information about your authentication.
       tags:
@@ -57,6 +57,8 @@ paths:
                     description: point of sale type
         '401':
           description: Unauthorized
+      x-operation-id-source: normalized
+      x-operation-id-original: authentication info
 components:
   securitySchemes:
     access_token:

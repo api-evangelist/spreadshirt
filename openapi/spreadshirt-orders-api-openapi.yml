@@ -305,6 +305,83 @@ components:
           description: customer price for item with quantity n
           allOf:
           - $ref: '#/components/schemas/CustomerPrice'
+    AvailableShippingType:
+      type: object
+      description: shipping type with price
+      allOf:
+      - $ref: '#/components/schemas/ShippingType'
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+    OneTimeItems:
+      type: array
+      description: items which are created only for this order, and deleted afterwards.
+      items:
+        type: object
+        properties:
+          quantityItems:
+            type: array
+            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
+            items:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  required: true
+                sizeId:
+                  type: number
+                  required: true
+                appearanceId:
+                  required: true
+          configurations:
+            type: array
+            description: product
+            items:
+              type: object
+              required:
+              - image
+              - view
+              properties:
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: https://link.to.image
+                    designId:
+                      type: string
+                      example: '1231'
+                view:
+                  type: string
+                  enum:
+                  - FRONT
+                  - BACK
+                  - LEFT
+                  - RIGHT
+                  - HOOD_LEFT
+                  - HOOD_RIGHT
+                hotspot:
+                  type: string
+                  enum:
+                  - FULL_FRONT
+                  - MEDIUM_FRONT
+                  - LEFT_CHEST
+                  - RIGHT_CHEST
+                  - FULL_BACK
+                  - MEDIUM_BACK
+                  - BACK_COLLAR
+                  - RIGHT
+                  - LEFT
+                  - CENTER_CHEST
+                  example: LEFT_CHEST
+          productTypeId:
+            type: number
+            required: true
+          externalOrderItemReference:
+            type: string
+          customerPricePerItem:
+            allOf:
+            - $ref: '#/components/schemas/CustomerPrice'
     Address:
       type: object
       description: physical mailing address
@@ -355,6 +432,39 @@ components:
           example: '15601'
           description: zip code, for some countries optional
           type: string
+    CustomerPrice:
+      type: object
+      description: customer price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
+    ShippingType:
+      type: object
+      description: shipping type with id, name and description
+      properties:
+        id:
+          type: string
+          description: shipping type id, needed for set shipping type
+          example: '29'
+        company:
+          type: string
+          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
+          example: DHL
+        name:
+          type: string
+          example: International Standard
+        description:
+          type: string
+          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
     CreateOrder:
       type: object
       description: payload for a new order
@@ -435,83 +545,6 @@ components:
         origin:
           type: string
           description: optional origin field
-    AvailableShippingType:
-      type: object
-      description: shipping type with price
-      allOf:
-      - $ref: '#/components/schemas/ShippingType'
-      properties:
-        price:
-          $ref: '#/components/schemas/Price'
-    OneTimeItems:
-      type: array
-      description: items which are created only for this order, and deleted afterwards.
-      items:
-        type: object
-        properties:
-          quantityItems:
-            type: array
-            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
-            items:
-              type: object
-              properties:
-                quantity:
-                  type: number
-                  required: true
-                sizeId:
-                  type: number
-                  required: true
-                appearanceId:
-                  required: true
-          configurations:
-            type: array
-            description: product
-            items:
-              type: object
-              required:
-              - image
-              - view
-              properties:
-                image:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                      example: https://link.to.image
-                    designId:
-                      type: string
-                      example: '1231'
-                view:
-                  type: string
-                  enum:
-                  - FRONT
-                  - BACK
-                  - LEFT
-                  - RIGHT
-                  - HOOD_LEFT
-                  - HOOD_RIGHT
-                hotspot:
-                  type: string
-                  enum:
-                  - FULL_FRONT
-                  - MEDIUM_FRONT
-                  - LEFT_CHEST
-                  - RIGHT_CHEST
-                  - FULL_BACK
-                  - MEDIUM_BACK
-                  - BACK_COLLAR
-                  - RIGHT
-                  - LEFT
-                  - CENTER_CHEST
-                  example: LEFT_CHEST
-          productTypeId:
-            type: number
-            required: true
-          externalOrderItemReference:
-            type: string
-          customerPricePerItem:
-            allOf:
-            - $ref: '#/components/schemas/CustomerPrice'
     GetOrderItem:
       type: object
       properties:
@@ -559,39 +592,59 @@ components:
         reason:
           type: string
           description: error reason
-    CustomerPrice:
+    Shipment:
       type: object
-      description: customer price
-      required:
-      - amount
-      properties:
-        amount:
-          type: number
-          description: total amount, with vat or sales tax
-          example: 21.56
-          minimum: 0
-        currency:
-          type: string
-          description: currency iso code
-          example: USD
-    ShippingType:
-      type: object
-      description: shipping type with id, name and description
       properties:
         id:
+          type: integer
+          description: shipment id
+        orderId:
+          type: integer
+          description: spreadconnect order id
+        orderReference:
+          type: integer
+          description: order reference from spreadconnect, can be changed after order updates
+        externalOrderReference:
           type: string
-          description: shipping type id, needed for set shipping type
-          example: '29'
-        company:
+          description: external order reference from merchant (you)
+        orderItemReferences:
+          type: array
+          description: spreadconnect order item references
+          items:
+            type: integer
+        externalOrderItemReferences:
+          type: array
+          description: external order item references
+          items:
+            type: string
+        shipping:
+          type: object
+          description: shipment shipping information
+          properties:
+            address:
+              $ref: '#/components/schemas/Address'
+            type:
+              $ref: '#/components/schemas/ShippingType'
+            price:
+              $ref: '#/components/schemas/Price'
+        tracking:
+          type: array
+          description: tracking information for shipment
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: tracking code
+              url:
+                type: string
+                description: tracking url
+        closedDate:
           type: string
-          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
-          example: DHL
-        name:
+          description: ready for shipment date
+        sentDate:
           type: string
-          example: International Standard
-        description:
-          type: string
-          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
+          description: sent date
     GetOrder:
       type: object
       properties:
@@ -678,59 +731,6 @@ components:
           - SALESTAX
           - VAT
           - NOT_TAXABLE
-    Shipment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: shipment id
-        orderId:
-          type: integer
-          description: spreadconnect order id
-        orderReference:
-          type: integer
-          description: order reference from spreadconnect, can be changed after order updates
-        externalOrderReference:
-          type: string
-          description: external order reference from merchant (you)
-        orderItemReferences:
-          type: array
-          description: spreadconnect order item references
-          items:
-            type: integer
-        externalOrderItemReferences:
-          type: array
-          description: external order item references
-          items:
-            type: string
-        shipping:
-          type: object
-          description: shipment shipping information
-          properties:
-            address:
-              $ref: '#/components/schemas/Address'
-            type:
-              $ref: '#/components/schemas/ShippingType'
-            price:
-              $ref: '#/components/schemas/Price'
-        tracking:
-          type: array
-          description: tracking information for shipment
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: tracking code
-              url:
-                type: string
-                description: tracking url
-        closedDate:
-          type: string
-          description: ready for shipment date
-        sentDate:
-          type: string
-          description: sent date
   securitySchemes:
     access_token:
       type: apiKey
