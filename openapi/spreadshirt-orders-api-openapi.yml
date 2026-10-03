@@ -257,6 +257,31 @@ paths:
           description: Order not found
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: error response
+      properties:
+        orderId:
+          type: number
+          description: spreadconnect order id, can be null, if order not created
+        reason:
+          type: string
+          description: error reason
+    CustomerPrice:
+      type: object
+      description: customer price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
     Price:
       type: object
       description: price
@@ -282,25 +307,39 @@ components:
           type: string
           description: currency iso code
           example: USD
-    CreateOrderItem:
+    GetOrderItem:
       type: object
-      required:
-      - sku
-      - quantity
-      - customerPrice
       properties:
+        orderItemReference:
+          type: integer
+          description: spreadconnect order item reference
+          example: 55000001
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        state:
+          type: string
+          description: order item state
+          enum:
+          - NEW
+          - CHECKED
+          - CANCELLED
+          - PRODUCTION_ISSUE
+          - IN_PRODUCTION
+          - SENT
         sku:
           type: string
           description: stock keeping unit id from spreadconnect
           example: P1026247707A12S5
         quantity:
           type: integer
-          description: quantity of items
+          description: item quantity
           default: 1
-        externalOrderItemReference:
-          type: string
-          description: external order item reference from merchant (you)
-          example: '12810092145'
+        price:
+          description: item price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/Price'
         customerPrice:
           description: customer price for item with quantity n
           allOf:
@@ -313,75 +352,24 @@ components:
       properties:
         price:
           $ref: '#/components/schemas/Price'
-    OneTimeItems:
-      type: array
-      description: items which are created only for this order, and deleted afterwards.
-      items:
-        type: object
-        properties:
-          quantityItems:
-            type: array
-            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
-            items:
-              type: object
-              properties:
-                quantity:
-                  type: number
-                  required: true
-                sizeId:
-                  type: number
-                  required: true
-                appearanceId:
-                  required: true
-          configurations:
-            type: array
-            description: product
-            items:
-              type: object
-              required:
-              - image
-              - view
-              properties:
-                image:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                      example: https://link.to.image
-                    designId:
-                      type: string
-                      example: '1231'
-                view:
-                  type: string
-                  enum:
-                  - FRONT
-                  - BACK
-                  - LEFT
-                  - RIGHT
-                  - HOOD_LEFT
-                  - HOOD_RIGHT
-                hotspot:
-                  type: string
-                  enum:
-                  - FULL_FRONT
-                  - MEDIUM_FRONT
-                  - LEFT_CHEST
-                  - RIGHT_CHEST
-                  - FULL_BACK
-                  - MEDIUM_BACK
-                  - BACK_COLLAR
-                  - RIGHT
-                  - LEFT
-                  - CENTER_CHEST
-                  example: LEFT_CHEST
-          productTypeId:
-            type: number
-            required: true
-          externalOrderItemReference:
-            type: string
-          customerPricePerItem:
-            allOf:
-            - $ref: '#/components/schemas/CustomerPrice'
+    ShippingType:
+      type: object
+      description: shipping type with id, name and description
+      properties:
+        id:
+          type: string
+          description: shipping type id, needed for set shipping type
+          example: '29'
+        company:
+          type: string
+          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
+          example: DHL
+        name:
+          type: string
+          example: International Standard
+        description:
+          type: string
+          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
     Address:
       type: object
       description: physical mailing address
@@ -432,39 +420,6 @@ components:
           example: '15601'
           description: zip code, for some countries optional
           type: string
-    CustomerPrice:
-      type: object
-      description: customer price
-      required:
-      - amount
-      properties:
-        amount:
-          type: number
-          description: total amount, with vat or sales tax
-          example: 21.56
-          minimum: 0
-        currency:
-          type: string
-          description: currency iso code
-          example: USD
-    ShippingType:
-      type: object
-      description: shipping type with id, name and description
-      properties:
-        id:
-          type: string
-          description: shipping type id, needed for set shipping type
-          example: '29'
-        company:
-          type: string
-          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
-          example: DHL
-        name:
-          type: string
-          example: International Standard
-        description:
-          type: string
-          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
     CreateOrder:
       type: object
       description: payload for a new order
@@ -545,53 +500,6 @@ components:
         origin:
           type: string
           description: optional origin field
-    GetOrderItem:
-      type: object
-      properties:
-        orderItemReference:
-          type: integer
-          description: spreadconnect order item reference
-          example: 55000001
-        externalOrderItemReference:
-          type: string
-          description: external order item reference from merchant (you)
-          example: '12810092145'
-        state:
-          type: string
-          description: order item state
-          enum:
-          - NEW
-          - CHECKED
-          - CANCELLED
-          - PRODUCTION_ISSUE
-          - IN_PRODUCTION
-          - SENT
-        sku:
-          type: string
-          description: stock keeping unit id from spreadconnect
-          example: P1026247707A12S5
-        quantity:
-          type: integer
-          description: item quantity
-          default: 1
-        price:
-          description: item price for item with quantity n
-          allOf:
-          - $ref: '#/components/schemas/Price'
-        customerPrice:
-          description: customer price for item with quantity n
-          allOf:
-          - $ref: '#/components/schemas/CustomerPrice'
-    ErrorResponse:
-      type: object
-      description: error response
-      properties:
-        orderId:
-          type: number
-          description: spreadconnect order id, can be null, if order not created
-        reason:
-          type: string
-          description: error reason
     Shipment:
       type: object
       properties:
@@ -645,6 +553,98 @@ components:
         sentDate:
           type: string
           description: sent date
+    CreateOrderItem:
+      type: object
+      required:
+      - sku
+      - quantity
+      - customerPrice
+      properties:
+        sku:
+          type: string
+          description: stock keeping unit id from spreadconnect
+          example: P1026247707A12S5
+        quantity:
+          type: integer
+          description: quantity of items
+          default: 1
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        customerPrice:
+          description: customer price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/CustomerPrice'
+    OneTimeItems:
+      type: array
+      description: items which are created only for this order, and deleted afterwards.
+      items:
+        type: object
+        properties:
+          quantityItems:
+            type: array
+            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
+            items:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  required: true
+                sizeId:
+                  type: number
+                  required: true
+                appearanceId:
+                  required: true
+          configurations:
+            type: array
+            description: product
+            items:
+              type: object
+              required:
+              - image
+              - view
+              properties:
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: https://link.to.image
+                    designId:
+                      type: string
+                      example: '1231'
+                view:
+                  type: string
+                  enum:
+                  - FRONT
+                  - BACK
+                  - LEFT
+                  - RIGHT
+                  - HOOD_LEFT
+                  - HOOD_RIGHT
+                hotspot:
+                  type: string
+                  enum:
+                  - FULL_FRONT
+                  - MEDIUM_FRONT
+                  - LEFT_CHEST
+                  - RIGHT_CHEST
+                  - FULL_BACK
+                  - MEDIUM_BACK
+                  - BACK_COLLAR
+                  - RIGHT
+                  - LEFT
+                  - CENTER_CHEST
+                  example: LEFT_CHEST
+          productTypeId:
+            type: number
+            required: true
+          externalOrderItemReference:
+            type: string
+          customerPricePerItem:
+            allOf:
+            - $ref: '#/components/schemas/CustomerPrice'
     GetOrder:
       type: object
       properties:
