@@ -257,394 +257,6 @@ paths:
           description: Order not found
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: error response
-      properties:
-        orderId:
-          type: number
-          description: spreadconnect order id, can be null, if order not created
-        reason:
-          type: string
-          description: error reason
-    CustomerPrice:
-      type: object
-      description: customer price
-      required:
-      - amount
-      properties:
-        amount:
-          type: number
-          description: total amount, with vat or sales tax
-          example: 21.56
-          minimum: 0
-        currency:
-          type: string
-          description: currency iso code
-          example: USD
-    Price:
-      type: object
-      description: price
-      required:
-      - amount
-      properties:
-        amount:
-          type: number
-          description: total amount, with vat or sales tax
-          example: 21.56
-          minimum: 0
-        taxRate:
-          type: number
-          description: included vat rate in percent, only for tax type VAT
-          example: 19
-          minimum: 0
-        taxAmount:
-          type: number
-          description: included sales tax, only for tax type SALETAX
-          example: 12.45
-          minimum: 0
-        currency:
-          type: string
-          description: currency iso code
-          example: USD
-    GetOrderItem:
-      type: object
-      properties:
-        orderItemReference:
-          type: integer
-          description: spreadconnect order item reference
-          example: 55000001
-        externalOrderItemReference:
-          type: string
-          description: external order item reference from merchant (you)
-          example: '12810092145'
-        state:
-          type: string
-          description: order item state
-          enum:
-          - NEW
-          - CHECKED
-          - CANCELLED
-          - PRODUCTION_ISSUE
-          - IN_PRODUCTION
-          - SENT
-        sku:
-          type: string
-          description: stock keeping unit id from spreadconnect
-          example: P1026247707A12S5
-        quantity:
-          type: integer
-          description: item quantity
-          default: 1
-        price:
-          description: item price for item with quantity n
-          allOf:
-          - $ref: '#/components/schemas/Price'
-        customerPrice:
-          description: customer price for item with quantity n
-          allOf:
-          - $ref: '#/components/schemas/CustomerPrice'
-    AvailableShippingType:
-      type: object
-      description: shipping type with price
-      allOf:
-      - $ref: '#/components/schemas/ShippingType'
-      properties:
-        price:
-          $ref: '#/components/schemas/Price'
-    ShippingType:
-      type: object
-      description: shipping type with id, name and description
-      properties:
-        id:
-          type: string
-          description: shipping type id, needed for set shipping type
-          example: '29'
-        company:
-          type: string
-          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
-          example: DHL
-        name:
-          type: string
-          example: International Standard
-        description:
-          type: string
-          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
-    Address:
-      type: object
-      description: physical mailing address
-      required:
-      - lastName
-      - street
-      - city
-      - country
-      - zipCode
-      properties:
-        company:
-          type: string
-          description: company name
-          example: Example Ltd.
-        firstName:
-          type: string
-          description: first name
-          example: Joshua
-        lastName:
-          type: string
-          description: last name
-          example: Anderson
-        street:
-          type: string
-          description: street
-          example: 1572 Roseytown Rd
-        streetAnnex:
-          example: 2nd Floor
-          description: street annex, optional
-          type: string
-        city:
-          example: Greensburg
-          description: city name
-          type: string
-        country:
-          type: string
-          description: country code, is the ISO 3166-1 alpha-2 code of the country to deliver to, e.g. 'DE' or 'US'.
-          example: US
-        state:
-          type: string
-          description: 'state code, is the country-specific 2-letter upper-case, e.g. AL for Alabama in the USA
-
-            This field is required when delivering to the USA or Canada
-
-            '
-          example: AL
-        zipCode:
-          example: '15601'
-          description: zip code, for some countries optional
-          type: string
-    CreateOrder:
-      type: object
-      description: payload for a new order
-      required:
-      - externalOrderReference
-      - orderItems
-      - shipping
-      - phone
-      - email
-      properties:
-        orderItems:
-          type: array
-          description: order items
-          items:
-            $ref: '#/components/schemas/CreateOrderItem'
-        oneTimeItems:
-          $ref: '#/components/schemas/OneTimeItems'
-        shipping:
-          type: object
-          description: shipping informations
-          required:
-          - address
-          - customerPrice
-          properties:
-            address:
-              description: shipping address
-              allOf:
-              - $ref: '#/components/schemas/Address'
-            fromAddress:
-              description: return to sender (RTS) address
-              allOf:
-              - $ref: '#/components/schemas/Address'
-            preferredType:
-              type: string
-              description: preferred shipping type
-              enum:
-              - STANDARD
-              - PREMIUM
-              - EXPRESS
-            customerPrice:
-              description: customer price for shipping
-              allOf:
-              - $ref: '#/components/schemas/CustomerPrice'
-        billingAddress:
-          description: billing address, if not set, we will use the shipping address
-          allOf:
-          - $ref: '#/components/schemas/Address'
-        phone:
-          type: string
-          description: Phone used for the communication with the customer.
-          example: +49 1520 1234567
-        email:
-          type: string
-          description: Email used for the communication with the customer.
-          example: joshua.anders@protonmail.ch
-        externalOrderReference:
-          type: string
-          description: external order reference from merchant (you)
-          example: '1722995712'
-        externalOrderName:
-          type: string
-          description: external order name from merchant (you)
-          example: ORDER-12
-        state:
-          type: string
-          description: order state
-          example: CONFIRMED
-          enum:
-          - NEW
-          - CONFIRMED
-        customerTaxType:
-          type: string
-          description: tax type, salestax or vat
-          enum:
-          - SALESTAX
-          - VAT
-          - NOT_TAXABLE
-        origin:
-          type: string
-          description: optional origin field
-    Shipment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: shipment id
-        orderId:
-          type: integer
-          description: spreadconnect order id
-        orderReference:
-          type: integer
-          description: order reference from spreadconnect, can be changed after order updates
-        externalOrderReference:
-          type: string
-          description: external order reference from merchant (you)
-        orderItemReferences:
-          type: array
-          description: spreadconnect order item references
-          items:
-            type: integer
-        externalOrderItemReferences:
-          type: array
-          description: external order item references
-          items:
-            type: string
-        shipping:
-          type: object
-          description: shipment shipping information
-          properties:
-            address:
-              $ref: '#/components/schemas/Address'
-            type:
-              $ref: '#/components/schemas/ShippingType'
-            price:
-              $ref: '#/components/schemas/Price'
-        tracking:
-          type: array
-          description: tracking information for shipment
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: tracking code
-              url:
-                type: string
-                description: tracking url
-        closedDate:
-          type: string
-          description: ready for shipment date
-        sentDate:
-          type: string
-          description: sent date
-    CreateOrderItem:
-      type: object
-      required:
-      - sku
-      - quantity
-      - customerPrice
-      properties:
-        sku:
-          type: string
-          description: stock keeping unit id from spreadconnect
-          example: P1026247707A12S5
-        quantity:
-          type: integer
-          description: quantity of items
-          default: 1
-        externalOrderItemReference:
-          type: string
-          description: external order item reference from merchant (you)
-          example: '12810092145'
-        customerPrice:
-          description: customer price for item with quantity n
-          allOf:
-          - $ref: '#/components/schemas/CustomerPrice'
-    OneTimeItems:
-      type: array
-      description: items which are created only for this order, and deleted afterwards.
-      items:
-        type: object
-        properties:
-          quantityItems:
-            type: array
-            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
-            items:
-              type: object
-              properties:
-                quantity:
-                  type: number
-                  required: true
-                sizeId:
-                  type: number
-                  required: true
-                appearanceId:
-                  required: true
-          configurations:
-            type: array
-            description: product
-            items:
-              type: object
-              required:
-              - image
-              - view
-              properties:
-                image:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                      example: https://link.to.image
-                    designId:
-                      type: string
-                      example: '1231'
-                view:
-                  type: string
-                  enum:
-                  - FRONT
-                  - BACK
-                  - LEFT
-                  - RIGHT
-                  - HOOD_LEFT
-                  - HOOD_RIGHT
-                hotspot:
-                  type: string
-                  enum:
-                  - FULL_FRONT
-                  - MEDIUM_FRONT
-                  - LEFT_CHEST
-                  - RIGHT_CHEST
-                  - FULL_BACK
-                  - MEDIUM_BACK
-                  - BACK_COLLAR
-                  - RIGHT
-                  - LEFT
-                  - CENTER_CHEST
-                  example: LEFT_CHEST
-          productTypeId:
-            type: number
-            required: true
-          externalOrderItemReference:
-            type: string
-          customerPricePerItem:
-            allOf:
-            - $ref: '#/components/schemas/CustomerPrice'
     GetOrder:
       type: object
       properties:
@@ -731,6 +343,394 @@ components:
           - SALESTAX
           - VAT
           - NOT_TAXABLE
+    GetOrderItem:
+      type: object
+      properties:
+        orderItemReference:
+          type: integer
+          description: spreadconnect order item reference
+          example: 55000001
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        state:
+          type: string
+          description: order item state
+          enum:
+          - NEW
+          - CHECKED
+          - CANCELLED
+          - PRODUCTION_ISSUE
+          - IN_PRODUCTION
+          - SENT
+        sku:
+          type: string
+          description: stock keeping unit id from spreadconnect
+          example: P1026247707A12S5
+        quantity:
+          type: integer
+          description: item quantity
+          default: 1
+        price:
+          description: item price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/Price'
+        customerPrice:
+          description: customer price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/CustomerPrice'
+    CustomerPrice:
+      type: object
+      description: customer price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
+    CreateOrderItem:
+      type: object
+      required:
+      - sku
+      - quantity
+      - customerPrice
+      properties:
+        sku:
+          type: string
+          description: stock keeping unit id from spreadconnect
+          example: P1026247707A12S5
+        quantity:
+          type: integer
+          description: quantity of items
+          default: 1
+        externalOrderItemReference:
+          type: string
+          description: external order item reference from merchant (you)
+          example: '12810092145'
+        customerPrice:
+          description: customer price for item with quantity n
+          allOf:
+          - $ref: '#/components/schemas/CustomerPrice'
+    ErrorResponse:
+      type: object
+      description: error response
+      properties:
+        orderId:
+          type: number
+          description: spreadconnect order id, can be null, if order not created
+        reason:
+          type: string
+          description: error reason
+    OneTimeItems:
+      type: array
+      description: items which are created only for this order, and deleted afterwards.
+      items:
+        type: object
+        properties:
+          quantityItems:
+            type: array
+            description: Each quantity item represents the relationship between an article variant and the quantities required for the variant
+            items:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  required: true
+                sizeId:
+                  type: number
+                  required: true
+                appearanceId:
+                  required: true
+          configurations:
+            type: array
+            description: product
+            items:
+              type: object
+              required:
+              - image
+              - view
+              properties:
+                image:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: https://link.to.image
+                    designId:
+                      type: string
+                      example: '1231'
+                view:
+                  type: string
+                  enum:
+                  - FRONT
+                  - BACK
+                  - LEFT
+                  - RIGHT
+                  - HOOD_LEFT
+                  - HOOD_RIGHT
+                hotspot:
+                  type: string
+                  enum:
+                  - FULL_FRONT
+                  - MEDIUM_FRONT
+                  - LEFT_CHEST
+                  - RIGHT_CHEST
+                  - FULL_BACK
+                  - MEDIUM_BACK
+                  - BACK_COLLAR
+                  - RIGHT
+                  - LEFT
+                  - CENTER_CHEST
+                  example: LEFT_CHEST
+          productTypeId:
+            type: number
+            required: true
+          externalOrderItemReference:
+            type: string
+          customerPricePerItem:
+            allOf:
+            - $ref: '#/components/schemas/CustomerPrice'
+    AvailableShippingType:
+      type: object
+      description: shipping type with price
+      allOf:
+      - $ref: '#/components/schemas/ShippingType'
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+    Address:
+      type: object
+      description: physical mailing address
+      required:
+      - lastName
+      - street
+      - city
+      - country
+      - zipCode
+      properties:
+        company:
+          type: string
+          description: company name
+          example: Example Ltd.
+        firstName:
+          type: string
+          description: first name
+          example: Joshua
+        lastName:
+          type: string
+          description: last name
+          example: Anderson
+        street:
+          type: string
+          description: street
+          example: 1572 Roseytown Rd
+        streetAnnex:
+          example: 2nd Floor
+          description: street annex, optional
+          type: string
+        city:
+          example: Greensburg
+          description: city name
+          type: string
+        country:
+          type: string
+          description: country code, is the ISO 3166-1 alpha-2 code of the country to deliver to, e.g. 'DE' or 'US'.
+          example: US
+        state:
+          type: string
+          description: 'state code, is the country-specific 2-letter upper-case, e.g. AL for Alabama in the USA
+
+            This field is required when delivering to the USA or Canada
+
+            '
+          example: AL
+        zipCode:
+          example: '15601'
+          description: zip code, for some countries optional
+          type: string
+    ShippingType:
+      type: object
+      description: shipping type with id, name and description
+      properties:
+        id:
+          type: string
+          description: shipping type id, needed for set shipping type
+          example: '29'
+        company:
+          type: string
+          description: shipping company such as DHL, UPS, DPD, USPS, DHL Express, FedEx, Post AT, Deutsche Post
+          example: DHL
+        name:
+          type: string
+          example: International Standard
+        description:
+          type: string
+          example: No tracking provided. May be subject to import taxes, customs, and duties upon delivery.
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: shipment id
+        orderId:
+          type: integer
+          description: spreadconnect order id
+        orderReference:
+          type: integer
+          description: order reference from spreadconnect, can be changed after order updates
+        externalOrderReference:
+          type: string
+          description: external order reference from merchant (you)
+        orderItemReferences:
+          type: array
+          description: spreadconnect order item references
+          items:
+            type: integer
+        externalOrderItemReferences:
+          type: array
+          description: external order item references
+          items:
+            type: string
+        shipping:
+          type: object
+          description: shipment shipping information
+          properties:
+            address:
+              $ref: '#/components/schemas/Address'
+            type:
+              $ref: '#/components/schemas/ShippingType'
+            price:
+              $ref: '#/components/schemas/Price'
+        tracking:
+          type: array
+          description: tracking information for shipment
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: tracking code
+              url:
+                type: string
+                description: tracking url
+        closedDate:
+          type: string
+          description: ready for shipment date
+        sentDate:
+          type: string
+          description: sent date
+    CreateOrder:
+      type: object
+      description: payload for a new order
+      required:
+      - externalOrderReference
+      - orderItems
+      - shipping
+      - phone
+      - email
+      properties:
+        orderItems:
+          type: array
+          description: order items
+          items:
+            $ref: '#/components/schemas/CreateOrderItem'
+        oneTimeItems:
+          $ref: '#/components/schemas/OneTimeItems'
+        shipping:
+          type: object
+          description: shipping informations
+          required:
+          - address
+          - customerPrice
+          properties:
+            address:
+              description: shipping address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            fromAddress:
+              description: return to sender (RTS) address
+              allOf:
+              - $ref: '#/components/schemas/Address'
+            preferredType:
+              type: string
+              description: preferred shipping type
+              enum:
+              - STANDARD
+              - PREMIUM
+              - EXPRESS
+            customerPrice:
+              description: customer price for shipping
+              allOf:
+              - $ref: '#/components/schemas/CustomerPrice'
+        billingAddress:
+          description: billing address, if not set, we will use the shipping address
+          allOf:
+          - $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+          description: Phone used for the communication with the customer.
+          example: +49 1520 1234567
+        email:
+          type: string
+          description: Email used for the communication with the customer.
+          example: joshua.anders@protonmail.ch
+        externalOrderReference:
+          type: string
+          description: external order reference from merchant (you)
+          example: '1722995712'
+        externalOrderName:
+          type: string
+          description: external order name from merchant (you)
+          example: ORDER-12
+        state:
+          type: string
+          description: order state
+          example: CONFIRMED
+          enum:
+          - NEW
+          - CONFIRMED
+        customerTaxType:
+          type: string
+          description: tax type, salestax or vat
+          enum:
+          - SALESTAX
+          - VAT
+          - NOT_TAXABLE
+        origin:
+          type: string
+          description: optional origin field
+    Price:
+      type: object
+      description: price
+      required:
+      - amount
+      properties:
+        amount:
+          type: number
+          description: total amount, with vat or sales tax
+          example: 21.56
+          minimum: 0
+        taxRate:
+          type: number
+          description: included vat rate in percent, only for tax type VAT
+          example: 19
+          minimum: 0
+        taxAmount:
+          type: number
+          description: included sales tax, only for tax type SALETAX
+          example: 12.45
+          minimum: 0
+        currency:
+          type: string
+          description: currency iso code
+          example: USD
   securitySchemes:
     access_token:
       type: apiKey
