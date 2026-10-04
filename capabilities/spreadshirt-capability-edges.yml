@@ -1,0 +1,43 @@
+slug: spreadshirt
+provider: Spreadshirt
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Orders
+  spec_file: spreadshirt-orders-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.85
+  evidence: POST /orders createOrder Create an order; POST /orders/{orderId}/confirm Confirm order; GET
+    /orders/{orderId}/shipments Get shipments
+  reason: Order creation, confirmation, cancellation, shipping type selection and shipment tracking in
+    a drop-ship fulfilment service = order fulfilment management.
+- tag: Subscriptions
+  spec_file: spreadshirt-subscriptions-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: POST /subscriptions createSubscription; POST /orders/{orderId}/simulate/shipment-sent simulateShipmentSentEvent
+  reason: Despite the name, these are event/webhook subscriptions with event simulation endpoints, not
+    commercial subscriptions — outbound webhook subscription management.
+- tag: Stocks
+  spec_file: spreadshirt-stocks-api-openapi.yml
+  capability_id: BC-530.10
+  capability_id_l1: BC-530
+  capability_name: Stock Level Management
+  confidence: 0.8
+  evidence: GET /stock getStocks Get available stocks for all variants; GET /stock/{sku} Get available
+    stock for a certain variant
+  reason: Reads available stock levels per SKU/variant — inventory stock-level visibility.

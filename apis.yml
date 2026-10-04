@@ -346,6 +346,9 @@ apis:
   - type: APIReference
     url: https://api.spreadconnect.app/docs/
 common:
+- type: CapabilityMap
+  url: capabilities/spreadshirt-capability-edges.yml
+  name: Spreadshirt Business Capability Map
 - type: VulnerabilityDisclosure
   url: security/spreadshirt-vulnerability-disclosure.yml
 - type: DomainSecurity
