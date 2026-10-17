@@ -159,91 +159,6 @@ paths:
           description: OK
 components:
   schemas:
-    ArticleCreation:
-      type: object
-      required:
-      - title
-      - description
-      - variants
-      - configurations
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        variants:
-          type: array
-          description: product variants
-          items:
-            type: object
-            required:
-            - productTypeId
-            - appearanceId
-            - sizeId
-            properties:
-              productTypeId:
-                type: integer
-                description: sprd product type id
-              appearanceId:
-                type: integer
-                description: sprd appearance id
-              sizeId:
-                type: integer
-                description: sprd size id
-              d2cPrice:
-                type: number
-                description: final price for the customer
-                example: 21.56
-                minimum: 0
-              externalId:
-                type: string
-                description: optional id that can be used for identifying the article variant - validated for UUID v4
-                example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
-        configurations:
-          type: array
-          description: product
-          items:
-            type: object
-            required:
-            - image
-            - view
-            properties:
-              image:
-                type: object
-                properties:
-                  url:
-                    type: string
-                    example: https://link.to.image
-                  designId:
-                    type: string
-                    example: '1231'
-              view:
-                type: string
-                enum:
-                - FRONT
-                - BACK
-                - LEFT
-                - RIGHT
-                - HOOD_LEFT
-                - HOOD_RIGHT
-              hotspot:
-                type: string
-                enum:
-                - FULL_FRONT
-                - MEDIUM_FRONT
-                - LEFT_CHEST
-                - RIGHT_CHEST
-                - FULL_BACK
-                - MEDIUM_BACK
-                - BACK_COLLAR
-                - RIGHT
-                - LEFT
-                - CENTER_CHEST
-                example: MEDIUM_FRONT
-        externalId:
-          type: string
-          description: optional id that can be used for identifying the article - validated for UUID v4
-          example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
     Article:
       type: object
       properties:
@@ -339,6 +254,91 @@ components:
                   &height = image height
 
                   '
+    ArticleCreation:
+      type: object
+      required:
+      - title
+      - description
+      - variants
+      - configurations
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        variants:
+          type: array
+          description: product variants
+          items:
+            type: object
+            required:
+            - productTypeId
+            - appearanceId
+            - sizeId
+            properties:
+              productTypeId:
+                type: integer
+                description: sprd product type id
+              appearanceId:
+                type: integer
+                description: sprd appearance id
+              sizeId:
+                type: integer
+                description: sprd size id
+              d2cPrice:
+                type: number
+                description: final price for the customer
+                example: 21.56
+                minimum: 0
+              externalId:
+                type: string
+                description: optional id that can be used for identifying the article variant - validated for UUID v4
+                example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
+        configurations:
+          type: array
+          description: product
+          items:
+            type: object
+            required:
+            - image
+            - view
+            properties:
+              image:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://link.to.image
+                  designId:
+                    type: string
+                    example: '1231'
+              view:
+                type: string
+                enum:
+                - FRONT
+                - BACK
+                - LEFT
+                - RIGHT
+                - HOOD_LEFT
+                - HOOD_RIGHT
+              hotspot:
+                type: string
+                enum:
+                - FULL_FRONT
+                - MEDIUM_FRONT
+                - LEFT_CHEST
+                - RIGHT_CHEST
+                - FULL_BACK
+                - MEDIUM_BACK
+                - BACK_COLLAR
+                - RIGHT
+                - LEFT
+                - CENTER_CHEST
+                example: MEDIUM_FRONT
+        externalId:
+          type: string
+          description: optional id that can be used for identifying the article - validated for UUID v4
+          example: 20354d7a-e4fe-47af-8ff6-187bca92f3f9
   securitySchemes:
     access_token:
       type: apiKey

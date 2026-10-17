@@ -258,39 +258,6 @@ paths:
           description: Product type not found
 components:
   schemas:
-    Views:
-      type: object
-      description: null
-      properties:
-        views:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: FRONT
-              id:
-                type: string
-              hotspots:
-                type: array
-                items:
-                  type:
-                  - object
-                  - 'null'
-                  properties:
-                    name:
-                      type: string
-                      example: LEFT_CHEST
-              images:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    appearanceId:
-                      type: string
-                    image:
-                      type: string
     Categories:
       type: object
       description: null
@@ -336,49 +303,6 @@ components:
                 type: string
               translation:
                 type: string
-    Preview:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            type: object
-            properties:
-              url: string
-              viewId: string
-              viewName: string
-    SizeChart:
-      type: object
-      description: null
-      properties:
-        sizeImageUrl:
-          type: string
-          description: At this url you will find an image with a basic representation of the product, and the names of the measurements ("A", "B", etc)
-        sizes:
-          type: array
-          items:
-            type: object
-            properties:
-              sizeId:
-                type: string
-                description: Id of the size
-              name:
-                type: string
-                description: Name of the size, for example "S" or "XL"
-              measurements:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description: the letter which is on the image found at sizeImageUrl
-                    valueMm:
-                      type: number
-                      description: the value of the measurement in mm
-                    valueInch:
-                      type: number
-                      description: the value of the measurement in inch
     ProductTypes:
       type: object
       description: null
@@ -449,6 +373,82 @@ components:
           type: number
         currency:
           type: string
+    Views:
+      type: object
+      description: null
+      properties:
+        views:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: FRONT
+              id:
+                type: string
+              hotspots:
+                type: array
+                items:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    name:
+                      type: string
+                      example: LEFT_CHEST
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    appearanceId:
+                      type: string
+                    image:
+                      type: string
+    SizeChart:
+      type: object
+      description: null
+      properties:
+        sizeImageUrl:
+          type: string
+          description: At this url you will find an image with a basic representation of the product, and the names of the measurements ("A", "B", etc)
+        sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              sizeId:
+                type: string
+                description: Id of the size
+              name:
+                type: string
+                description: Name of the size, for example "S" or "XL"
+              measurements:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: the letter which is on the image found at sizeImageUrl
+                    valueMm:
+                      type: number
+                      description: the value of the measurement in mm
+                    valueInch:
+                      type: number
+                      description: the value of the measurement in inch
+    Preview:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url: string
+              viewId: string
+              viewName: string
   securitySchemes:
     access_token:
       type: apiKey
